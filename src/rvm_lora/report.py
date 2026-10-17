@@ -320,7 +320,8 @@ def _gate0_section(g0: dict) -> str:
     rows = ["| Required check | Tests | Measured | Status |", "|---|---|---|---|"]
     for c in g0.get("criteria", []):
         meas = "; ".join(f"{k.split('__')[-1]}: " + ", ".join(f"{a}={_fmt(b, 6) if isinstance(b, float) else b}"
-                                                               for a, b in v.items() if not isinstance(b, (dict, list)))
+                                                               for a, b in v.items()
+                                                               if not isinstance(b, dict) and not (isinstance(b, list) and len(b) > 6))
                          for k, v in c.get("measured", {}).items()) or "pass/fail assertions"
         rows.append(f"| {c['name']} | {len(c.get('tests', {}))} | {meas} | **{c['status']}** |")
     return "\n".join(rows)
