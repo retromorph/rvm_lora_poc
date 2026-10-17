@@ -1,0 +1,129 @@
+protocol_version: '1.0'
+design_date: '2026-10-17'
+status: frozen_before_outcomes
+project: rvm-lora-poc
+backbone: FacebookAI/roberta-base
+dataset_repository: nyu-mll/glue
+tasks: [qnli, sst2]
+split_seed: 1729
+train_pool_size: 10000
+audit_pool_size: 1500
+head_size: 2000
+directions_size: 512
+evidence_size: 512
+adapter_train_size: 8000
+other_adapter_training_size: 6976
+model:
+  num_layers: 12
+  hidden_size: 768
+  eligible_projections: [query, value]
+  eligible_module_count: 24
+  rank_unit_parameters: 1536
+  candidate_directions_per_module: 8
+  max_rank_per_module: 8
+sequence_length: 128
+head_warm_start:
+  optimizer: AdamW
+  steps: 200
+  learning_rate: 0.001
+  batch_size: 32
+  freeze_backbone: true
+adapter_training:
+  optimizer: AdamW
+  steps: 600
+  learning_rate: 0.0002
+  weight_decay: 0.01
+  warmup_steps: 36
+  scheduler: linear_decay
+  effective_batch_size: 32
+  microbatch_size: 8
+  gradient_accumulation: 4
+  oom_fallback_microbatch: 4
+  oom_fallback_accumulation: 8
+  lora_dropout: 0.0
+  lora_alpha: 4
+  use_rslora: true
+  freeze_classifier_head: true
+  freeze_backbone: true
+probe:
+  probability_clip: 0.0001
+  matrix_precision: float64
+  dropout: disabled
+  direction_source: gradient_svd
+  rvm_precision_log_bounds: [-23.02585092994, 23.02585092994] # alpha in [1e-10, 1e10]
+  nonbayes_ridge_grid: [0.001, 0.01, 0.1, 1.0, 10.0, 100.0]
+  nonbayes_ridge_cv_folds: 3
+  null_calibration_count: 100
+  null_evaluation_count: 100
+  null_calibration_seed: 1931
+  null_evaluation_seed: 1932
+  null_percentile: 95
+stage_a:
+  task: qnli
+  run_seed: 42
+  architecture_count: 20
+  architectures:
+    single_layer_rank2:
+      layers: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+      rank_query: 2
+      rank_value: 2
+      count: 12
+      exact_parameters: 6144
+    single_layer_rank4:
+      layers: [0, 3, 7, 11]
+      rank_query: 4
+      rank_value: 4
+      count: 4
+      exact_parameters: 12288
+    two_layer_rank2:
+      pairs: [[0, 1], [5, 6], [10, 11], [2, 9]]
+      rank_query_per_layer: 2
+      rank_value_per_layer: 2
+      count: 4
+      exact_parameters: 12288
+  score_methods: [gradient_norm, independent_fisher, conditional_newton, group_rvm]
+  meaningful_utility_diff_nats: 0.005
+  min_informative_cost_matched_pairs: 30
+  min_rvm_concordance: 0.65
+  min_concordance_margin_over_best_nonbayes: 0.05
+  top_k_per_cost_stratum: 3
+  min_six_choice_mean_utility_margin_nats: 0.005
+  max_fresh_null_activations: 10
+  conditional_interactions:
+    min_informative_for_rule: 3
+    min_correct_if_rule_applicable: 3
+stage_b:
+  tasks: [qnli, sst2]
+  seeds: [42, 2025]
+  budget_rank_units: 24
+  budget_parameters: 36864
+  comparison_rank_units: 48
+  comparison_parameters: 73728
+  methods:
+    - uniform_r1
+    - eva
+    - oplora
+    - conditional_newton
+    - group_rvm
+    - uniform_r2
+  eva_rho: 8.0
+  max_main_runs: 24
+  bootstrap_seed: 991
+  bootstrap_resamples: 2000
+  bootstrap_lower_percentile: 5.0  # central 90% interval lower bound
+  route_a:
+    min_loss_advantage_nats: 0.010
+    min_winning_task_seed_pairs: 3
+    require_positive_bootstrap_lower_bound: true
+  route_b:
+    max_rvm_excess_vs_uniform_r2_nats: 0.005
+    min_rvm_advantage_vs_conditional_newton_nats: 0.005
+    max_taskwise_excess_vs_uniform_r2_nats: 0.010
+  mandatory:
+    selection_specificity_required: true
+    max_calibration_to_uniform_train_walltime: 0.25
+    faithful_baselines_required: true
+maximum_full_adapter_training_runs: 44
+expected_head_warm_start_runs: 4
+output_report: reports/FINAL_REPORT.md
+output_gate_json: reports/gates.json
