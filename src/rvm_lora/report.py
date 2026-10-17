@@ -147,6 +147,11 @@ def fig_gate1(rows: list[dict], g1: dict) -> list[str]:
             if i == 0:
                 ax.set_ylabel("Realised audit utility U (nats)", fontsize=8, color=INK2)
             ax.set_xlabel("Precomputed score", fontsize=8, color=INK2)
+            ax.ticklabel_format(axis="x", style="sci", scilimits=(-3, 4))
+            ax.xaxis.get_offset_text().set_fontsize(7)
+            from matplotlib.ticker import MaxNLocator
+
+            ax.xaxis.set_major_locator(MaxNLocator(5))
     fig.suptitle("Gate 1: precomputed structural scores vs realised audit utility (QNLI, seed 42); "
                  "labelled points = that score's top 3", fontsize=11, color=INK)
     fig.tight_layout()
@@ -158,6 +163,7 @@ def fig_gate1(rows: list[dict], g1: dict) -> list[str]:
     # utility per architecture (bar), stratum colours
     fig, ax = plt.subplots(figsize=(12, 4), facecolor=SURF)
     _style(ax)
+    ax.grid(False, axis="x")
     order = sorted(ok, key=lambda r: (r["parameters"], r["arch_id"]))
     xs = np.arange(len(order))
     ax.bar(xs, [r["U"] for r in order], width=0.7, color=[C1 if r["parameters"] == 6144 else C2 for r in order],
@@ -363,6 +369,10 @@ def build_report(cfg: Config) -> dict:
         figs += fig_null(sel)
     figs += fig_allocations(cfg)
     figs += fig_gate2(cfg, idx)
+    if rows and all(r["U"] is not None for r in rows):
+        from .diagnostics import gate1_diagnostics
+
+        gate1_diagnostics(cfg)
     md = render_markdown(cfg, gates, idx, rows, sel, pr, figs)
     (REPORTS / "FINAL_REPORT.md").write_text(md)
     bundle = build_bundle(cfg)
@@ -602,8 +612,6 @@ def _resource_section(cfg, idx, hm, pr) -> str:
 
 
 def _repro_section(cfg, freeze) -> str:
-    bsha = (REPORTS / "review_bundle.sha256").read_text().split()[0] if (REPORTS / "review_bundle.sha256").exists() \
-        else "(computed after this report is written; see reports/review_bundle.sha256)"
     return "\n".join([
         f"- `configs/preregistered.yaml` SHA256 `{cfg.sha256}`; `docs/PREREGISTRATION.md` SHA256 "
         f"`{freeze.get('preregistration_md_sha256')}`; freeze record `reports/protocol_freeze.json`.",
@@ -620,13 +628,16 @@ def _repro_section(cfg, freeze) -> str:
         "uv run --frozen python -m rvm_lora.cli status\n"
         "uv run --frozen python -m rvm_lora.cli report   # gates.json, CSVs, figures, FINAL_REPORT.md, bundle\n"
         "uv run --frozen pytest -q -m post_hoc           # gates.json reproducible from logged artifacts\n```",
-        f"- Review bundle: `reports/review_bundle.zip`, SHA256 `{bsha}`.",
+        "- Review bundle: `reports/review_bundle.zip`; its SHA256 is in `reports/review_bundle.sha256` (the bundle "
+        "contains this report, so the hash cannot be embedded here). Retrieve from the GPU host with "
+        "`scp <user>@<host>:<REMOTE_PROJECT_DIR>/reports/review_bundle.zip .`",
     ])
 
 
 # =============================================================================== bundle
 BUNDLE_FILES = ["reports/FINAL_REPORT.md", "reports/gates.json", "reports/run_index.csv",
                 "reports/architecture_scores.csv", "reports/gate1_summary.csv", "reports/protocol_freeze.json",
+                "reports/exploratory_diagnostics.json", "reports/narrative.json",
                 "reports/environment.json", "reports/splits/qnli_split_manifest.json",
                 "reports/splits/sst2_split_manifest.json", "configs/preregistered.yaml", "configs/baseline_fidelity.json",
                 "docs/PREREGISTRATION.md", "docs/METHODS.md", "docs/PROTOCOL_CLARIFICATIONS.md", "pyproject.toml",
