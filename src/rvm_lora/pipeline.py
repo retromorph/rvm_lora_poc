@@ -336,7 +336,8 @@ def adapter_run(cfg: Config, tracker: Tracker, gate: str, method: str, task: str
         eval_enc = D.load_encoded(data_file(task, eval_part))
         ev = evaluate(peft_model, eval_enc)
         np.savez(mdir / f"eval_{eval_part}.npz", idx=ev["idx"], loss=ev["per_example_loss"], logits=ev["logits"])
-        total = time.perf_counter() - t_total + (sel_s or 0.0)
+        # EVA calibrates inside this run (already in t_total); other selectors ran in the probe stage
+        total = time.perf_counter() - t_total + (0.0 if eva else (sel_s or 0.0))
         metrics = {f"{eval_metric_prefix}_loss": ev["loss"], f"{eval_metric_prefix}_accuracy": ev["accuracy"],
                    "train_loss": tr["train_loss_final"], "train_wall_s": tr["train_wall_s"],
                    "selection_wall_s": sel_s, "total_wall_s": total, "peak_gpu_memory_mb": tr["peak_gpu_memory_mb"],
