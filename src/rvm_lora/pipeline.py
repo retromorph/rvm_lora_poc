@@ -203,7 +203,8 @@ def probe(cfg: Config, task: str, seed: int, gate1: bool, tracker: Tracker | Non
     job_wall = time.perf_counter() - t0
     sel = json.loads((pdir / "selection.json").read_text())
     seg = sum(sel[k]["cpu_wall_s"] for k in ("conditional_newton", "group_rvm", "rvm_no_logdet")) + \
-        sel["group_rvm_fresh_null"]["wall_s"] + sel["conditional_newton"]["diagnostic_wall_s"]
+        sel["group_rvm_fresh_null"]["wall_s"] + sel["conditional_newton"]["diagnostic_wall_s"] + \
+        sel.get("architecture_scores_wall_s", 0.0)
     startup = max(0.0, job_wall - seg)
     gpu = dirs["wall_s"] + feats["wall_s"]
     timings = {

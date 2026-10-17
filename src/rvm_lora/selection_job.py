@@ -115,6 +115,7 @@ def run(probe_dir: Path, out: Path, gate1: bool, config_path: str | None, n_work
                             "exploratory": True, "cpu_wall_s": time.perf_counter() - t0}
 
     if gate1:
+        t0 = time.perf_counter()
         scores = []
         for a in cfg.architectures():
             ranks = tuple(a.ranks.get(m, 0) for m in cfg.modules)
@@ -123,6 +124,7 @@ def run(probe_dir: Path, out: Path, gate1: bool, config_path: str | None, n_work
                            "parameters": a.parameters, "ranks": a.ranks, **s})
         res["architecture_scores"] = scores
         res["architecture_scores_lambda"] = lam
+        res["architecture_scores_wall_s"] = time.perf_counter() - t0
     write_json(out, res)
     return res
 
