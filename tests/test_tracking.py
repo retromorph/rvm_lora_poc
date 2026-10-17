@@ -7,6 +7,9 @@ import pytest
 
 from rvm_lora.tracking import Tracker, mirror_dir, read_mirror, run_key, write_json
 
+# captured at import: mlflow.set_tracking_uri() (used by other tests) rewrites the environment variable
+LIVE_URI = os.environ.get("MLFLOW_TRACKING_URI")
+
 
 def test_run_key_deterministic():
     a = run_key("sha", "gate1", "m", "qnli", 42, "L00")
@@ -42,8 +45,11 @@ def _roundtrip(uri, record=None):
 
 def test_mlflow_local_sqlite(tmp_path):
     _roundtrip(f"sqlite:///{tmp_path}/mlflow.db")
+    if LIVE_URI:
+        os.environ["MLFLOW_TRACKING_URI"] = LIVE_URI  # undo mlflow's global side effect
 
 
-@pytest.mark.skipif(not os.environ.get("MLFLOW_TRACKING_URI"), reason="no live MLflow server configured")
+@pytest.mark.skipif(not (LIVE_URI or "").startswith("http"), reason="no live MLflow server configured")
 def test_mlflow_live_server(record):
-    _roundtrip(os.environ["MLFLOW_TRACKING_URI"], record)
+    _roundtrip(LIVE_URI, record)
+    assert Tracker(LIVE_URI).client.tracking_uri == LIVE_URI
