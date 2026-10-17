@@ -1,0 +1,56 @@
+[project]
+name = "rvm-lora"
+version = "0.1.0"
+description = "Pre-registered Go/No-Go pilot: conditional group RVM evidence for LoRA rank/module selection"
+requires-python = ">=3.11,<3.12"
+dependencies = [
+    "torch==2.14.1",
+    "transformers==5.20.1",
+    "peft==0.21.2",
+    "datasets==5.1.0",
+    "accelerate==1.15.0",
+    "huggingface-hub",
+    "numpy",
+    "scipy",
+    "pandas",
+    "mlflow==3.17.1",
+    "matplotlib",
+    "pyyaml",
+]
+
+[dependency-groups]
+dev = ["pytest", "ruff"]
+
+[project.scripts]
+rvm-lora = "rvm_lora.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/rvm_lora"]
+
+[tool.uv]
+# The pilot runs only on the Linux CUDA host; the lock is resolved for Linux.
+environments = ["sys_platform == 'linux'"]
+
+[tool.uv.sources]
+torch = [{ index = "pytorch-cu130" }]
+
+[[tool.uv.index]]
+name = "pytorch-cu130"
+url = "https://download.pytorch.org/whl/cu130"
+explicit = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+    "cuda: requires a CUDA GPU",
+    "network: requires Hugging Face Hub access",
+    "post_hoc: checks against logged results; run after the gates are evaluated, not part of Gate 0",
+]
+
+[tool.ruff]
+line-length = 110
+target-version = "py311"

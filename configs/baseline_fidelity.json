@@ -1,0 +1,16 @@
+{
+  "declared_before_outcomes": true,
+  "faithful": {
+    "uniform_r1": true,
+    "eva": true,
+    "oplora": true,
+    "conditional_newton": true,
+    "group_rvm": true,
+    "uniform_r2": true
+  },
+  "notes": {
+    "eva": "PEFT 0.21.2 native EvaConfig(rho=8.0), r=1 on 24 q/v modules; budget asserted at run time (run fails if > B24).",
+    "oplora": "Exact port of DPLoRA stage-1 objective/constraints (cjpark-ai/DPLoRA@6666d8bdb37ebd153a8916b0464c8a3878976aae, MIT); protocol-mandated deviations listed in docs/PROTOCOL_CLARIFICATIONS.md C6 are reported as fidelity risks.",
+    "runtime_override": "A baseline whose run fails, breaches budget, or whose integration assertion fails is reported as not faithful/complete by the Gate-2 evaluator via run status, independent of this file."
+  }
+}
