@@ -726,7 +726,7 @@ BUNDLE_FILES = ["reports/FINAL_REPORT.md", "reports/gates.json", "reports/run_in
                 "reports/environment.json", "reports/splits/qnli_split_manifest.json",
                 "reports/splits/sst2_split_manifest.json", "configs/preregistered.yaml", "configs/baseline_fidelity.json",
                 "docs/PREREGISTRATION.md", "docs/METHODS.md", "docs/PROTOCOL_CLARIFICATIONS.md", "pyproject.toml",
-                "uv.lock", "README.md", "AGENTS.md", "reports/CORRECTNESS_AUDIT.md"]
+                "uv.lock", "README.md", "AGENTS.md", "reports/CORRECTNESS_AUDIT.md", "reports/audit_verdict.json"]
 SHARED_REPORT_FILES = ("reports/splits/", "reports/CORRECTNESS_AUDIT.md")
 LOG = ROOT / "logs" / (f"pilot_{RUN_NAMESPACE}.log" if RUN_NAMESPACE else "pilot.log")
 
@@ -742,7 +742,9 @@ def build_bundle(cfg) -> str:
     """Portable review archive: no weights, datasets, DB, credentials or per-example raw outputs."""
     zp = REPORTS / "review_bundle.zip"
     files = [_bundle_path(f) for f in BUNDLE_FILES if _bundle_path(f).exists()]
-    files += sorted((ROOT / "reports" / "audit").glob("*.json")) if RUN_NAMESPACE else []
+    if RUN_NAMESPACE:  # correctness-audit evidence, scripts and regression fixture
+        files += sorted((ROOT / "reports" / "audit").glob("*.*")) + sorted((ROOT / "scripts" / "audit").glob("*.py"))
+        files += sorted((ROOT / "tests" / "fixtures").glob("*.json"))
     files += sorted(FIG.glob("*.png"))
     for sub in ("gate0", "gate1", "gate2"):
         for p in sorted((ART / sub).glob("*.json")):

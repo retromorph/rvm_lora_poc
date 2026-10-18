@@ -62,7 +62,7 @@ Code: `src/rvm_lora/modeling.py:108-135` (`warm_start_head`), `:70-86` (`save_he
 
 Head-only quality (eval mode): head rows 0.543 acc / 0.6787 CE (its own training rows), direction rows 0.512 / 0.6894, evidence rows 0.498 / 0.6906, audit 0.502 / 0.6909. The head predicts class 1 for 94–96% of rows.
 
-**Why it stays near chance.** The frozen `<s>` vectors are extremely anisotropic. Mean pairwise cosine is 0.9965, and dimension 588 has mean −11.29 against a mean vector norm of 11.46, so nearly all of the norm sits in one constant direction. An *exploratory diagnostic*, not used anywhere: standardised L2 logistic regression fitted on the 2,000 head rows reaches 0.65–0.67 accuracy on the 1,024 direction+evidence rows. The features therefore carry linear signal, but the prescribed recipe cannot extract it in 200 steps: an unstandardised tanh head, random init, lr 1e‑3, native dropout that drops the dominant coordinate, BF16 autocast.
+**Why it stays near chance.** The frozen `<s>` vectors are extremely anisotropic. Mean pairwise cosine is 0.9965, and dimension 588 has mean −11.29 against a mean vector norm of 11.46, so nearly all of the norm sits in one constant direction. An *exploratory diagnostic*, not used anywhere: standardised L2 logistic regression fitted on the 2,000 head rows reaches 0.65–0.67 accuracy on the 1,024 direction+evidence rows. The features therefore carry linear signal that the prescribed recipe does not extract in 200 steps. That recipe is an unstandardised tanh head from random init, lr 1e‑3, native dropout that also randomly zeroes the dominant coordinate, and BF16 autocast per C4. Which of these factors dominates was not isolated, because doing so would require running the recipe with changes.
 
 **Classification:** `INTENTIONAL_PROTOCOL_DESIGN`. The recipe is prescribed by PREREG §1 and C4 and is implemented exactly. **Scientific consequence:** Gate‑1 utilities measure how much each adapter *rescues a near-chance, miscalibrated head*. Part of every U is a calibration correction (the head over-predicts class 1). The probe's pseudo-response is essentially `t≈±1` at nearly constant `p≈0.54`. **Not repaired:** unfreezing the backbone, changing the head recipe, adding data or a task-specific pretrained head would change the frozen experimental setting.
 
@@ -108,7 +108,7 @@ RVM therefore scores the best-aligned rank‑r capacity, while the trained adapt
 
 *Where:* `src/rvm_lora/evidence.py:164-208` (v1 `optimize_evidence`, starts at lines 181-183). It is used by `selectors.py:159-176` (`RVMObjective._value`, i.e. greedy search, null calibration and fresh nulls) and `selectors.py:429-433` (`architecture_scores`, the Gate‑1 RVM score).
 
-*Evidence:* `scripts/audit/phase4_evidence.py`, `phase4b_localopt.py`, `reports/audit/phase4_evidence.json`, `phase4b_localopt.json`. An independent dense multi-start search of the same bounded objective found higher evidence for 3 of the 20 architectures. The higher optima were confirmed with the direct n×n formula (cond(C) ≤ 1.1e7):
+*Evidence:* `scripts/audit/phase4_evidence.py`, `phase4b_localopt.py`, `reports/audit/phase4_evidence.json`, `phase4b_localopt.json`. An independent dense multi-start search of the same bounded objective found higher evidence for 3 of the 20 architectures. The higher optima were confirmed with the direct n×n formula (cond(C) ≤ 1.2e7):
 
 | Architecture | v1 recorded E | maximised E | v1 log α (q, v, …) | maximising log α |
 |---|---:|---:|---|---|
@@ -123,7 +123,7 @@ The evidence profile on the straight line between the two solutions falls from 3
 *Scope on real data (v1 code):*
 
 - Greedy search: at step 1 the true best group is L11Q:+2 (gain 4.37e‑3/param), not L10V:+1 (3.80e‑3). The RVM path and structure change.
-- Null calibration: 3 of 3,600 group problems are under-maximised, but no per-null maximum changed (first 20 nulls checked).
+- Null calibration: 3 of 3,600 group problems are under-maximised (all 100 calibration nulls). The calibrated threshold is nonetheless identical in v2 (1.3718244e‑3), and fresh-null activations stay 5/100.
 - Synthetic scale-disparate groups: 15/300 under-maximised.
 
 *Consequences:*
@@ -145,7 +145,7 @@ Nothing in the objective, bounds, dictionary, candidate groups, threshold rule o
 - 3,600 null-calibration group problems (1.2e‑9);
 - 300 synthetic problems (9e‑10; it exceeds the dense search once).
 
-The v1 start set falls short on 3, —, 3 and 15 of those sets respectively. *Regression tests* (Gate‑0 check `regression_A1_evidence_global_maximisation`):
+By comparison, the v1 start set falls short on 3/20 architectures, on 1–2 candidates at 5 of the 6 steps of the v1 greedy path, on 3/3,600 null-group problems and on 15/300 synthetic problems. *Regression tests* (Gate‑0 check `regression_A1_evidence_global_maximisation`):
 
 - `tests/test_evidence.py::test_optimizer_reaches_global_maximum_on_real_subproblems` uses a fixture of the three affected 4×4/8×8 Gram blocks of the training-pool evidence rows, `tests/fixtures/qnli42_evidence_subproblems.json`. It also asserts that the C3 starts alone fall short by >1 nat.
 - `tests/test_evidence.py::test_optimizer_matches_dense_search_scale_disparate`.
@@ -263,7 +263,7 @@ Even so, the v2 Gate‑1 verdict is a post‑hoc corrected re-evaluation, not a 
 **Interpretation.**
 
 - Aligning the initial LoRA subspace with the scored directions more than doubles the realised 600-step utility.
-- It removes the raw gradient norm's advantage: the curvature-normalised local scores then rank best.
+- It removes the raw gradient norm's advantage: conditional Newton then ranks best (0.758 vs 0.703 concordance).
 - The two pairs that were synergistic under random init, (5,6) and (10,11), become clearly redundant, as the tangent model predicts. (2,9) becomes synergistic.
 
 So much of the v1/v2 pattern is plausibly a consequence of the evidence/initialisation mismatch (L), not of a coding error. Even in the aligned setting, Bayesian evidence does **not** improve on its non-Bayesian analogue (conditional Newton) for ranking or top‑3 selection. This single-seed exploratory check cannot support a positive claim for RVM, and it does not alter the pre-registered decision.
