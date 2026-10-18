@@ -109,6 +109,10 @@ class Tracker:
                 continue
             self.client.log_metric(run_id, k, float(v), timestamp=ts, step=step or 0)
 
+    def set_tags(self, run_id: str, tags: dict) -> None:
+        for k, v in tags.items():
+            self.client.set_tag(run_id, k, str(v))
+
     def log_artifact(self, run_id: str, path: Path, subdir: str | None = None) -> None:
         self.client.log_artifact(run_id, str(path), subdir)
 

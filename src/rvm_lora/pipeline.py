@@ -117,7 +117,8 @@ def head_meta_path(task: str, seed: int) -> Path:
     return ART / "heads" / f"{task}_s{seed}.json"
 
 
-def warm_head(cfg: Config, task: str, seed: int, tracker: Tracker | None = None) -> dict:
+def warm_head(cfg: Config, task: str, seed: int, tracker: Tracker | None = None, gate: str | None = None,
+              extra_tags: dict | None = None) -> dict:
     from .modeling import head_path, load_backbone, save_head, warm_start_head
 
     mp, hp = head_meta_path(task, seed), head_path(ROOT, task, seed)
@@ -139,10 +140,11 @@ def warm_head(cfg: Config, task: str, seed: int, tracker: Tracker | None = None)
             "git_sha": git_sha()}
     write_json(mp, meta)
     if tracker:
-        gate = "gate1" if (task, seed) == (cfg["stage_a"]["task"], cfg["stage_a"]["run_seed"]) else "gate2"
+        gate = gate or ("gate1" if (task, seed) == (cfg["stage_a"]["task"], cfg["stage_a"]["run_seed"]) else "gate2")
         key = run_key(cfg.sha256, gate, "head_warm_start", task, seed, "head")
         rid, _ = tracker.start(gate, key, {**common_tags(cfg), "gate": gate, "method": "head_warm_start",
-                                           "task": task, "seed": seed, "head_checkpoint_sha256": sha},
+                                           "task": task, "seed": seed, "head_checkpoint_sha256": sha,
+                                           **(extra_tags or {})},
                                {"steps": cfg["head_warm_start"]["steps"], "lr": cfg["head_warm_start"]["learning_rate"]})
         tracker.log_metrics(rid, {k: v for k, v in info.items() if isinstance(v, (int, float))})
         tracker.log_artifact(rid, mp)
@@ -168,7 +170,8 @@ def probe_dir(task: str, seed: int) -> Path:
     return ART / "probes" / f"{task}_s{seed}"
 
 
-def probe(cfg: Config, task: str, seed: int, gate1: bool, tracker: Tracker | None = None) -> dict:
+def probe(cfg: Config, task: str, seed: int, gate1: bool, tracker: Tracker | None = None,
+          extra_tags: dict | None = None) -> dict:
     """GPU probes (directions, features, OPLoRA importance) then the CPU selection subprocess."""
     import torch
 
@@ -183,7 +186,7 @@ def probe(cfg: Config, task: str, seed: int, gate1: bool, tracker: Tracker | Non
         check_cached(f"probe {task}/{seed}", cached, head_checkpoint_sha256=hsha, run_namespace=RUN_NAMESPACE or "v1")
         return cached
     configure_precision()
-    meta = warm_head(cfg, task, seed, tracker)
+    meta = warm_head(cfg, task, seed, tracker, extra_tags=extra_tags)
     clip = float(cfg["probe"]["probability_clip"])
     model = load_backbone(seed)
     head_sha = load_head(model, head_path(ROOT, task, seed))
@@ -270,7 +273,7 @@ def probe(cfg: Config, task: str, seed: int, gate1: bool, tracker: Tracker | Non
         gate = "gate1" if gate1 else "gate2"
         key = run_key(cfg.sha256, gate, "probe_selection", task, seed, "probe")
         rid, _ = tracker.start(gate, key, {**common_tags(cfg), "gate": gate, "method": "probe_selection", "task": task,
-                                           "seed": seed, "head_checkpoint_sha256": head_sha},
+                                           "seed": seed, "head_checkpoint_sha256": head_sha, **(extra_tags or {})},
                                {"directions": len(dirs_enc), "evidence": len(evid_enc), "n_atoms": Phi.shape[1]})
         tracker.log_metrics(rid, {k: v for k, v in timings.items() if v is not None})
         tracker.log_metrics(rid, {"rvm_threshold": sel["group_rvm"]["threshold"],
@@ -380,6 +383,7 @@ def adapter_run(cfg: Config, tracker: Tracker, gate: str, method: str, task: str
                    "selection_wall_s": sel_s, "total_wall_s": total, "peak_gpu_memory_mb": tr["peak_gpu_memory_mb"],
                    "adapter_params": acct["adapter_params"], "rank_sum": acct["rank_sum"]}
         tracker.log_metrics(rid, metrics)
+        tracker.set_tags(rid, {"rank_allocation": json.dumps(final_ranks, sort_keys=True)})
         result.update(status="COMPLETED", finished=now(), metrics=metrics, ranks=final_ranks,
                       layout=acct["layout"], microbatch=tr["microbatch"], accumulation=tr["accumulation"],
                       precision_train=tr["precision"], precision_eval="float32", oom_events=tr["oom_events"],
@@ -523,16 +527,80 @@ def ensure_validation(cfg: Config, task: str) -> None:
     D.save_encoded(data_file(task, "validation"), enc)
 
 
-def train_b(cfg: Config, tracker: Tracker) -> list[dict]:
-    g1 = json.loads((ART / "gate1" / "gate1.json").read_text())["gate1"]
-    if g1["status"] != "PASS":
-        raise RuntimeError(f"Gate 1 status {g1['status']}: Gate 2 must not run")
+EXPLORATORY_OVERRIDE = "exploratory_override"
+PROTOCOL_VERSION = "v2_corrected"  # the post-audit implementation (repaired evidence optimiser + cache validation)
+
+
+class ReferenceMismatchError(RuntimeError):
+    """An exploratory head/probe does not reproduce the reference namespace's artifact for the same task/seed."""
+
+
+def gate1_override(record: str | Path) -> dict:
+    """Explicit exploratory override of the Gate-1 prerequisite (CLI `--exploratory-override-gate1`).
+
+    The named Gate-1 record is only read: its status is carried unchanged into every tag and output, never
+    rewritten and never treated as PASS. The override runs in its own namespace, never in the record's.
+    """
+    p = Path(record) if Path(record).is_absolute() else ROOT / record
+    doc = json.loads(p.read_text())
+    ref_art = p.parents[1]
+    if not RUN_NAMESPACE or ref_art.resolve() == ART.resolve():
+        raise RuntimeError("the exploratory Gate-2 override needs its own RVM_RUN_NAMESPACE, distinct from the "
+                           f"namespace holding the Gate-1 record {p}")
+    return {"stage": "gate2", "execution_type": EXPLORATORY_OVERRIDE, "gate1_status": doc["gate1"]["status"],
+            "gate1_record": str(p.relative_to(ROOT)), "gate1_record_sha256": sha256_file(p),
+            "reference_artifacts": str(ref_art.relative_to(ROOT)), "protocol_version": PROTOCOL_VERSION}
+
+
+def verify_reference(task: str, seed: int, ref_art: Path) -> dict:
+    """Where the reference namespace has a head/probe for this task/seed (QNLI/42), ours must reproduce it."""
+    rh = ref_art / "heads" / f"{task}_s{seed}.json"
+    if not rh.exists():
+        return {"task": task, "seed": seed, "reference": None, "all_equal": None}
+    a, b = json.loads(rh.read_text()), json.loads(head_meta_path(task, seed).read_text())
+    checks = {k: (a.get(k), b.get(k)) for k in ("head_checkpoint_sha256", "head_ids_sha256", "head_examples")}
+    rp, np_ = ref_art / "probes" / f"{task}_s{seed}", probe_dir(task, seed)
+    if (rp / "probe_result.json").exists():
+        pa, pb = json.loads((rp / "probe_result.json").read_text()), json.loads((np_ / "probe_result.json").read_text())
+        sa, sb = json.loads((rp / "selection.json").read_text()), json.loads((np_ / "selection.json").read_text())
+        checks["probe_head_checkpoint_sha256"] = (pa["head_checkpoint_sha256"], pb["head_checkpoint_sha256"])
+        checks.update({f"probe_{k}": (pa["hashes"][k], pb["hashes"].get(k)) for k in pa["hashes"]})
+        checks["probe_sizes"] = (pa["probe_sizes"], pb["probe_sizes"])
+        checks["oplora_ranks"] = (pa["oplora"]["ranks"], pb["oplora"]["ranks"])
+        for k in ("group_rvm", "conditional_newton", "rvm_no_logdet"):
+            checks[f"{k}_ranks"] = (sa[k]["ranks"], sb[k]["ranks"])
+        checks["group_rvm_threshold"] = (sa["group_rvm"]["threshold"], sb["group_rvm"]["threshold"])
+        checks["group_rvm_fresh_null_activations"] = (sa["group_rvm_fresh_null"]["activations"],
+                                                      sb["group_rvm_fresh_null"]["activations"])
+        checks["conditional_newton_lambda"] = (sa["conditional_newton"]["lambda"], sb["conditional_newton"]["lambda"])
+    res = {"task": task, "seed": seed, "reference": str(ref_art.relative_to(ROOT)),
+           "checks": {k: {"reference": x, "exploratory": y, "equal": x == y} for k, (x, y) in checks.items()},
+           "all_equal": all(x == y for x, y in checks.values())}
+    if not res["all_equal"]:
+        bad = [k for k, v in res["checks"].items() if not v["equal"]]
+        raise ReferenceMismatchError(f"{task}/{seed} does not reproduce {res['reference']}: {bad}")
+    return res
+
+
+def train_b(cfg: Config, tracker: Tracker, override: dict | None = None) -> list[dict]:
+    if override is None:
+        g1 = json.loads((ART / "gate1" / "gate1.json").read_text())["gate1"]
+        if g1["status"] != "PASS":
+            raise RuntimeError(f"Gate 1 status {g1['status']}: Gate 2 must not run")
+    else:
+        log(f"EXPLORATORY OVERRIDE of the Gate-1 prerequisite (Gate 1 status {override['gate1_status']} in "
+            f"{override['gate1_record']}): Gate-2 results are exploratory and cannot change the preregistered decision")
+    xt = override or {}
     sb = cfg["stage_b"]
-    out = []
+    out, refs = [], []
     for task in sb["tasks"]:
         for seed in sb["seeds"]:
-            warm_head(cfg, task, seed, tracker)
-            probe(cfg, task, seed, gate1=False, tracker=tracker)
+            warm_head(cfg, task, seed, tracker, gate="gate2" if override else None, extra_tags=xt)
+            probe(cfg, task, seed, gate1=False, tracker=tracker, extra_tags=xt)
+            if override:
+                refs.append(verify_reference(task, seed, ROOT / override["reference_artifacts"]))
+    if override:
+        write_json(ART / "gate2" / "reference_check.json", {"override": override, "checks": refs, "checked_at": now()})
     for task in sb["tasks"]:
         ensure_validation(cfg, task)
     for task in sb["tasks"]:
@@ -541,14 +609,14 @@ def train_b(cfg: Config, tracker: Tracker) -> list[dict]:
             for method in sb["methods"]:
                 ranks, sel_s = mr[method]
                 if method in ("conditional_newton", "group_rvm", "oplora") and not ranks:
-                    out.append(_record_empty(cfg, tracker, method, task, seed, sel_s))
+                    out.append(_record_empty(cfg, tracker, method, task, seed, sel_s, xt))
                     continue
                 out.append(adapter_run(cfg, tracker, "gate2", method, task, seed, method, ranks, "validation",
-                                       "official_validation", sel_s, eva=(method == "eva")))
+                                       "official_validation", sel_s, extra_tags=xt, eva=(method == "eva")))
     return out
 
 
-def _record_empty(cfg, tracker, method, task, seed, sel_s) -> dict:
+def _record_empty(cfg, tracker, method, task, seed, sel_s, extra_tags: dict | None = None) -> dict:
     """A selector that selects no module yields the frozen head-only model; evaluate it as such."""
     from .modeling import configure_precision, evaluate, head_path, load_backbone, load_head
 
@@ -567,7 +635,9 @@ def _record_empty(cfg, tracker, method, task, seed, sel_s) -> dict:
     mdir.mkdir(parents=True, exist_ok=True)
     np.savez(mdir / "eval_validation.npz", idx=ev["idx"], loss=ev["per_example_loss"], logits=ev["logits"])
     rid, attempt = tracker.start("gate2", key, {**common_tags(cfg), "gate": "gate2", "method": method, "task": task,
-                                               "seed": seed, "arch_id": method, "empty_selection": True}, {})
+                                               "seed": seed, "arch_id": method, "empty_selection": True,
+                                               "head_checkpoint_sha256": hsha, "rank_allocation": "{}",
+                                               **(extra_tags or {})}, {})
     metrics = {"official_validation_loss": ev["loss"], "official_validation_accuracy": ev["accuracy"],
                "selection_wall_s": sel_s, "train_wall_s": 0.0, "adapter_params": 0, "rank_sum": 0}
     tracker.log_metrics(rid, metrics)
@@ -580,16 +650,40 @@ def _record_empty(cfg, tracker, method, task, seed, sel_s) -> dict:
     return res
 
 
-def eval_gate2(cfg: Config) -> dict:
-    from .gates import NOT_RUN, evaluate_gate2
+def eval_gate2(cfg: Config, override: dict | None = None) -> dict:
+    """Preregistered Gate 2; with an explicit `override` (see `gate1_override`), the counterfactual evaluation."""
+    from .gates import evaluate_gate2, evaluate_gate2_exploratory
 
-    g1p = ART / "gate1" / "gate1.json"
-    g1s = json.loads(g1p.read_text())["gate1"]["status"] if g1p.exists() else "BLOCKED"
     sb = cfg["stage_b"]
-    if g1s != "PASS":
-        g2 = evaluate_gate2({}, sb, {}, {}, g1s)
-        write_json(ART / "gate2" / "gate2.json", {"gate2": g2, "evaluated_at": now()})
-        return g2
+    if override is None:
+        g1p = ART / "gate1" / "gate1.json"
+        g1s = json.loads(g1p.read_text())["gate1"]["status"] if g1p.exists() else "BLOCKED"
+        if g1s != "PASS":
+            g2 = evaluate_gate2({}, sb, {}, {}, g1s)
+            write_json(ART / "gate2" / "gate2.json", {"gate2": g2, "evaluated_at": now()})
+            return g2
+    runs, per_ex, structures = gate2_inputs(cfg)
+    fidelity = json.loads((ROOT / "configs" / "baseline_fidelity.json").read_text())["faithful"]
+    per = per_ex if len(per_ex) == len(runs) else None
+    if override is None:
+        g2 = evaluate_gate2(runs, sb, fidelity, structures, g1s, per)
+    else:
+        g2 = {**evaluate_gate2_exploratory(runs, sb, fidelity, structures, override["gate1_status"], per),
+              "override": override}
+    write_json(ART / "gate2" / "per_run_metrics.json", {f"{m}|{t}|{s}": v for (m, t, s), v in runs.items()})
+    write_json(ART / "gate2" / "structures.json", {f"{t}|{s}": v for (t, s), v in structures.items()})
+    if g2.get("bootstrap"):
+        write_json(ART / "gate2" / "bootstrap.json", g2["bootstrap"])
+    write_json(ART / "gate2" / "fidelity.json", fidelity)
+    # an exploratory evaluation never writes gate2.json, so it cannot be assembled into a gates.json decision
+    write_json(ART / "gate2" / ("gate2_exploratory.json" if override else "gate2.json"),
+               {"gate2": g2, "evaluated_at": now()})
+    return g2
+
+
+def gate2_inputs(cfg: Config) -> tuple[dict, dict, dict]:
+    """Logged Gate-2 run metrics, per-example validation losses and selected structures."""
+    sb = cfg["stage_b"]
     runs, per_ex, structures = {}, {}, {}
     for task in sb["tasks"]:
         for seed in sb["seeds"]:
@@ -611,16 +705,7 @@ def eval_gate2(cfg: Config) -> dict:
                     per_ex[(method, task, seed)] = z["loss"]
                 else:
                     runs[(method, task, seed)] = {"status": m.get("status", "NOT_RUN")}
-    fidelity = json.loads((ROOT / "configs" / "baseline_fidelity.json").read_text())["faithful"]
-    g2 = evaluate_gate2(runs, sb, fidelity, structures, g1s, per_ex if len(per_ex) == len(runs) else None)
-    write_json(ART / "gate2" / "per_run_metrics.json", {f"{m}|{t}|{s}": v for (m, t, s), v in runs.items()})
-    write_json(ART / "gate2" / "structures.json", {f"{t}|{s}": v for (t, s), v in structures.items()})
-    if g2.get("bootstrap"):
-        write_json(ART / "gate2" / "bootstrap.json", g2["bootstrap"])
-    write_json(ART / "gate2" / "fidelity.json", fidelity)
-    write_json(ART / "gate2" / "gate2.json", {"gate2": g2, "evaluated_at": now()})
-    _ = NOT_RUN
-    return g2
+    return runs, per_ex, structures
 
 
 # ============================================================================ freeze + gates.json

@@ -99,6 +99,8 @@ GATE0_CHECKS = [
      ["test_evidence.py::test_optimizer_reaches_global_maximum_on_real_subproblems",
       "test_evidence.py::test_optimizer_matches_dense_search_scale_disparate"]),
     ("regression_A2_cache_provenance_and_namespace_isolation", ["test_cache.py"]),
+    # explicit exploratory Gate-2 override; Gate 2 stays blocked by a non-PASS Gate 1 without it
+    ("gate2_exploratory_override_explicit_and_default_blocking", ["test_gate2_override.py"]),
 ]
 
 
@@ -255,16 +257,36 @@ def status(cfg, args) -> int:
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(prog="rvm_lora")
     ap.add_argument("command", choices=["env-check", "gate0", "prepare", "freeze", "warm-head", "probe", "oracle-a",
-                                        "eval-gate1", "train-b", "eval-gate2", "gates", "report", "all", "status"])
+                                        "eval-gate1", "train-b", "eval-gate2", "gates", "report", "all", "status",
+                                        "report-exploratory"])
     ap.add_argument("--config", default=str(ROOT / "configs" / "preregistered.yaml"))
     ap.add_argument("--task", default=None)
     ap.add_argument("--seed", type=int, default=None)
     ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--exploratory-override-gate1", action="store_true",
+                    help="EXPLORATORY ONLY (train-b, eval-gate2, report-exploratory): run Gate 2 although the Gate-1 "
+                         "record given by --gate1-record did not pass. Outputs are labelled exploratory/counterfactual "
+                         "and never change the preregistered decision.")
+    ap.add_argument("--gate1-record", default=None, help="gate1.json whose (unchanged) status the override carries")
     args = ap.parse_args(argv)
     cfg = load_config(args.config)
     from . import pipeline as P
 
     c = args.command
+    override = None
+    if args.exploratory_override_gate1:
+        if c not in ("train-b", "eval-gate2", "report-exploratory"):
+            ap.error(f"--exploratory-override-gate1 does not apply to {c!r}")
+        if not args.gate1_record:
+            ap.error("--exploratory-override-gate1 requires --gate1-record")
+        override = P.gate1_override(args.gate1_record)
+    elif args.gate1_record or c == "report-exploratory":
+        ap.error("--gate1-record / report-exploratory require --exploratory-override-gate1")
+    if c == "report-exploratory":
+        from .exploratory_report import build_exploratory_report
+
+        build_exploratory_report(cfg, override)
+        return 0
     if c == "env-check":
         return env_check(cfg, args)
     if c == "gate0":
@@ -287,9 +309,9 @@ def main(argv=None) -> int:
     elif c == "eval-gate1":
         print(json.dumps(P.eval_gate1(cfg)["criteria"], indent=2, default=str))
     elif c == "train-b":
-        P.train_b(cfg, _tracker())
+        P.train_b(cfg, _tracker(), override)
     elif c == "eval-gate2":
-        print(json.dumps(P.eval_gate2(cfg), indent=2, default=str)[:5000])
+        print(json.dumps(P.eval_gate2(cfg, override), indent=2, default=str)[:5000])
     elif c == "gates":
         print(json.dumps(P.write_gates(cfg)["overall_decision"]))
     elif c == "report":
