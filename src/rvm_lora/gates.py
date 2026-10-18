@@ -196,10 +196,38 @@ def evaluate_gate2(runs: dict, cfg_stage_b: dict, fidelity: dict, structures: di
     structures[(task, seed)] = {"group_rvm": ranks, "conditional_newton": ranks}; fidelity[method] = bool.
     per_example[(method, task, seed)] = per-example loss array aligned on validation idx.
     """
-    sb = cfg_stage_b
-    tasks, seeds, methods = sb["tasks"], sb["seeds"], sb["methods"]
     if gate1_status != PASS:
         return {"status": NOT_RUN, "criteria": [], "note": f"Gate 1 status {gate1_status}; Gate 2 not run"}
+    return gate2_criteria(runs, cfg_stage_b, fidelity, structures, per_example)
+
+
+EXPLORATORY_OVERRIDE = "exploratory_override"
+
+
+def evaluate_gate2_exploratory(runs: dict, cfg_stage_b: dict, fidelity: dict, structures: dict, gate1_status: str,
+                               per_example: dict | None = None) -> dict:
+    """Counterfactual Gate 2 for an explicitly authorised exploratory execution despite a non-PASS Gate 1.
+
+    The criteria are the unchanged `gate2_criteria`; the result is what Gate 2 *would* have concluded if
+    evaluated on its own. It carries no `status` key, so it can never be passed to `assemble` or read as the
+    preregistered Gate-2 status, which stays `NOT_RUN_GATE_FAILURE` whenever Gate 1 did not pass.
+    """
+    core = gate2_criteria(runs, cfg_stage_b, fidelity, structures, per_example)
+    standalone = core.pop("status")
+    for c in core["criteria"]:
+        c["execution_type"] = EXPLORATORY_OVERRIDE
+    return {"execution_type": EXPLORATORY_OVERRIDE, "gate1_status": gate1_status,
+            "preregistered_gate2_status": NOT_RUN if gate1_status != PASS else "NOT_EVALUATED_HERE",
+            "exploratory_gate2_standalone_result": standalone,
+            "label": "COUNTERFACTUAL: frozen Gate-2 criteria evaluated as if Gate 1 had passed; does not count "
+                     "toward, and cannot change, the preregistered Go/No-Go decision", **core}
+
+
+def gate2_criteria(runs: dict, cfg_stage_b: dict, fidelity: dict, structures: dict,
+                   per_example: dict | None = None) -> dict:
+    """The frozen Gate-2 criteria (Routes A/B, mandatory conditions), independent of the Gate-1 status."""
+    sb = cfg_stage_b
+    tasks, seeds, methods = sb["tasks"], sb["seeds"], sb["methods"]
     keys = [(m, t, s) for m in methods for t in tasks for s in seeds]
     missing = [k for k in keys if runs.get(k, {}).get("status") != "COMPLETED"]
     crit = []
