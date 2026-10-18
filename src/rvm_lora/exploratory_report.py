@@ -705,6 +705,12 @@ def render(cfg, st, g2x, rows, comps, alloc, aux, refchk, integ, freeze, env, g0
                                              for k, _ in keys) + " |")
         A("")
     A("**Sparsity and stopping per configuration:**\n")
+    A("Parameter reduction of RVM: exact RVM parameters relative to Uniform r2 (B48, 73,728) and to the B24 "
+      "budget (36,864): " + "; ".join(
+          f"{t}/{s} {by[('group_rvm', t, s)]['adapter_params']:,} = "
+          f"{by[('group_rvm', t, s)]['adapter_params'] / sb['comparison_parameters']:.1%} of B48, "
+          f"{by[('group_rvm', t, s)]['adapter_params'] / sb['budget_parameters']:.1%} of B24"
+          for t in tasks for s in seeds if by[("group_rvm", t, s)]["adapter_params"] is not None) + ".\n")
     A("| Task/seed | RVM rank units (params) | RVM stop reason | RVM threshold (nats/param) | Fresh-null activations "
       "(diagnostic) | RVM == Newton? | Newton-with-own-threshold units (diagnostic) | CE RVM | CE Uniform r1 | "
       "CE Newton |")
