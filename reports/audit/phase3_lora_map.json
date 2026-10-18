@@ -1,0 +1,547 @@
+{
+  "probe_determinism": {
+    "U_bitwise": true,
+    "V_bitwise": true,
+    "S_bitwise": true,
+    "U_maxdiff": 0.0,
+    "J_bitwise": true,
+    "J_maxabs": 0.0,
+    "Phi_bitwise": true,
+    "t_bitwise": true
+  },
+  "jvp_vs_stored_J": {
+    "max_rel_err_colscale": 1.0812810535117443e-05,
+    "per_module": {
+      "roberta.encoder.layer.0.attention.self.query": [
+        5.962258385959625e-06,
+        1.0606359145842136e-05
+      ],
+      "roberta.encoder.layer.0.attention.self.value": [
+        6.016339219093326e-06,
+        5.457623478439571e-06
+      ],
+      "roberta.encoder.layer.1.attention.self.query": [
+        5.761597026653407e-06,
+        4.006831034103695e-06
+      ],
+      "roberta.encoder.layer.1.attention.self.value": [
+        2.1042595292118387e-06,
+        3.889749947743441e-06
+      ],
+      "roberta.encoder.layer.2.attention.self.query": [
+        5.512073320659268e-06,
+        1.6079336818560341e-06
+      ],
+      "roberta.encoder.layer.2.attention.self.value": [
+        2.311981308986416e-06,
+        1.0812810535117443e-05
+      ],
+      "roberta.encoder.layer.3.attention.self.query": [
+        3.966106278690938e-06,
+        3.213620159200167e-06
+      ],
+      "roberta.encoder.layer.3.attention.self.value": [
+        1.540599416420941e-06,
+        1.7054285135978752e-06
+      ],
+      "roberta.encoder.layer.4.attention.self.query": [
+        2.500614608891824e-06,
+        3.1247472409984144e-06
+      ],
+      "roberta.encoder.layer.4.attention.self.value": [
+        1.3871122293085163e-06,
+        9.28254680079603e-07
+      ],
+      "roberta.encoder.layer.5.attention.self.query": [
+        4.732576414600108e-06,
+        6.627342048944892e-06
+      ],
+      "roberta.encoder.layer.5.attention.self.value": [
+        1.0906530353214801e-06,
+        1.1529970103508145e-06
+      ],
+      "roberta.encoder.layer.6.attention.self.query": [
+        1.222401779461383e-06,
+        1.7909551321323713e-06
+      ],
+      "roberta.encoder.layer.6.attention.self.value": [
+        4.5860982155124956e-07,
+        1.479408361583184e-06
+      ],
+      "roberta.encoder.layer.7.attention.self.query": [
+        3.2824084638147292e-06,
+        4.546261319526028e-06
+      ],
+      "roberta.encoder.layer.7.attention.self.value": [
+        6.006315520643647e-07,
+        1.6606216843851807e-06
+      ],
+      "roberta.encoder.layer.8.attention.self.query": [
+        2.689117167836808e-06,
+        2.320436026118396e-06
+      ],
+      "roberta.encoder.layer.8.attention.self.value": [
+        5.859351294477185e-07,
+        1.005898044495513e-06
+      ],
+      "roberta.encoder.layer.9.attention.self.query": [
+        2.130162537100105e-06,
+        2.888906497461826e-06
+      ],
+      "roberta.encoder.layer.9.attention.self.value": [
+        5.269025132497164e-07,
+        1.2463628600070435e-06
+      ],
+      "roberta.encoder.layer.10.attention.self.query": [
+        2.3990149293624683e-06,
+        3.346637284615409e-06
+      ],
+      "roberta.encoder.layer.10.attention.self.value": [
+        4.807112218669766e-07,
+        1.6685384634520302e-06
+      ],
+      "roberta.encoder.layer.11.attention.self.query": [
+        1.3992492304129232e-06,
+        6.285212789114012e-06
+      ],
+      "roberta.encoder.layer.11.attention.self.value": [
+        4.91401167529862e-07,
+        9.739903664560835e-07
+      ]
+    },
+    "rows": 16
+  },
+  "peft_orientation": [
+    {
+      "module": "roberta.encoder.layer.3.attention.self.value",
+      "rank": 2,
+      "swapped_orientation": false,
+      "scaling": 2.82842712474619,
+      "expected_scaling": 2.82842712474619,
+      "rel_err_dz_vs_Js": 0.005353038175891086
+    },
+    {
+      "module": "roberta.encoder.layer.3.attention.self.value",
+      "rank": 2,
+      "swapped_orientation": true,
+      "scaling": 2.82842712474619,
+      "expected_scaling": 2.82842712474619,
+      "rel_err_dz_vs_Js": 1.000385080825429
+    },
+    {
+      "module": "roberta.encoder.layer.5.attention.self.query",
+      "rank": 2,
+      "swapped_orientation": false,
+      "scaling": 2.82842712474619,
+      "expected_scaling": 2.82842712474619,
+      "rel_err_dz_vs_Js": 0.004160431585427214
+    },
+    {
+      "module": "roberta.encoder.layer.5.attention.self.query",
+      "rank": 2,
+      "swapped_orientation": true,
+      "scaling": 2.82842712474619,
+      "expected_scaling": 2.82842712474619,
+      "rel_err_dz_vs_Js": 0.9977262818512386
+    },
+    {
+      "module": "roberta.encoder.layer.11.attention.self.value",
+      "rank": 3,
+      "swapped_orientation": false,
+      "scaling": 2.3094010767585034,
+      "expected_scaling": 2.3094010767585034,
+      "rel_err_dz_vs_Js": 0.00014278746475393243
+    },
+    {
+      "module": "roberta.encoder.layer.11.attention.self.value",
+      "rank": 3,
+      "swapped_orientation": true,
+      "scaling": 2.3094010767585034,
+      "expected_scaling": 2.3094010767585034,
+      "rel_err_dz_vs_Js": 0.9992324279857977
+    }
+  ],
+  "deterministic_init": {
+    "zero_update_bitwise": true,
+    "B_zero": true,
+    "scalings_ok": true,
+    "module_sets_ok": true,
+    "shared_rank_prefixes": true,
+    "n_arch": 20
+  },
+  "tangent_mismatch": [
+    {
+      "module": "roberta.encoder.layer.0.attention.self.query",
+      "rank": 2,
+      "atom_energy_in_lora_rowspace": [
+        0.0022206604684541316,
+        0.0030298945542059186
+      ],
+      "random_expectation": 0.0026041666666666665,
+      "grad_frac_lora_tangent": 0.0022206405953720493,
+      "grad_frac_svd_prefix": 0.9122507689136294
+    },
+    {
+      "module": "roberta.encoder.layer.0.attention.self.value",
+      "rank": 2,
+      "atom_energy_in_lora_rowspace": [
+        3.704279879152051e-05,
+        0.00022316557145406055
+      ],
+      "random_expectation": 0.0026041666666666665,
+      "grad_frac_lora_tangent": 0.00044723720949446747,
+      "grad_frac_svd_prefix": 0.8651767058521636
+    },
+    {
+      "module": "roberta.encoder.layer.1.attention.self.query",
+      "rank": 2,
+      "atom_energy_in_lora_rowspace": [
+        0.0009912412300542499,
+        0.0002540098064930996
+      ],
+      "random_expectation": 0.0026041666666666665,
+      "grad_frac_lora_tangent": 0.0009898315728377445,
+      "grad_frac_svd_prefix": 0.9492027408083406
+    },
+    {
+      "module": "roberta.encoder.layer.1.attention.self.value",
+      "rank": 2,
+      "atom_energy_in_lora_rowspace": [
+        0.0026306601091756177,
+        0.0014157950344332471
+      ],
+      "random_expectation": 0.0026041666666666665,
+      "grad_frac_lora_tangent": 0.0025329749345287134,
+      "grad_frac_svd_prefix": 0.9619895302523219
+    },
+    {
+      "module": "roberta.encoder.layer.2.attention.self.query",
+      "rank": 2,
+      "atom_energy_in_lora_rowspace": [
+        0.0006661823612698379,
+        0.00042701138673777547
+      ],
+      "random_expectation": 0.0026041666666666665,
+      "grad_frac_lora_tangent": 0.0006835523285466507,
+      "grad_frac_svd_prefix": 0.9883200910440582
+    },
+    {
+      "module": "roberta.encoder.layer.2.attention.self.value",
+      "rank": 2,
+      "atom_energy_in_lora_rowspace": [
+        0.00045854355083192484,
+        0.0010415701463184442
+      ],
+      "random_expectation": 0.0026041666666666665,
+      "grad_frac_lora_tangent": 0.0004948623853503863,
+      "grad_frac_svd_prefix": 0.9906993967850451
+    },
+    {
+      "module": "roberta.encoder.layer.3.attention.self.query",
+      "rank": 2,
+      "atom_energy_in_lora_rowspace": [
+        0.001273289591881493,
+        0.0017106642649932337
+      ],
+      "random_expectation": 0.0026041666666666665,
+      "grad_frac_lora_tangent": 0.0012840987081989862,
+      "grad_frac_svd_prefix": 0.9690405019548018
+    },
+    {
+      "module": "roberta.encoder.layer.3.attention.self.value",
+      "rank": 2,
+      "atom_energy_in_lora_rowspace": [
+        0.007456745713707462,
+        0.0012702853432797997
+      ],
+      "random_expectation": 0.0026041666666666665,
+      "grad_frac_lora_tangent": 0.007302249957754363,
+      "grad_frac_svd_prefix": 0.9924252216280087
+    },
+    {
+      "module": "roberta.encoder.layer.4.attention.self.query",
+      "rank": 2,
+      "atom_energy_in_lora_rowspace": [
+        0.002470139124430601,
+        0.0007758790344970452
+      ],
+      "random_expectation": 0.0026041666666666665,
+      "grad_frac_lora_tangent": 0.0023604660911557937,
+      "grad_frac_svd_prefix": 0.9348584817254184
+    },
+    {
+      "module": "roberta.encoder.layer.4.attention.self.value",
+      "rank": 2,
+      "atom_energy_in_lora_rowspace": [
+        0.003935541292698411,
+        0.0031960318945060077
+      ],
+      "random_expectation": 0.0026041666666666665,
+      "grad_frac_lora_tangent": 0.00390189160684858,
+      "grad_frac_svd_prefix": 0.99030560679988
+    },
+    {
+      "module": "roberta.encoder.layer.5.attention.self.query",
+      "rank": 2,
+      "atom_energy_in_lora_rowspace": [
+        0.004008921414989995,
+        0.0032621724453951242
+      ],
+      "random_expectation": 0.0026041666666666665,
+      "grad_frac_lora_tangent": 0.004005173187437318,
+      "grad_frac_svd_prefix": 0.9416448117794265
+    },
+    {
+      "module": "roberta.encoder.layer.5.attention.self.value",
+      "rank": 2,
+      "atom_energy_in_lora_rowspace": [
+        0.0017531777812383003,
+        0.008497006033647288
+      ],
+      "random_expectation": 0.0026041666666666665,
+      "grad_frac_lora_tangent": 0.0018746743004825247,
+      "grad_frac_svd_prefix": 0.992570656007555
+    },
+    {
+      "module": "roberta.encoder.layer.6.attention.self.query",
+      "rank": 2,
+      "atom_energy_in_lora_rowspace": [
+        0.006038966514049065,
+        0.0031432694914858643
+      ],
+      "random_expectation": 0.0026041666666666665,
+      "grad_frac_lora_tangent": 0.005835560915853268,
+      "grad_frac_svd_prefix": 0.9695118486932673
+    },
+    {
+      "module": "roberta.encoder.layer.6.attention.self.value",
+      "rank": 2,
+      "atom_energy_in_lora_rowspace": [
+        0.005476087803208814,
+        1.788025396545576e-05
+      ],
+      "random_expectation": 0.0026041666666666665,
+      "grad_frac_lora_tangent": 0.0054034593532070775,
+      "grad_frac_svd_prefix": 0.9920594061922048
+    },
+    {
+      "module": "roberta.encoder.layer.7.attention.self.query",
+      "rank": 2,
+      "atom_energy_in_lora_rowspace": [
+        0.0005938356393834496,
+        0.0019954012025018256
+      ],
+      "random_expectation": 0.0026041666666666665,
+      "grad_frac_lora_tangent": 0.0007208216687551282,
+      "grad_frac_svd_prefix": 0.9395449685941393
+    },
+    {
+      "module": "roberta.encoder.layer.7.attention.self.value",
+      "rank": 2,
+      "atom_energy_in_lora_rowspace": [
+        0.0049876130308141005,
+        0.007189985441352407
+      ],
+      "random_expectation": 0.0026041666666666665,
+      "grad_frac_lora_tangent": 0.004990498131303232,
+      "grad_frac_svd_prefix": 0.9879735243867542
+    },
+    {
+      "module": "roberta.encoder.layer.8.attention.self.query",
+      "rank": 2,
+      "atom_energy_in_lora_rowspace": [
+        0.0014006763398859321,
+        0.0019313253383472662
+      ],
+      "random_expectation": 0.0026041666666666665,
+      "grad_frac_lora_tangent": 0.0014366972828336736,
+      "grad_frac_svd_prefix": 0.9348369827674745
+    },
+    {
+      "module": "roberta.encoder.layer.8.attention.self.value",
+      "rank": 2,
+      "atom_energy_in_lora_rowspace": [
+        0.003969559020033801,
+        0.0024361295408312847
+      ],
+      "random_expectation": 0.0026041666666666665,
+      "grad_frac_lora_tangent": 0.003950342759869507,
+      "grad_frac_svd_prefix": 0.9967524113378219
+    },
+    {
+      "module": "roberta.encoder.layer.9.attention.self.query",
+      "rank": 2,
+      "atom_energy_in_lora_rowspace": [
+        0.0013369109385985422,
+        0.002937823088262565
+      ],
+      "random_expectation": 0.0026041666666666665,
+      "grad_frac_lora_tangent": 0.0014605082752884991,
+      "grad_frac_svd_prefix": 0.9078763600655876
+    },
+    {
+      "module": "roberta.encoder.layer.9.attention.self.value",
+      "rank": 2,
+      "atom_energy_in_lora_rowspace": [
+        0.002438373638658029,
+        0.0023756586665895415
+      ],
+      "random_expectation": 0.0026041666666666665,
+      "grad_frac_lora_tangent": 0.0024398265751662974,
+      "grad_frac_svd_prefix": 0.9973539240735045
+    },
+    {
+      "module": "roberta.encoder.layer.10.attention.self.query",
+      "rank": 2,
+      "atom_energy_in_lora_rowspace": [
+        0.0004461989823387233,
+        0.0005680937339009006
+      ],
+      "random_expectation": 0.0026041666666666665,
+      "grad_frac_lora_tangent": 0.0006484456186554903,
+      "grad_frac_svd_prefix": 0.9203914242099559
+    },
+    {
+      "module": "roberta.encoder.layer.10.attention.self.value",
+      "rank": 2,
+      "atom_energy_in_lora_rowspace": [
+        0.0024619522004095235,
+        0.0003994394890762589
+      ],
+      "random_expectation": 0.0026041666666666665,
+      "grad_frac_lora_tangent": 0.002452911750487509,
+      "grad_frac_svd_prefix": 0.9983764680739854
+    },
+    {
+      "module": "roberta.encoder.layer.11.attention.self.query",
+      "rank": 2,
+      "atom_energy_in_lora_rowspace": [
+        0.005089241339477501,
+        5.084152466102778e-05
+      ],
+      "random_expectation": 0.0026041666666666665,
+      "grad_frac_lora_tangent": 0.005089223172912742,
+      "grad_frac_svd_prefix": 0.9999959558779238
+    },
+    {
+      "module": "roberta.encoder.layer.11.attention.self.value",
+      "rank": 2,
+      "atom_energy_in_lora_rowspace": [
+        0.006208904315571071,
+        0.0016917009733929689
+      ],
+      "random_expectation": 0.0026041666666666665,
+      "grad_frac_lora_tangent": 0.006138355979086923,
+      "grad_frac_svd_prefix": 0.9949355994849137
+    },
+    {
+      "module": "roberta.encoder.layer.0.attention.self.query",
+      "rank": 4,
+      "atom_energy_in_lora_rowspace": [
+        0.0035205582352465705,
+        0.005172243593776937,
+        0.0031191943799152516,
+        0.004594462949963502
+      ],
+      "random_expectation": 0.005208333333333333,
+      "grad_frac_lora_tangent": 0.0037193484369675623,
+      "grad_frac_svd_prefix": 0.9407073357166185
+    },
+    {
+      "module": "roberta.encoder.layer.0.attention.self.value",
+      "rank": 4,
+      "atom_energy_in_lora_rowspace": [
+        0.0025098587495467587,
+        0.002350194092719085,
+        0.00231954010307275,
+        0.000760639858369807
+      ],
+      "random_expectation": 0.005208333333333333,
+      "grad_frac_lora_tangent": 0.0027336302924771483,
+      "grad_frac_svd_prefix": 0.9278412978821203
+    },
+    {
+      "module": "roberta.encoder.layer.3.attention.self.query",
+      "rank": 4,
+      "atom_energy_in_lora_rowspace": [
+        0.00399832532187153,
+        0.003119616599372873,
+        0.007918528994130414,
+        0.001449147760888017
+      ],
+      "random_expectation": 0.005208333333333333,
+      "grad_frac_lora_tangent": 0.004045506278660568,
+      "grad_frac_svd_prefix": 0.9884699044248639
+    },
+    {
+      "module": "roberta.encoder.layer.3.attention.self.value",
+      "rank": 4,
+      "atom_energy_in_lora_rowspace": [
+        0.007815704808713507,
+        0.004733710995804488,
+        0.009681493379998187,
+        0.0016507967188388534
+      ],
+      "random_expectation": 0.005208333333333333,
+      "grad_frac_lora_tangent": 0.007753446152538607,
+      "grad_frac_svd_prefix": 0.9970063572847842
+    },
+    {
+      "module": "roberta.encoder.layer.7.attention.self.query",
+      "rank": 4,
+      "atom_energy_in_lora_rowspace": [
+        0.0008631231463375869,
+        0.002714127003089053,
+        0.02025057550509316,
+        0.0028521078219828195
+      ],
+      "random_expectation": 0.005208333333333333,
+      "grad_frac_lora_tangent": 0.001322284093154407,
+      "grad_frac_svd_prefix": 0.9606918329116535
+    },
+    {
+      "module": "roberta.encoder.layer.7.attention.self.value",
+      "rank": 4,
+      "atom_energy_in_lora_rowspace": [
+        0.008018328863952552,
+        0.013283534519822997,
+        0.004972322077728671,
+        0.0012102956176158288
+      ],
+      "random_expectation": 0.005208333333333333,
+      "grad_frac_lora_tangent": 0.008056001902692891,
+      "grad_frac_svd_prefix": 0.9982880959326873
+    },
+    {
+      "module": "roberta.encoder.layer.11.attention.self.query",
+      "rank": 4,
+      "atom_energy_in_lora_rowspace": [
+        0.010856480066765014,
+        0.0036310269563975747,
+        0.010847750538031373,
+        0.00030265506709261606
+      ],
+      "random_expectation": 0.005208333333333333,
+      "grad_frac_lora_tangent": 0.010856438210799249,
+      "grad_frac_svd_prefix": 0.9999977840028019
+    },
+    {
+      "module": "roberta.encoder.layer.11.attention.self.value",
+      "rank": 4,
+      "atom_energy_in_lora_rowspace": [
+        0.008966378526688643,
+        0.002795150333872406,
+        0.0023448151713228046,
+        0.0045867925598171355
+      ],
+      "random_expectation": 0.005208333333333333,
+      "grad_frac_lora_tangent": 0.008872672203403743,
+      "grad_frac_svd_prefix": 0.9998554769289807
+    }
+  ],
+  "tangent_mismatch_summary": {
+    "mean_atom_energy_in_lora_rowspace": 0.0031218162440499984,
+    "mean_grad_frac_lora_tangent": 0.0036257384978787845,
+    "mean_grad_frac_svd_prefix": 0.9669047335122716
+  }
+}

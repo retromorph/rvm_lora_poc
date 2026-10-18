@@ -47,3 +47,15 @@ This starting package contains **instructions and protocol**, not a working impl
   `scripts/run_remote.sh` (tmux `rvm_pilot`), `scripts/export_review_bundle.sh`.
 - Outputs: `reports/FINAL_REPORT.md`, `reports/gates.json`, `reports/run_index.csv`,
   `reports/architecture_scores.csv`, `reports/figures/`, `reports/review_bundle.zip` (+ `.sha256`).
+
+## Correctness audit and corrected run (v2)
+
+- [`reports/CORRECTNESS_AUDIT.md`](reports/CORRECTNESS_AUDIT.md): issue-by-issue audit of the v1 run (evidence in
+  `reports/audit/`, scripts in `scripts/audit/`). One material defect (RVM evidence optimiser local optima) and one
+  latent cache defect were repaired in `d1aa145`; the frozen protocol files are unchanged.
+- The corrected run lives in its own namespace: `RVM_RUN_NAMESPACE=v2 bash scripts/run_remote.sh` writes only to
+  `artifacts/v2/`, `checkpoints/v2/`, `reports/v2/` (salted run keys, new MLflow run IDs); the original v1 outputs in
+  `reports/` and `artifacts/` are preserved. Corrected report: [`reports/v2/FINAL_REPORT.md`](reports/v2/FINAL_REPORT.md),
+  machine-readable verdict: `reports/v2/gates.json`.
+- Cached stage outputs are reused only when their recorded head-checkpoint hash and namespace match
+  (`StaleCacheError` otherwise); Gate 0 is reused only for the same git SHA.

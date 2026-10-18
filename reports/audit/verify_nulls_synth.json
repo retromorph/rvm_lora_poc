@@ -1,0 +1,15 @@
+{
+  "null_groups": {
+    "n_problems": 3600,
+    "max_dense_minus_new": 1.186763008412491e-09,
+    "n_new_below_dense_1e-7": 0,
+    "n_old_below_dense_1e-6": 3
+  },
+  "synthetic": {
+    "n": 300,
+    "max_dense_minus_new": 9.330349826086604e-10,
+    "n_new_below_dense_1e-7": 0,
+    "n_old_below_dense_1e-6": 15,
+    "n_new_above_dense_1e-7": 1
+  }
+}

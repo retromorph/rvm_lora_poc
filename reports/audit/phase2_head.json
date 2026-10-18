@@ -1,0 +1,318 @@
+{
+  "label": "Phase-2 head audit (read-only w.r.t. original artifacts)",
+  "model_config": {
+    "name_or_path": "FacebookAI/roberta-base",
+    "revision_pinned": "e2da8e2f811d1448a5b465c236feacd80ffbac7b",
+    "architectures": [
+      "RobertaForMaskedLM"
+    ],
+    "num_labels": 2,
+    "hidden_dropout_prob": 0.1,
+    "attention_probs_dropout_prob": 0.1,
+    "classifier_dropout": null,
+    "initializer_range": 0.02,
+    "problem_type": null,
+    "class": "RobertaForSequenceClassification",
+    "head_class": "RobertaClassificationHead"
+  },
+  "init_head_stats": {
+    "classifier.dense.weight": {
+      "shape": [
+        768,
+        768
+      ],
+      "mean": -4.461750359041616e-05,
+      "std": 0.020026640966534615
+    },
+    "classifier.dense.bias": {
+      "shape": [
+        768
+      ],
+      "mean": 0.0,
+      "std": 0.0
+    },
+    "classifier.out_proj.weight": {
+      "shape": [
+        2,
+        768
+      ],
+      "mean": -0.00017989003390539438,
+      "std": 0.02022467739880085
+    },
+    "classifier.out_proj.bias": {
+      "shape": [
+        2
+      ],
+      "mean": 0.0,
+      "std": 0.0
+    }
+  },
+  "backbone_hash_seed42": "d941b5d11bc60f3c6f1fb7b0af92e63b1b6c1f00370203a8f1a1803c3ceaea8b",
+  "backbone_identical_across_seeds": true,
+  "head_init_differs_across_seeds": true,
+  "backbone_vs_hub_safetensors": {
+    "file_sha256": "5bde1d28afb363d0103324efeb5afc8b2b397fe5e04beabb9b1ef355255ade81",
+    "tensors_compared": 197,
+    "tensors_differing": 0,
+    "max_abs_diff": 0.0,
+    "hub_tensors_total": 203
+  },
+  "checkpoint": {
+    "sha256": "08d1ce5a251956c08cea8736d3dc04ffbd7c2d439d80d97a53c1213c2e598034",
+    "keys": [
+      "classifier.dense.bias",
+      "classifier.dense.weight",
+      "classifier.out_proj.bias",
+      "classifier.out_proj.weight"
+    ],
+    "dtypes": [
+      "torch.float32"
+    ],
+    "shapes": {
+      "classifier.dense.bias": [
+        768
+      ],
+      "classifier.dense.weight": [
+        768,
+        768
+      ],
+      "classifier.out_proj.bias": [
+        2
+      ],
+      "classifier.out_proj.weight": [
+        2,
+        768
+      ]
+    }
+  },
+  "checkpoint_change_vs_seed42_init": {
+    "classifier.dense.bias": {
+      "init_norm": 0.0,
+      "delta_norm": 0.1528032273054123,
+      "rel_change": 152803229696.0
+    },
+    "classifier.dense.weight": {
+      "init_norm": 15.380409240722656,
+      "delta_norm": 7.918220043182373,
+      "rel_change": 0.5148250460624695
+    },
+    "classifier.out_proj.bias": {
+      "init_norm": 0.0,
+      "delta_norm": 0.0016938397893682122,
+      "rel_change": 1693839744.0
+    },
+    "classifier.out_proj.weight": {
+      "init_norm": 0.7924154996871948,
+      "delta_norm": 0.3132317066192627,
+      "rel_change": 0.3952872157096863
+    }
+  },
+  "load_head_returned_sha": "08d1ce5a251956c08cea8736d3dc04ffbd7c2d439d80d97a53c1213c2e598034",
+  "head_equal_to_checkpoint_after_load": true,
+  "backbone_unchanged_by_load_head": true,
+  "digest_after_load": "fd60b6ee9ee73b709df3c6e2e44ecccddba6e2d90b38a04f57b6502a73ec8442",
+  "recorded_gate1_run_head_digest": "fd60b6ee9ee73b709df3c6e2e44ecccddba6e2d90b38a04f57b6502a73ec8442",
+  "gate1_runs_used_this_checkpoint": true,
+  "seed42_random_init_digest": "9e0866c813b312e9b6402ba685d763824c6c6f231b9117c803b591506239ee0c",
+  "gate1_runs_did_not_use_random_init_head": true,
+  "head_only_audit_logits_reproduced": {
+    "max_abs_diff": 0.0,
+    "bitwise_equal": true,
+    "loss": 0.690920654655885,
+    "acc": 0.502
+  },
+  "probe_used_same_head": {
+    "max_abs_diff_z_evidence": 7.599592208862305e-07
+  },
+  "label_names": [
+    "entailment",
+    "not_entailment"
+  ],
+  "tokenisation_examples": [
+    {
+      "idx": 5191,
+      "question": "How many parades take place during Carnival?",
+      "sentence": "The latter two parades are open to anyone who wishes to participate.",
+      "label": 1,
+      "encoded_label": 1,
+      "decoded": "<s>How many parades take place during Carnival?</s></s>The latter two parades are open to anyone who wishes to participate.</s>"
+    },
+    {
+      "idx": 41690,
+      "question": "When was the next session announced?",
+      "sentence": "In his journal in 1959 during a spiritual retreat, John XXIII made this remark: \"I always think of Pius IX of holy and glorious memory, and by imitating him in his sacrifices, I would like to be worth",
+      "label": 1,
+      "encoded_label": 1,
+      "decoded": "<s>When was the next session announced?</s></s>In his journal in 1959 during a spiritual retreat, John XXIII made this remark: \"I always think of Pius IX of holy and glorious memory, and by imitating him in his sacrifices, I would like to be worthy to celebrate his canonization\".</s>"
+    },
+    {
+      "idx": 43591,
+      "question": "What is the most used antihypertensive drug today?",
+      "sentence": "A major shortcoming of hydralazine monotherapy was that it lost its effectiveness over time (tachyphylaxis).",
+      "label": 1,
+      "encoded_label": 1,
+      "decoded": "<s>What is the most used antihypertensive drug today?</s></s>A major shortcoming of hydralazine monotherapy was that it lost its effectiveness over time (tachyphylaxis).</s>"
+    }
+  ],
+  "encoded_labels_match_dataset_first500_head": true,
+  "retokenisation_matches_first200": true,
+  "fraction_truncated_at_128": {
+    "head": 0.002,
+    "directions": 0.005859375,
+    "evidence": 0.0078125,
+    "audit": 0.0033333333333333335
+  },
+  "pair_format_has_double_sep": true,
+  "head_only_eval_mode": {
+    "head_rows": {
+      "loss": 0.678714174871283,
+      "acc": 0.543,
+      "label_mean": 0.5035,
+      "frac_pred1": 0.9395,
+      "zstd": 0.11079270952694328
+    },
+    "direction_rows": {
+      "loss": 0.6894091910569462,
+      "acc": 0.51171875,
+      "label_mean": 0.494140625,
+      "frac_pred1": 0.955078125,
+      "zstd": 0.10557573301274205
+    },
+    "evidence_rows": {
+      "loss": 0.6905640941733109,
+      "acc": 0.498046875,
+      "label_mean": 0.49609375,
+      "frac_pred1": 0.962890625,
+      "zstd": 0.10425095413476519
+    }
+  },
+  "random_init_head_eval_mode": {
+    "head_rows": {
+      "loss": 0.7016669612853146,
+      "acc": 0.4965,
+      "label_mean": 0.5035,
+      "frac_pred1": 0.0,
+      "zstd": 0.00973567245603229
+    },
+    "evidence_rows": {
+      "loss": 0.6997420378335041,
+      "acc": 0.50390625,
+      "label_mean": 0.49609375,
+      "frac_pred1": 0.0,
+      "zstd": 0.009726401062599466
+    }
+  },
+  "head_only_train_mode_loss_head_rows": 0.6798050155639649,
+  "rerun_info": {
+    "head_train_loss_first20": 0.7267308056354522,
+    "head_train_loss_last20": 0.6838110119104386,
+    "head_steps": 200,
+    "head_wall_s": 5.595192519002012
+  },
+  "rerun_wall_s": 5.598120256996481,
+  "rerun_trainable_after_return": [],
+  "rerun_model_training_flag_after_return": false,
+  "rerun_forward_modes": {
+    "n_forwards": 200,
+    "all_train_mode": true
+  },
+  "rerun_backbone_unchanged": true,
+  "rerun_backbone_grads_none": true,
+  "optimizer": {
+    "n_params": 4,
+    "numel": 592130,
+    "defaults": {
+      "lr": 0.001,
+      "betas": "(0.9, 0.999)",
+      "eps": 1e-08,
+      "weight_decay": 0.01,
+      "amsgrad": false,
+      "maximize": false,
+      "foreach": "None",
+      "capturable": false,
+      "differentiable": false,
+      "fused": "None",
+      "decoupled_weight_decay": true
+    }
+  },
+  "rerun_steps": 200,
+  "rerun_grad_norm": {
+    "first": 2.156290292739868,
+    "median": 1.0655642747879028,
+    "last": 0.7102516293525696,
+    "min": 0.4247371256351471
+  },
+  "rerun_update_norm": {
+    "first": 0.7687919735908508,
+    "median": 0.1309436932206154,
+    "last": 0.12257667630910873
+  },
+  "rerun_all_head_params_had_grads": true,
+  "rerun_batch_loss_curve_first20_last20": [
+    0.7267308056354522,
+    0.6838110119104386
+  ],
+  "rerun_batch_acc_curve_first20_last20": [
+    0.4875,
+    0.5578125
+  ],
+  "rerun_batch_loss_by_epoch": [
+    0.7070229274611319,
+    0.6984160532874446,
+    0.6962674731208432,
+    0.6806361504963466
+  ],
+  "rerun_batch_acc_by_epoch": [
+    0.5045362903225806,
+    0.5176411290322581,
+    0.5448588709677419,
+    0.5580357142857143
+  ],
+  "recorded_meta_losses": [
+    0.7267308056354522,
+    0.6838110119104386
+  ],
+  "rerun_meta_losses_equal_recorded": true,
+  "rerun_head_vs_recorded_checkpoint": {
+    "bitwise_equal_all": true,
+    "max_abs_diff": 0.0
+  },
+  "save_reload": {
+    "rerun_ckpt_sha256": "08d1ce5a251956c08cea8736d3dc04ffbd7c2d439d80d97a53c1213c2e598034",
+    "equals_recorded_sha": true,
+    "logits_bitwise_equal": true,
+    "max_abs_logit_diff": 0.0
+  },
+  "cls_feature_stats": {
+    "mean_norm": 11.456321710883506,
+    "mean_pairwise_cosine_sample": 0.996547527607367,
+    "top3_abs_mean_dims": [
+      588,
+      551,
+      82
+    ],
+    "top3_abs_mean_vals": [
+      -11.285087866306306,
+      -0.5592919484376907,
+      -0.49886976915597914
+    ]
+  },
+  "EXPLORATORY_logreg_frozen_cls_features": {
+    "0.001": {
+      "train_acc_head_rows": 0.7345,
+      "acc_direction_evidence_rows": 0.6533203125
+    },
+    "0.01": {
+      "train_acc_head_rows": 0.79,
+      "acc_direction_evidence_rows": 0.671875
+    },
+    "0.1": {
+      "train_acc_head_rows": 0.8425,
+      "acc_direction_evidence_rows": 0.65625
+    },
+    "1.0": {
+      "train_acc_head_rows": 0.8815,
+      "acc_direction_evidence_rows": 0.65234375
+    }
+  }
+}
