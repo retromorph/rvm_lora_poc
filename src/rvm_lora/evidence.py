@@ -161,6 +161,29 @@ class EvidenceFit:
     issues: list = field(default_factory=list)
 
 
+GLOBAL_IMPROVEMENT_TOL = 1e-9  # an added start / refinement must beat the C3-start optimum by this many nats
+COORD_GRID_STEP = 0.5  # log-alpha spacing of the per-module global line search
+
+
+def _module_start_values(K: np.ndarray, b: np.ndarray, col_module: np.ndarray, n_modules: int,
+                         lo: float, hi: float) -> tuple[np.ndarray, list[np.ndarray]]:
+    """Per-module scale-aware start values: the module's own mean column scale (log mean diag K_m) and the
+    bounded empty-support singleton optima log(h^2/(q^2-h)) of its columns (Tipping-Faul, METHODS §1)."""
+    dK = np.diag(K)
+    own = np.empty(n_modules)
+    cands = []
+    for m in range(n_modules):
+        cols = np.flatnonzero(col_module == m)
+        own[m] = np.log(max(float(np.mean(dK[cols])), 1e-300))
+        vals = [own[m]]
+        for c in cols:
+            h, q2 = float(dK[c]), float(b[c]) ** 2
+            if h > 0 and q2 > h:
+                vals.append(np.log(h * h / (q2 - h)))
+        cands.append(np.unique(np.clip(vals, lo, hi)))
+    return np.clip(own, lo, hi), cands
+
+
 def optimize_evidence(
     K: np.ndarray, b: np.ndarray, col_module: np.ndarray, n_modules: int,
     warm_start: np.ndarray | None = None,
@@ -169,8 +192,15 @@ def optimize_evidence(
 ) -> EvidenceFit:
     """Type-II maximisation of E over one log-precision per module (L-BFGS-B, deterministic starts).
 
-    Starts: (i) the warm start if given, (ii) log alpha = 0, (iii) log alpha = log(median diag K).
-    The best objective value is returned. No randomness is involved.
+    Starts of docs/PROTOCOL_CLARIFICATIONS.md C3: (i) the warm start if given, (ii) log alpha = 0,
+    (iii) log alpha = log(median diag K). These alone return local optima when a module's prefix columns,
+    or different modules, differ in scale by orders of magnitude (reports/CORRECTNESS_AUDIT.md, A1), so the
+    protocol's *maximised* evidence is approached with further deterministic starts and a refinement:
+    (iv) every module at its own column scale; (v) every module at its most / least inclusive singleton
+    optimum; (vi) one module at each of its scale-aware values with the others at (v)-inclusive or excluded;
+    then (vii) block-coordinate global line search (grid step 0.5 in log alpha over the YAML bounds) from the
+    best point, polished by L-BFGS-B. The C3 optimum is kept unless (iv)-(vii) improve it by more than
+    GLOBAL_IMPROVEMENT_TOL. No randomness is involved.
     """
     if K.shape[0] == 0:
         return EvidenceFit(0.0, np.zeros(0), np.zeros(0, bool), 0, True)
@@ -181,27 +211,75 @@ def optimize_evidence(
         starts.append(np.clip(np.asarray(warm_start, dtype=np.float64), lo, hi))
     starts.append(np.zeros(n_modules))
     starts.append(np.full(n_modules, np.clip(np.log(max(diag_med, 1e-300)), lo, hi)))
+    n_c3 = len(starts)
+    own, cands = _module_start_values(K, b, col_module, n_modules, lo, hi)
+    incl = np.array([c[0] for c in cands])
+    excl = np.array([c[-1] for c in cands])
+    extra = [own, incl, excl]
+    for m in range(n_modules):
+        for v in cands[m]:
+            x = incl.copy()
+            x[m] = v
+            extra.append(x)
+            x = np.full(n_modules, hi)
+            x[m] = v
+            extra.append(x)
+    seen = {tuple(np.round(s, 12)) for s in starts}
+    for x in extra:
+        k = tuple(np.round(x, 12))
+        if k not in seen:
+            seen.add(k)
+            starts.append(x)
     issues: list = []
 
     def f(x):
         E, g = evidence_and_grad(K, b, x, col_module, n_modules, True, issues)
         return -E, -g
 
-    best = None
-    converged_any = False
-    for x0 in starts:
+    def value(x):
+        return evidence_and_grad(K, b, x, col_module, n_modules, False, issues)[0]
+
+    def lbfgs(x0):
         res = minimize(f, x0, jac=True, method="L-BFGS-B", bounds=[(lo, hi)] * n_modules,
                        options={"maxiter": maxiter, "ftol": 1e-12, "gtol": 1e-9})
-        val = -float(res.fun)
+        return -float(res.fun), np.asarray(res.x, dtype=np.float64), bool(res.success)
+
+    best = None
+    converged_any = False
+    for i, x0 in enumerate(starts):
+        val, x, ok = lbfgs(x0)
         if not np.isfinite(val):
             issues.append({"event": "nonfinite_evidence", "start": x0.tolist()})
             continue
-        converged_any |= bool(res.success)
-        if best is None or val > best[0] + 1e-12:
-            best = (val, np.asarray(res.x, dtype=np.float64))
+        converged_any |= ok
+        tol = 1e-12 if (best is None or i < n_c3) else GLOBAL_IMPROVEMENT_TOL
+        if best is None or val > best[0] + tol:
+            best = (val, x)
     if best is None:
         raise NumericalError("evidence optimisation failed for all starts")
+    # (vii) block-coordinate global line search over each module's log-precision, then polish
     E, x = best
+    grid = np.unique(np.concatenate([np.arange(lo, hi, COORD_GRID_STEP), [hi]]))
+    xr, Er = x.copy(), E
+    for _ in range(3):
+        moved = False
+        for m in range(n_modules):
+            vals = []
+            for gv in grid:
+                xt = xr.copy()
+                xt[m] = gv
+                vals.append(value(xt))
+            k = int(np.argmax(vals))
+            if vals[k] > Er + GLOBAL_IMPROVEMENT_TOL:
+                xr[m], Er, moved = grid[k], float(vals[k]), True
+        if not moved:
+            break
+    if Er > E + GLOBAL_IMPROVEMENT_TOL:
+        val, xp, ok = lbfgs(xr)
+        if np.isfinite(val) and val >= Er:
+            Er, xr = val, xp
+        issues.append({"event": "coordinate_refinement_improved", "gain": Er - E})
+        E, x = Er, xr
     if E < 0.0:  # exclusion of every module (alpha -> inf) attains ~0; report the bound value honestly
         issues.append({"event": "negative_optimum", "value": E})
     boundary = x >= hi - BOUNDARY_TOL

@@ -14,12 +14,22 @@ from pathlib import Path
 import numpy as np
 
 from . import data as D
-from .config import DATASET_REVISION, MODEL_REVISION, PREREG_MD, REPO_ROOT, Config, sha256_bytes, sha256_file
+from .config import (
+    DATASET_REVISION,
+    MODEL_REVISION,
+    PREREG_MD,
+    REPO_ROOT,
+    RUN_NAMESPACE,
+    Config,
+    namespaced,
+    sha256_bytes,
+    sha256_file,
+)
 from .tracking import Tracker, mirror_dir, read_mirror, run_key, write_json
 
 ROOT = REPO_ROOT
-ART = ROOT / "artifacts"
-REPORTS = ROOT / "reports"
+ART = namespaced(ROOT / "artifacts")
+REPORTS = namespaced(ROOT / "reports")
 
 
 def now() -> str:
@@ -47,7 +57,21 @@ def git_dirty() -> bool:
 
 def common_tags(cfg: Config) -> dict:
     return {"git_sha": git_sha(), "protocol_sha256": cfg.sha256, "model_revision": MODEL_REVISION,
-            "dataset_revision": DATASET_REVISION}
+            "dataset_revision": DATASET_REVISION, "run_namespace": RUN_NAMESPACE or "v1"}
+
+
+class StaleCacheError(RuntimeError):
+    """A cached stage output does not belong to the current head checkpoint / namespace."""
+
+
+def check_cached(what: str, cached: dict, **expected) -> None:
+    """Reuse a cached output only if every expected provenance field matches (never silently)."""
+    def got(k):  # outputs written before namespacing carry no field: they belong to the original "v1" run
+        return cached.get(k, "v1" if k == "run_namespace" else None)
+
+    bad = {k: (got(k), v) for k, v in expected.items() if got(k) != v}
+    if bad:
+        raise StaleCacheError(f"refusing to reuse {what}: provenance mismatch {bad}")
 
 
 def data_file(task: str, part: str) -> Path:
@@ -101,6 +125,7 @@ def warm_head(cfg: Config, task: str, seed: int, tracker: Tracker | None = None)
         meta = json.loads(mp.read_text())
         if sha256_file(hp) != meta["head_checkpoint_sha256"]:
             raise RuntimeError(f"head checkpoint hash mismatch for {task}/{seed}")
+        check_cached(f"head {task}/{seed}", meta, run_namespace=RUN_NAMESPACE or "v1")
         return meta
     log(f"warm-head {task} seed={seed}")
     t0 = time.perf_counter()
@@ -110,7 +135,8 @@ def warm_head(cfg: Config, task: str, seed: int, tracker: Tracker | None = None)
     sha = save_head(model, hp)
     meta = {"task": task, "seed": seed, "head_checkpoint": str(hp.relative_to(ROOT)), "head_checkpoint_sha256": sha,
             "head_examples": len(enc), "head_ids_sha256": D.ids_sha256(list(enc.idx)), **info,
-            "total_wall_s": time.perf_counter() - t0, "timestamp": now()}
+            "total_wall_s": time.perf_counter() - t0, "timestamp": now(), "run_namespace": RUN_NAMESPACE or "v1",
+            "git_sha": git_sha()}
     write_json(mp, meta)
     if tracker:
         gate = "gate1" if (task, seed) == (cfg["stage_a"]["task"], cfg["stage_a"]["run_seed"]) else "gate2"
@@ -152,7 +178,10 @@ def probe(cfg: Config, task: str, seed: int, gate1: bool, tracker: Tracker | Non
     pdir = probe_dir(task, seed)
     final = pdir / "probe_result.json"
     if final.exists():
-        return json.loads(final.read_text())
+        cached = json.loads(final.read_text())
+        hsha = json.loads(head_meta_path(task, seed).read_text())["head_checkpoint_sha256"]
+        check_cached(f"probe {task}/{seed}", cached, head_checkpoint_sha256=hsha, run_namespace=RUN_NAMESPACE or "v1")
+        return cached
     configure_precision()
     meta = warm_head(cfg, task, seed, tracker)
     clip = float(cfg["probe"]["probability_clip"])
@@ -222,6 +251,7 @@ def probe(cfg: Config, task: str, seed: int, gate1: bool, tracker: Tracker | Non
                                        list(range(0, cfg.max_rank + 1)))
     timings["oplora_selection_s"] = imp["wall_s"] + (time.perf_counter() - t1)
     result = {"task": task, "seed": seed, "head_checkpoint_sha256": head_sha, "checks": checks, "hashes": hashes,
+              "run_namespace": RUN_NAMESPACE or "v1", "git_sha": git_sha(),
               "timings": timings, "probe_sizes": {"directions": len(dirs_enc), "evidence": len(evid_enc)},
               "passes": {"direction": 1, "feature": 1, "oplora_importance": 1},
               "oplora": {"importance": imp["importance"], "ranks": op_ranks, "objective": op_obj,
@@ -232,7 +262,8 @@ def probe(cfg: Config, task: str, seed: int, gate1: bool, tracker: Tracker | Non
     if gate1:
         scores = {"arch_scores": sel["architecture_scores"], "lambda": sel["architecture_scores_lambda"],
                   "frozen_at": now(), "selection_file_sha256": result["selection_file_sha256"],
-                  "note": "precomputed before any audit label was read"}
+                  "head_checkpoint_sha256": head_sha, "run_namespace": RUN_NAMESPACE or "v1", "git_sha": git_sha(),
+                  "note": "precomputed before any audit label was read in this run namespace"}
         write_json(ART / "gate1" / "precomputed_scores.json", scores)
         result["precomputed_scores_sha256"] = sha256_file(ART / "gate1" / "precomputed_scores.json")
     if tracker:
@@ -271,6 +302,9 @@ def adapter_run(cfg: Config, tracker: Tracker, gate: str, method: str, task: str
     key = run_key(cfg.sha256, gate, method, task, seed, arch_id)
     prev = read_mirror(ROOT, gate, key)
     if prev and prev.get("status") == "COMPLETED":
+        hsha = json.loads(head_meta_path(task, seed).read_text())["head_checkpoint_sha256"]
+        check_cached(f"run {gate}/{method}/{task}/{seed}/{arch_id}", prev, head_checkpoint_sha256=hsha,
+                     run_namespace=RUN_NAMESPACE or "v1")
         log(f"reuse completed run {gate}/{method}/{task}/{seed}/{arch_id} ({prev.get('mlflow_run_id')})")
         return prev
     configure_precision()
@@ -287,7 +321,9 @@ def adapter_run(cfg: Config, tracker: Tracker, gate: str, method: str, task: str
     rid, attempt = tracker.start(gate, key, tags, params)
     t_total = time.perf_counter()
     result = {"run_key": key, "gate": gate, "method": method, "task": task, "seed": seed, "arch_id": arch_id,
-              "mlflow_run_id": rid, "attempt": attempt, "status": "RUNNING", "started": now()}
+              "mlflow_run_id": rid, "attempt": attempt, "status": "RUNNING", "started": now(),
+              "head_checkpoint_sha256": hmeta["head_checkpoint_sha256"], "run_namespace": RUN_NAMESPACE or "v1",
+              "git_sha": git_sha()}
     write_json(mdir / "result.json", result)
     try:
         train_enc = D.load_encoded(data_file(task, "adapter_train"))
@@ -297,7 +333,8 @@ def adapter_run(cfg: Config, tracker: Tracker, gate: str, method: str, task: str
         def build():
             nonlocal sel_s, eva_info
             model = load_backbone(seed)
-            load_head(model, head_path(ROOT, task, seed))
+            if load_head(model, head_path(ROOT, task, seed)) != hmeta["head_checkpoint_sha256"]:
+                raise RuntimeError("loaded head checkpoint differs from the recorded head hash")
             if eva:
                 from peft import EvaConfig, get_peft_model
 
@@ -373,7 +410,10 @@ def head_only_audit(cfg: Config, tracker: Tracker) -> dict:
     task, seed = cfg["stage_a"]["task"], cfg["stage_a"]["run_seed"]
     p = ART / "gate1" / "head_only_audit.json"
     if p.exists():
-        return json.loads(p.read_text())
+        cached = json.loads(p.read_text())
+        hsha = json.loads(head_meta_path(task, seed).read_text())["head_checkpoint_sha256"]
+        check_cached("head-only audit", cached, head_checkpoint_sha256=hsha)
+        return cached
     configure_precision()
     model = load_backbone(seed)
     sha = load_head(model, head_path(ROOT, task, seed))
@@ -385,7 +425,7 @@ def head_only_audit(cfg: Config, tracker: Tracker) -> dict:
     tracker.log_metrics(rid, {"audit_loss": ev["loss"], "audit_accuracy": ev["accuracy"], "adapter_params": 0})
     np.savez(ART / "gate1" / "head_only_audit.npz", idx=ev["idx"], loss=ev["per_example_loss"], logits=ev["logits"])
     out = {"audit_loss": ev["loss"], "audit_accuracy": ev["accuracy"], "n": len(audit), "mlflow_run_id": rid,
-           "head_checkpoint_sha256": sha, "timestamp": now()}
+           "head_checkpoint_sha256": sha, "timestamp": now(), "run_namespace": RUN_NAMESPACE or "v1"}
     write_json(p, out)
     tracker.log_artifact(rid, p)
     tracker.finish(rid, "COMPLETED")
@@ -401,6 +441,10 @@ def oracle_a(cfg: Config, tracker: Tracker) -> list[dict]:
         raise RuntimeError("protocol_freeze.json missing or does not match the config; refusing to read audit labels")
     if not (ART / "gate1" / "precomputed_scores.json").exists():
         raise RuntimeError("Gate-1 scores must be precomputed before any audit evaluation")
+    pr = json.loads((probe_dir(task, seed) / "probe_result.json").read_text())
+    check_cached("Gate-1 precomputed scores", json.loads((ART / "gate1" / "precomputed_scores.json").read_text()),
+                 selection_file_sha256=pr["selection_file_sha256"], head_checkpoint_sha256=pr["head_checkpoint_sha256"],
+                 run_namespace=RUN_NAMESPACE or "v1")
     head_only_audit(cfg, tracker)
     out = []
     for a in cfg.architectures():
@@ -510,7 +554,10 @@ def _record_empty(cfg, tracker, method, task, seed, sel_s) -> dict:
 
     key = run_key(cfg.sha256, "gate2", method, task, seed, method)
     prev = read_mirror(ROOT, "gate2", key)
+    hsha = json.loads(head_meta_path(task, seed).read_text())["head_checkpoint_sha256"]
     if prev and prev.get("status") == "COMPLETED":
+        check_cached(f"empty-selection run {method}/{task}/{seed}", prev, head_checkpoint_sha256=hsha,
+                     run_namespace=RUN_NAMESPACE or "v1")
         return prev
     configure_precision()
     model = load_backbone(seed)
@@ -527,7 +574,8 @@ def _record_empty(cfg, tracker, method, task, seed, sel_s) -> dict:
     tracker.finish(rid, "COMPLETED")
     res = {"run_key": key, "gate": "gate2", "method": method, "task": task, "seed": seed, "arch_id": method,
            "mlflow_run_id": rid, "attempt": attempt, "status": "COMPLETED", "metrics": metrics, "ranks": {},
-           "note": "empty selection: head-only model evaluated", "finished": now()}
+           "note": "empty selection: head-only model evaluated", "finished": now(), "head_checkpoint_sha256": hsha,
+           "run_namespace": RUN_NAMESPACE or "v1"}
     write_json(mdir / "result.json", res)
     return res
 
@@ -582,9 +630,20 @@ def write_freeze(cfg: Config) -> dict:
         cur = json.loads(p.read_text())
         if cur["config_sha256"] != cfg.sha256 or cur["preregistration_md_sha256"] != sha256_file(PREREG_MD):
             raise RuntimeError("protocol changed after freeze; refusing to overwrite protocol_freeze.json")
+        if RUN_NAMESPACE and cur.get("git_sha") != git_sha():
+            raise RuntimeError("code changed after this namespace's freeze; use a new RVM_RUN_NAMESPACE")
         return cur
     if git_dirty():
         raise RuntimeError("commit the implementation before freezing (tracked files are dirty)")
+    original = ROOT / "reports" / "protocol_freeze.json"
+    if RUN_NAMESPACE and original.exists():
+        orig = json.loads(original.read_text())
+        for k in ("config_sha256", "preregistration_md_sha256", "clarifications_md_sha256", "methods_md_sha256"):
+            now_v = {"config_sha256": cfg.sha256, "preregistration_md_sha256": sha256_file(PREREG_MD),
+                     "clarifications_md_sha256": sha256_file(ROOT / "docs" / "PROTOCOL_CLARIFICATIONS.md"),
+                     "methods_md_sha256": sha256_file(ROOT / "docs" / "METHODS.md")}[k]
+            if orig[k] != now_v:
+                raise RuntimeError(f"frozen protocol file changed since the original freeze: {k}")
     import importlib.metadata as md
 
     out = {"frozen_at": now(), "git_sha": git_sha(), "config_path": "configs/preregistered.yaml",
@@ -600,7 +659,14 @@ def write_freeze(cfg: Config) -> dict:
            "packages": {p_: md.version(p_) for p_ in ("torch", "transformers", "peft", "datasets", "mlflow", "numpy",
                                                       "scipy", "pandas")},
            "gate0_file_sha256": sha256_file(ART / "gate0" / "gate0.json") if (ART / "gate0" / "gate0.json").exists()
-           else None}
+           else None, "run_namespace": RUN_NAMESPACE or "v1"}
+    if RUN_NAMESPACE and original.exists():
+        orig = json.loads(original.read_text())
+        out["original_run"] = {"freeze_file": "reports/protocol_freeze.json",
+                               "freeze_file_sha256": sha256_file(original), "git_sha": orig["git_sha"],
+                               "frozen_at": orig["frozen_at"], "split_manifests_equal":
+                                   orig["split_manifests"] == out["split_manifests"],
+                               "uv_lock_equal": orig["uv_lock_sha256"] == out["uv_lock_sha256"]}
     write_json(p, out)
     return out
 

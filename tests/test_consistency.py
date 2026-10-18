@@ -11,22 +11,29 @@ import pytest
 ROOT = Path(__file__).resolve().parents[1]
 pytestmark = pytest.mark.post_hoc
 LIVE_URI = os.environ.get("MLFLOW_TRACKING_URI")
+NS = os.environ.get("RVM_RUN_NAMESPACE", "").strip()  # checks the namespaced (corrected) run when set
+
+
+def _path(p):
+    """'reports/x' -> reports/<ns>/x and 'artifacts/x' -> artifacts/<ns>/x for a namespaced run."""
+    head, _, rest = p.partition("/")
+    return ROOT / head / NS / rest if NS and head in ("reports", "artifacts") else ROOT / p
 
 
 def _need(*paths):
     for p in paths:
-        if not (ROOT / p).exists():
+        if not _path(p).exists():
             pytest.skip(f"{p} not produced yet")
 
 
 def _csv(p):
-    with open(ROOT / p) as f:
+    with open(_path(p)) as f:
         return list(csv.DictReader(f))
 
 
 def test_thresholds_match_yaml(cfg):
     _need("reports/gates.json")
-    g = json.loads((ROOT / "reports/gates.json").read_text())
+    g = json.loads(_path("reports/gates.json").read_text())
     sa = cfg["stage_a"]
     want = {"informative_cost_matched_pairs": sa["min_informative_cost_matched_pairs"],
             "rvm_pairwise_concordance": sa["min_rvm_concordance"],
@@ -43,7 +50,7 @@ def test_thresholds_match_yaml(cfg):
 def test_architecture_csv_matches_gate1(cfg):
     _need("reports/architecture_scores.csv", "artifacts/gate1/gate1.json")
     rows = {r["arch_id"]: r for r in _csv("reports/architecture_scores.csv")}
-    g1 = json.loads((ROOT / "artifacts/gate1/gate1.json").read_text())
+    g1 = json.loads(_path("artifacts/gate1/gate1.json").read_text())
     assert len(rows) == 20 == len(g1["rows"])
     for r in g1["rows"]:
         c = rows[r["arch_id"]]
@@ -63,7 +70,7 @@ def test_run_index_complete_and_explicit(cfg):
         assert r["status"] in allowed
         if r["status"] != "COMPLETED":
             assert r["eval_loss"] == "", "non-completed runs must not carry a score"
-    g = json.loads((ROOT / "reports/gates.json").read_text())
+    g = json.loads(_path("reports/gates.json").read_text())
     if g["gate1"]["status"] != "PASS":
         assert all(r["status"] == "NOT_RUN_GATE_FAILURE" for r in rows if r["gate"] == "gate2")
 

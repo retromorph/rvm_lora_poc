@@ -14,11 +14,13 @@ from pathlib import Path
 
 import numpy as np
 
-from .config import Config, sha256_file
+from .config import RUN_NAMESPACE, Config, sha256_file
 from .pipeline import ART, REPORTS, ROOT, git_sha, now, probe_dir
-from .tracking import read_mirror, run_key
+from .tracking import mirror_dir, read_mirror, run_key
 
 FIG = REPORTS / "figures"
+REL = str(REPORTS.relative_to(ROOT))  # "reports" (v1) or "reports/<namespace>"
+ARTREL = str(ART.relative_to(ROOT))
 # Reference categorical palette (dataviz skill, light mode), fixed slot order.
 C1, C2, C3, C4 = "#2a78d6", "#eb6834", "#1baf7a", "#eda100"
 INK, INK2, GRID, SURF = "#0b0b0b", "#52514e", "#e4e3df", "#fcfcfb"
@@ -84,7 +86,7 @@ def _row(gate, method, task, seed, arch, key, m, prefix, default):
             "microbatch": (m or {}).get("microbatch"), "precision_train": (m or {}).get("precision_train"),
             "ranks_json": json.dumps((m or {}).get("ranks"), sort_keys=True) if m and m.get("ranks") is not None else None,
             "error": (m or {}).get("error"),
-            "mirror": f"artifacts/runs/{gate}/{key}/result.json" if m else None}
+            "mirror": str(mirror_dir(ROOT, gate, key).relative_to(ROOT) / "result.json") if m else None}
 
 
 def write_csv(path: Path, rows: list[dict]) -> None:
@@ -391,16 +393,17 @@ def render_markdown(cfg, gates, idx, rows, sel, pr, figs) -> str:
     narrative = _load(REPORTS / "narrative.json") or {}
     L = []
     A = L.append
-    A("# RVM-LoRA pilot: final Go/No-Go assessment\n")
+    A("# RVM-LoRA pilot: final Go/No-Go assessment" +
+      (f" — corrected run `{RUN_NAMESPACE}`\n" if RUN_NAMESPACE else "\n"))
     A(f"**Date:** {now()} (UTC)  ")
-    A(f"**Overall decision (machine-evaluated, `reports/gates.json`):** **{gates['overall_decision']}**  ")
+    A(f"**Overall decision (machine-evaluated, `{REL}/gates.json`):** **{gates['overall_decision']}**  ")
     A(f"**Gate 0:** {g0['status']} · **Gate 1:** {g1['status']} · **Gate 2:** {g2['status']}  ")
     A(f"**Git SHA (report build):** `{git_sha()}` · **Protocol freeze git SHA:** `{freeze.get('git_sha')}`  ")
     A(f"**Protocol YAML SHA256:** `{cfg.sha256}` · **uv.lock SHA256:** `{freeze.get('uv_lock_sha256')}`  ")
     A("**MLflow tracking URI:** remote-local `http://127.0.0.1:5000` (SQLite `mlruns/mlflow.db`, artifacts "
       "`mlruns/artifacts`), UI only through `ssh -N -L 15000:127.0.0.1:5000 <host>`  ")
     A("**MLflow experiments:** `rvm-lora/gate0`, `rvm-lora/gate1`, `rvm-lora/gate2` (run IDs in "
-      "`reports/run_index.csv` and below)\n")
+      f"`{REL}/run_index.csv` and below)\n")
     A("## Executive judgment\n")
     A(narrative.get("executive", "_(narrative not yet written)_") + "\n")
     # ------------------------------------------------------------------ integrity
@@ -425,7 +428,7 @@ def render_markdown(cfg, gates, idx, rows, sel, pr, figs) -> str:
     A(f"| Protocol freeze timestamp / git / YAML / MD | {freeze.get('frozen_at')} / `{freeze.get('git_sha')}` / "
       f"`{freeze.get('config_sha256', '')[:16]}…` / prereg `{freeze.get('preregistration_md_sha256', '')[:16]}…`, "
       f"clarifications `{freeze.get('clarifications_md_sha256', '')[:16]}…` | yes |")
-    A("| Pilot run manager log and run index | `logs/pilot.log` (compact copy in bundle), `reports/run_index.csv` | yes |")
+    A(f"| Pilot run manager log and run index | `{LOG.relative_to(ROOT)}` (compact copy in bundle), `{REL}/run_index.csv` | yes |")
     A("| Evidence/calibration/official validation isolation | split tests (disjoint, train-only); audit read only "
       "after freeze and score precomputation; official validation read only in Gate 2 | "
       f"{'yes' if g0['status'] == 'PASS' else 'see Gate 0'} |")
@@ -438,13 +441,15 @@ def render_markdown(cfg, gates, idx, rows, sel, pr, figs) -> str:
     A("## Gate 0: numerical and pipeline correctness\n")
     A(_gate0_section(g0))
     A(f"\n**Gate 0 determination:** {g0['status']} ({g0.get('n_passed')}/{g0.get('n_tests')} tests; "
-      f"`artifacts/gate0/gate0.json`, MLflow run `{g0.get('mlflow_run_id')}`). "
+      f"`{ARTREL}/gate0/gate0.json`, MLflow run `{g0.get('mlflow_run_id')}`). "
       + narrative.get("gate0", "") + "\n")
     # ------------------------------------------------------------------ gate 1
     A("## Gate 1: QNLI architecture oracle (20 full runs)\n")
     A("Each `U(A) = audit_CE(head only) − audit_CE(A)` uses the same frozen warm-started head (QNLI, seed 42) "
       "and the final 600-step checkpoint. All four scores were precomputed and logged "
-      "(`artifacts/gate1/precomputed_scores.json`, MLflow probe run) before the first audit label was read.\n")
+      f"(`{ARTREL}/gate1/precomputed_scores.json`, MLflow probe run) before the first audit label was read"
+      + (" in this run namespace (the original run's audit outcomes were already known; see "
+         "`reports/CORRECTNESS_AUDIT.md`).\n" if RUN_NAMESPACE else ".\n"))
     if g1.get("head_only_audit_loss") is not None:
         A(f"Head-only audit CE: `{_full(g1['head_only_audit_loss'])}` nats.\n")
     if rows:
@@ -456,7 +461,7 @@ def render_markdown(cfg, gates, idx, rows, sel, pr, figs) -> str:
               f"{_fmt(r['independent_fisher'], 3)} | {_fmt(r['conditional_newton'], 3)} | {_fmt(r['group_rvm'], 3)} | "
               f"{_fmt(r['audit_loss'], 5)} | {_fmt(r['audit_accuracy'], 4)} | {_fmt(r['U'], 5)} | {r['status']} | "
               f"`{r['mlflow_run_id']}` |")
-        A("\nFull-precision values: `reports/architecture_scores.csv`.\n")
+        A(f"\nFull-precision values: `{REL}/architecture_scores.csv`.\n")
     if g1.get("concordance"):
         A("| Structural score | Pairwise concordance (concordant/informative) | Spearman 6,144 | Spearman 12,288 | "
           "Six-choice top-3 mean U | Margin vs best cheap (top-3) |")
@@ -495,7 +500,7 @@ def render_markdown(cfg, gates, idx, rows, sel, pr, figs) -> str:
     if g2["status"] == "NOT_RUN_GATE_FAILURE":
         A(f"**Gate 2: NOT_RUN_GATE_FAILURE.** {g2.get('note', '')}. Per the frozen conditional progression, none "
           "of the 24 Gate-2 trainings was started and the official GLUE validation splits were never evaluated. "
-          "All 24 rows are listed with this status in `reports/run_index.csv`; no Gate-2 number is reported or "
+          f"All 24 rows are listed with this status in `{REL}/run_index.csv`; no Gate-2 number is reported or "
           "imputed.\n")
         A("| Method | Mean QNLI CE | Mean SST-2 CE | Mean accuracy | Actual LoRA params | Mean selection s | "
           "Mean adapter-train s | Peak GB |\n|---|---:|---:|---:|---:|---:|---:|---:|")
@@ -505,6 +510,10 @@ def render_markdown(cfg, gates, idx, rows, sel, pr, figs) -> str:
         A(_gate2_tables(cfg, idx, g2))
     A("")
     # ------------------------------------------------------------------ ablations / failure analysis
+    if RUN_NAMESPACE:
+        A(f"## Before/after comparison (original v1 → corrected `{RUN_NAMESPACE}`)\n")
+        A(_before_after_section(cfg, gates))
+        A(narrative.get("before_after", "") + "\n")
     A("## Failure analysis / critical ablations\n")
     A(_ablation_section(cfg))
     A(narrative.get("failure_analysis", "") + "\n")
@@ -514,7 +523,7 @@ def render_markdown(cfg, gates, idx, rows, sel, pr, figs) -> str:
     A("## Deviations, missing evidence, and limitations\n")
     A(narrative.get("deviations", "_(see docs/PROTOCOL_CLARIFICATIONS.md)_") + "\n")
     A("## Final decision and next experiment\n")
-    A(f"**Machine-evaluated decision:** `{gates['overall_decision']}` (from `reports/gates.json`).  ")
+    A(f"**Machine-evaluated decision:** `{gates['overall_decision']}` (from `{REL}/gates.json`).  ")
     A(narrative.get("decision", "") + "\n")
     A("## Reproduction and evidence index\n")
     A(_repro_section(cfg, freeze))
@@ -562,6 +571,78 @@ def _gate2_tables(cfg, idx, g2) -> str:
         out.append(_gate_table(g2["criteria"]))
     out.append(f"\n**Gate 2: {g2['status']}** (Route A: {g2.get('route_a')}, Route B: {g2.get('route_b')}).")
     return "\n".join(out)
+
+
+def _before_after_section(cfg, gates) -> str:
+    """Original (v1) vs corrected run, read from both artifact trees; never typed by hand."""
+    v1g = _load(ROOT / "reports" / "gates.json") or {}
+    v1d = _load(ROOT / "artifacts" / "gate1" / "gate1.json") or {}
+    v2d = _load(ART / "gate1" / "gate1.json") or {}
+    v1h = _load(ROOT / "artifacts" / "gate1" / "head_only_audit.json") or {}
+    v2h = _load(ART / "gate1" / "head_only_audit.json") or {}
+    v1hm = _load(ROOT / "artifacts" / "heads" / "qnli_s42.json") or {}
+    from .pipeline import head_meta_path
+
+    v2hm = _load(head_meta_path(cfg["stage_a"]["task"], cfg["stage_a"]["run_seed"])) or {}
+    out = ["| Quantity | Original v1 | Corrected | Equal? |", "|---|---|---|---|"]
+
+    def row(name, a, b):
+        out.append(f"| {name} | {_full(a) if isinstance(a, float) else a} | {_full(b) if isinstance(b, float) else b} | "
+                   f"{'yes' if a == b else 'no'} |")
+
+    row("Overall decision", v1g.get("overall_decision"), gates.get("overall_decision"))
+    for g in ("gate0", "gate1", "gate2"):
+        row(f"{g} status", v1g.get(g, {}).get("status"), gates.get(g, {}).get("status"))
+    row("Head checkpoint SHA256", v1hm.get("head_checkpoint_sha256"), v2hm.get("head_checkpoint_sha256"))
+    row("Head train loss first20/last20", f"{v1hm.get('head_train_loss_first20')}/{v1hm.get('head_train_loss_last20')}",
+        f"{v2hm.get('head_train_loss_first20')}/{v2hm.get('head_train_loss_last20')}")
+    row("Head-only audit CE", v1h.get("audit_loss"), v2h.get("audit_loss"))
+    row("Head-only audit accuracy", v1h.get("audit_accuracy"), v2h.get("audit_accuracy"))
+    c1 = {c["criterion"]: c for c in v1g.get("gate1", {}).get("criteria", [])}
+    c2 = {c["criterion"]: c for c in gates.get("gate1", {}).get("criteria", [])}
+    for k in c1.keys() | c2.keys():
+        row(f"Gate-1 `{k}` value", c1.get(k, {}).get("value"), c2.get(k, {}).get("value"))
+        row(f"Gate-1 `{k}` status", c1.get(k, {}).get("status"), c2.get(k, {}).get("status"))
+    g1a, g1b = v1g.get("gate1", {}), gates.get("gate1", {})
+    for s in SCORE_LABEL:
+        ca, cb = g1a.get("concordance", {}).get(s, {}), g1b.get("concordance", {}).get(s, {})
+        row(f"{SCORE_LABEL[s]} concordance", f"{ca.get('concordance')} ({ca.get('concordant')}/{ca.get('informative_pairs')})",
+            f"{cb.get('concordance')} ({cb.get('concordant')}/{cb.get('informative_pairs')})")
+        ta, tb = g1a.get("top3", {}).get(s, {}), g1b.get("top3", {}).get(s, {})
+        row(f"{SCORE_LABEL[s]} top-3 mean U", ta.get("mean_U"), tb.get("mean_U"))
+        row(f"{SCORE_LABEL[s]} top-3 choices", json.dumps(ta.get("chosen")), json.dumps(tb.get("chosen")))
+    ia = {i["pair"]: i for i in g1a.get("interactions", [])}
+    ib = {i["pair"]: i for i in g1b.get("interactions", [])}
+    for p in ia.keys() | ib.keys():
+        row(f"{p} I_oracle", ia.get(p, {}).get("I_oracle"), ib.get(p, {}).get("I_oracle"))
+        row(f"{p} I_evidence (sign correct?)", f"{ia.get(p, {}).get('I_evidence')} ({ia.get(p, {}).get('correct_sign')})",
+            f"{ib.get(p, {}).get('I_evidence')} ({ib.get(p, {}).get('correct_sign')})")
+    out.append("\n| Architecture | U v1 | U corrected | RVM evidence v1 | RVM evidence corrected | Newton v1 | Newton corrected |")
+    out.append("|---|---:|---:|---:|---:|---:|---:|")
+    ra = {r["arch_id"]: r for r in v1d.get("rows", [])}
+    rb = {r["arch_id"]: r for r in v2d.get("rows", [])}
+    for a in cfg.architectures():
+        x, y = ra.get(a.arch_id, {}), rb.get(a.arch_id, {})
+        out.append(f"| {a.arch_id} | {_full(x.get('U'))} | {_full(y.get('U'))} | {_full(x.get('group_rvm'))} | "
+                   f"{_full(y.get('group_rvm'))} | {_full(x.get('conditional_newton'))} | {_full(y.get('conditional_newton'))} |")
+    sa = cfg["stage_a"]
+    s1 = _load(ROOT / "artifacts" / "probes" / f"{sa['task']}_s{sa['run_seed']}" / "selection.json") or {}
+    s2 = _load(probe_dir(sa["task"], sa["run_seed"]) / "selection.json") or {}
+    out.append("\n| Selector (QNLI/42, real features) | v1 | corrected |\n|---|---|---|")
+    for name, k in (("Group RVM ranks", "group_rvm"), ("Conditional Newton (B24) ranks", "conditional_newton"),
+                    ("No-logdet ablation ranks", "rvm_no_logdet")):
+        out.append(f"| {name} | `{json.dumps(s1.get(k, {}).get('ranks'), sort_keys=True)}` | "
+                   f"`{json.dumps(s2.get(k, {}).get('ranks'), sort_keys=True)}` |")
+    cn1, cn2 = s1.get("conditional_newton", {}), s2.get("conditional_newton", {})
+    out.append(f"| Newton with own null threshold (diagnostic) | `{json.dumps(cn1.get('diagnostic_thresholded_ranks'), sort_keys=True)}` | "
+               f"`{json.dumps(cn2.get('diagnostic_thresholded_ranks'), sort_keys=True)}` |")
+    out.append(f"| RVM null threshold (nats/param) | {_full(s1.get('group_rvm', {}).get('threshold'))} | "
+               f"{_full(s2.get('group_rvm', {}).get('threshold'))} |")
+    out.append(f"| RVM fresh-null activations | {s1.get('group_rvm_fresh_null', {}).get('activations')} | "
+               f"{s2.get('group_rvm_fresh_null', {}).get('activations')} |")
+    out.append(f"| Thresholded Newton == RVM | {cn1.get('diagnostic_thresholded_ranks') == s1.get('group_rvm', {}).get('ranks')} | "
+               f"{cn2.get('diagnostic_thresholded_ranks') == s2.get('group_rvm', {}).get('ranks')} |")
+    return "\n".join(out) + "\n"
 
 
 def _ablation_section(cfg) -> str:
@@ -615,23 +696,24 @@ def _resource_section(cfg, idx, hm, pr) -> str:
 def _repro_section(cfg, freeze) -> str:
     return "\n".join([
         f"- `configs/preregistered.yaml` SHA256 `{cfg.sha256}`; `docs/PREREGISTRATION.md` SHA256 "
-        f"`{freeze.get('preregistration_md_sha256')}`; freeze record `reports/protocol_freeze.json`.",
-        "- MLflow run IDs: `reports/run_index.csv` (column `mlflow_run_id`) and the tables above.",
-        "- `reports/gates.json` (mechanical evaluator output), `reports/run_index.csv`, "
-        "`reports/architecture_scores.csv`, `reports/gate1_summary.csv`, `reports/figures/`.",
+        f"`{freeze.get('preregistration_md_sha256')}`; freeze record `{REL}/protocol_freeze.json`.",
+        f"- MLflow run IDs: `{REL}/run_index.csv` (column `mlflow_run_id`) and the tables above.",
+        f"- `{REL}/gates.json` (mechanical evaluator output), `{REL}/run_index.csv`, "
+        f"`{REL}/architecture_scores.csv`, `{REL}/gate1_summary.csv`, `{REL}/figures/`.",
         "- Exact shell commands (fresh checkout on the GPU host):\n\n```bash\n"
         "bash scripts/bootstrap_remote.sh            # uv, Python 3.11, uv sync --frozen, dry run\n"
         "bash scripts/start_mlflow.sh                # MLflow on 127.0.0.1:5000 in tmux 'rvm_mlflow'\n"
         "export MLFLOW_TRACKING_URI=http://127.0.0.1:5000\n"
         "uv run --frozen python -m rvm_lora.cli env-check\n"
         "uv run --frozen pytest -q -m 'not post_hoc'\n"
-        "tmux new-session -d -s rvm_pilot 'bash scripts/run_remote.sh'   # full frozen gate chain\n"
+        (f"export RVM_RUN_NAMESPACE={RUN_NAMESPACE}            # isolated, versioned outputs\n" if RUN_NAMESPACE else "")
+        + "tmux new-session -d -s rvm_pilot 'bash scripts/run_remote.sh'   # full frozen gate chain\n"
         "uv run --frozen python -m rvm_lora.cli status\n"
         "uv run --frozen python -m rvm_lora.cli report   # gates.json, CSVs, figures, FINAL_REPORT.md, bundle\n"
         "uv run --frozen pytest -q -m post_hoc           # gates.json reproducible from logged artifacts\n```",
-        "- Review bundle: `reports/review_bundle.zip`; its SHA256 is in `reports/review_bundle.sha256` (the bundle "
+        f"- Review bundle: `{REL}/review_bundle.zip`; its SHA256 is in `{REL}/review_bundle.sha256` (the bundle "
         "contains this report, so the hash cannot be embedded here). Retrieve from the GPU host with "
-        "`scp <user>@<host>:<REMOTE_PROJECT_DIR>/reports/review_bundle.zip .`",
+        f"`scp <user>@<host>:<REMOTE_PROJECT_DIR>/{REL}/review_bundle.zip .`",
     ])
 
 
@@ -642,13 +724,23 @@ BUNDLE_FILES = ["reports/FINAL_REPORT.md", "reports/gates.json", "reports/run_in
                 "reports/environment.json", "reports/splits/qnli_split_manifest.json",
                 "reports/splits/sst2_split_manifest.json", "configs/preregistered.yaml", "configs/baseline_fidelity.json",
                 "docs/PREREGISTRATION.md", "docs/METHODS.md", "docs/PROTOCOL_CLARIFICATIONS.md", "pyproject.toml",
-                "uv.lock", "README.md", "AGENTS.md"]
+                "uv.lock", "README.md", "AGENTS.md", "reports/CORRECTNESS_AUDIT.md"]
+SHARED_REPORT_FILES = ("reports/splits/", "reports/CORRECTNESS_AUDIT.md")
+LOG = ROOT / "logs" / (f"pilot_{RUN_NAMESPACE}.log" if RUN_NAMESPACE else "pilot.log")
+
+
+def _bundle_path(f: str) -> Path:
+    """Namespaced report outputs live in reports/<ns>/; split manifests and the audit are shared."""
+    if f.startswith("reports/") and not f.startswith(SHARED_REPORT_FILES):
+        return REPORTS / f[len("reports/"):]
+    return ROOT / f
 
 
 def build_bundle(cfg) -> str:
     """Portable review archive: no weights, datasets, DB, credentials or per-example raw outputs."""
     zp = REPORTS / "review_bundle.zip"
-    files = [ROOT / f for f in BUNDLE_FILES if (ROOT / f).exists()]
+    files = [_bundle_path(f) for f in BUNDLE_FILES if _bundle_path(f).exists()]
+    files += sorted((ROOT / "reports" / "audit").glob("*.json")) if RUN_NAMESPACE else []
     files += sorted(FIG.glob("*.png"))
     for sub in ("gate0", "gate1", "gate2"):
         for p in sorted((ART / sub).glob("*.json")):
@@ -670,16 +762,16 @@ def build_bundle(cfg) -> str:
             rel = str(f.relative_to(ROOT))
             z.write(f, rel)
             manifest[rel] = sha256_file(f)
-        log = ROOT / "logs" / "pilot.log"
+        log = LOG
         if log.exists():
             lines = [ln for ln in log.read_text(errors="replace").splitlines()
                      if not any(s in ln for s in ("it/s]", "s/it]", "Loading weights", "Generating"))]
-            z.writestr("logs/pilot_compact.log", "\n".join(lines[-4000:]))
+            z.writestr(f"logs/{log.stem}_compact.log", "\n".join(lines[-4000:]))
         z.writestr("BUNDLE_MANIFEST.json", json.dumps({"git_sha": git_sha(), "created": now(),
                                                        "files_sha256": manifest}, indent=2))
         z.writestr("REPRODUCE.md", _repro_section(cfg, _load(REPORTS / "protocol_freeze.json") or {}))
     sha = sha256_file(zp)
-    (REPORTS / "review_bundle.sha256").write_text(f"{sha}  reports/review_bundle.zip\n")
+    (REPORTS / "review_bundle.sha256").write_text(f"{sha}  {REL}/review_bundle.zip\n")
     return sha
 
 
