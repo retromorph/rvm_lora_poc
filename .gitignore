@@ -21,3 +21,5 @@ wandb/
 reports/review_bundle.zip
 reports/tmp/
 artifacts/
+
+reports/*/review_bundle.zip

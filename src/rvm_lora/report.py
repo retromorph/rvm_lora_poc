@@ -430,7 +430,9 @@ def render_markdown(cfg, gates, idx, rows, sel, pr, figs) -> str:
       f"clarifications `{freeze.get('clarifications_md_sha256', '')[:16]}…` | yes |")
     A(f"| Pilot run manager log and run index | `{LOG.relative_to(ROOT)}` (compact copy in bundle), `{REL}/run_index.csv` | yes |")
     A("| Evidence/calibration/official validation isolation | split tests (disjoint, train-only); audit read only "
-      "after freeze and score precomputation; official validation read only in Gate 2 | "
+      "after freeze and score precomputation" + (" in this namespace (v1 audit outcomes were already known)"
+                                                 if RUN_NAMESPACE else "") +
+      "; official validation read only in Gate 2 | "
       f"{'yes' if g0['status'] == 'PASS' else 'see Gate 0'} |")
     A("| Parameter-count assertions, LoRA-only gradients | asserted per run (`assert_exact_layout`, head digest "
       "before/after training) | yes |")
@@ -494,7 +496,7 @@ def render_markdown(cfg, gates, idx, rows, sel, pr, figs) -> str:
     A(f"\n**Gate 1: {g1['status']}.** " + narrative.get("gate1", "") + "\n")
     for f in figs:
         if "gate1" in f:
-            A(f"![{Path(f).stem}]({Path(f).relative_to('reports')})\n")
+            A(f"![{Path(f).stem}]({Path(f).relative_to(REL)})\n")
     # ------------------------------------------------------------------ gate 2
     A("## Gate 2: matched-budget comparisons\n")
     if g2["status"] == "NOT_RUN_GATE_FAILURE":
@@ -600,7 +602,7 @@ def _before_after_section(cfg, gates) -> str:
     row("Head-only audit accuracy", v1h.get("audit_accuracy"), v2h.get("audit_accuracy"))
     c1 = {c["criterion"]: c for c in v1g.get("gate1", {}).get("criteria", [])}
     c2 = {c["criterion"]: c for c in gates.get("gate1", {}).get("criteria", [])}
-    for k in c1.keys() | c2.keys():
+    for k in list(c1) + [k for k in c2 if k not in c1]:
         row(f"Gate-1 `{k}` value", c1.get(k, {}).get("value"), c2.get(k, {}).get("value"))
         row(f"Gate-1 `{k}` status", c1.get(k, {}).get("status"), c2.get(k, {}).get("status"))
     g1a, g1b = v1g.get("gate1", {}), gates.get("gate1", {})
@@ -613,7 +615,7 @@ def _before_after_section(cfg, gates) -> str:
         row(f"{SCORE_LABEL[s]} top-3 choices", json.dumps(ta.get("chosen")), json.dumps(tb.get("chosen")))
     ia = {i["pair"]: i for i in g1a.get("interactions", [])}
     ib = {i["pair"]: i for i in g1b.get("interactions", [])}
-    for p in ia.keys() | ib.keys():
+    for p in list(ia) + [p for p in ib if p not in ia]:
         row(f"{p} I_oracle", ia.get(p, {}).get("I_oracle"), ib.get(p, {}).get("I_oracle"))
         row(f"{p} I_evidence (sign correct?)", f"{ia.get(p, {}).get('I_evidence')} ({ia.get(p, {}).get('correct_sign')})",
             f"{ib.get(p, {}).get('I_evidence')} ({ib.get(p, {}).get('correct_sign')})")

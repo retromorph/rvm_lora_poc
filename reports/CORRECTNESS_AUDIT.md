@@ -288,7 +288,7 @@ Commit `d1aa145`:
 - Every cache reuse is provenance-checked, Gate 0 is reused only for the same commit, and corrected runs live in an isolated `RVM_RUN_NAMESPACE`.
 - 10 regression tests were added and registered as Gate‑0 checks.
 
-Commit `4d4a6fb` fixed a reporting bug in the new namespaced report code (no effect on any result). No protocol file, threshold, dataset, model, architecture, baseline, budget, seed or metric changed.
+Commits `4d4a6fb` and `577fd0d` fixed a reporting bug in the new namespaced report code and a path mix in a post-hoc test. Later commits touch reports and documentation only. None of them affects any result. No protocol file, threshold, dataset, model, architecture, baseline, budget, seed or metric changed.
 
 **4. Was a valid protocol-equivalent rerun possible and completed?**
 Yes, for the stages the protocol allowed:

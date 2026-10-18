@@ -113,8 +113,8 @@ if ex:
         f"{ex['concordance']['independent_fisher']:.3f}.\n"
         f"    * Top-3 mean U: RVM {ex['top3_mean_U']['group_rvm']:.4f}, gradient norm "
         f"{ex['top3_mean_U']['gradient_norm']:.4f}.\n"
-        f"    * Interaction signs: {sum(i['informative'] and i['correct_sign'] for i in ex['interactions'])}/"
-        f"{sum(i['informative'] for i in ex['interactions'])} informative.\n\n"
+        f"    * Interaction signs: {sum(i['informative'] and i['correct_sign'] for i in ex['interactions'])} of "
+        f"{sum(i['informative'] for i in ex['interactions'])} informative effects correct.\n\n"
         "    Details are in `reports/CORRECTNESS_AUDIT.md` §8. This changes no verdict.")
 n["failure_analysis"] = "\n".join(fa)
 sc = cmp_["selection_cost_s"]
