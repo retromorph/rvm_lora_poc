@@ -706,7 +706,7 @@ def _repro_section(cfg, freeze) -> str:
         "export MLFLOW_TRACKING_URI=http://127.0.0.1:5000\n"
         "uv run --frozen python -m rvm_lora.cli env-check\n"
         "uv run --frozen pytest -q -m 'not post_hoc'\n"
-        (f"export RVM_RUN_NAMESPACE={RUN_NAMESPACE}            # isolated, versioned outputs\n" if RUN_NAMESPACE else "")
+        + (f"export RVM_RUN_NAMESPACE={RUN_NAMESPACE}            # isolated, versioned outputs\n" if RUN_NAMESPACE else "")
         + "tmux new-session -d -s rvm_pilot 'bash scripts/run_remote.sh'   # full frozen gate chain\n"
         "uv run --frozen python -m rvm_lora.cli status\n"
         "uv run --frozen python -m rvm_lora.cli report   # gates.json, CSVs, figures, FINAL_REPORT.md, bundle\n"
