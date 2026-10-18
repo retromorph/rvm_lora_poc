@@ -1,0 +1,763 @@
+{
+  "L_mean_loss_per_method": {
+    "conditional_newton": 0.31601399703126637,
+    "eva": 0.2821377738916933,
+    "group_rvm": 0.428094351556881,
+    "oplora": 0.3756972794853194,
+    "uniform_r1": 0.3071245508462432,
+    "uniform_r2": 0.2965531068639022
+  },
+  "allocations": {
+    "qnli/2025": {
+      "conditional_newton": {
+        "roberta.encoder.layer.1.attention.self.query": 1,
+        "roberta.encoder.layer.1.attention.self.value": 1,
+        "roberta.encoder.layer.10.attention.self.value": 2,
+        "roberta.encoder.layer.11.attention.self.value": 1,
+        "roberta.encoder.layer.3.attention.self.query": 1,
+        "roberta.encoder.layer.3.attention.self.value": 1,
+        "roberta.encoder.layer.4.attention.self.query": 2,
+        "roberta.encoder.layer.4.attention.self.value": 2,
+        "roberta.encoder.layer.6.attention.self.query": 1,
+        "roberta.encoder.layer.6.attention.self.value": 3,
+        "roberta.encoder.layer.7.attention.self.query": 1,
+        "roberta.encoder.layer.7.attention.self.value": 3,
+        "roberta.encoder.layer.8.attention.self.query": 1,
+        "roberta.encoder.layer.8.attention.self.value": 2,
+        "roberta.encoder.layer.9.attention.self.value": 2
+      },
+      "eva": {
+        "roberta.encoder.layer.1.attention.self.query": 1,
+        "roberta.encoder.layer.1.attention.self.value": 1,
+        "roberta.encoder.layer.10.attention.self.query": 2,
+        "roberta.encoder.layer.10.attention.self.value": 2,
+        "roberta.encoder.layer.11.attention.self.query": 2,
+        "roberta.encoder.layer.11.attention.self.value": 2,
+        "roberta.encoder.layer.2.attention.self.query": 1,
+        "roberta.encoder.layer.2.attention.self.value": 1,
+        "roberta.encoder.layer.4.attention.self.query": 1,
+        "roberta.encoder.layer.4.attention.self.value": 1,
+        "roberta.encoder.layer.5.attention.self.query": 1,
+        "roberta.encoder.layer.5.attention.self.value": 1,
+        "roberta.encoder.layer.6.attention.self.query": 1,
+        "roberta.encoder.layer.6.attention.self.value": 1,
+        "roberta.encoder.layer.7.attention.self.query": 1,
+        "roberta.encoder.layer.7.attention.self.value": 1,
+        "roberta.encoder.layer.8.attention.self.query": 1,
+        "roberta.encoder.layer.8.attention.self.value": 1,
+        "roberta.encoder.layer.9.attention.self.query": 1,
+        "roberta.encoder.layer.9.attention.self.value": 1
+      },
+      "group_rvm": {
+        "roberta.encoder.layer.6.attention.self.query": 1,
+        "roberta.encoder.layer.7.attention.self.value": 1,
+        "roberta.encoder.layer.9.attention.self.value": 2
+      },
+      "newton_own_null_threshold (diagnostic, not trained)": {
+        "roberta.encoder.layer.6.attention.self.query": 1,
+        "roberta.encoder.layer.7.attention.self.value": 1,
+        "roberta.encoder.layer.9.attention.self.value": 2
+      },
+      "oplora": {
+        "roberta.encoder.layer.10.attention.self.value": 8,
+        "roberta.encoder.layer.11.attention.self.query": 1,
+        "roberta.encoder.layer.11.attention.self.value": 8,
+        "roberta.encoder.layer.9.attention.self.value": 7
+      },
+      "rvm_no_logdet (offline ablation, not trained)": {
+        "roberta.encoder.layer.6.attention.self.query": 1,
+        "roberta.encoder.layer.7.attention.self.value": 1,
+        "roberta.encoder.layer.9.attention.self.value": 2
+      }
+    },
+    "qnli/42": {
+      "conditional_newton": {
+        "roberta.encoder.layer.0.attention.self.value": 1,
+        "roberta.encoder.layer.10.attention.self.value": 1,
+        "roberta.encoder.layer.11.attention.self.value": 1,
+        "roberta.encoder.layer.2.attention.self.value": 1,
+        "roberta.encoder.layer.3.attention.self.query": 2,
+        "roberta.encoder.layer.3.attention.self.value": 1,
+        "roberta.encoder.layer.4.attention.self.query": 1,
+        "roberta.encoder.layer.6.attention.self.query": 5,
+        "roberta.encoder.layer.6.attention.self.value": 2,
+        "roberta.encoder.layer.7.attention.self.query": 1,
+        "roberta.encoder.layer.7.attention.self.value": 3,
+        "roberta.encoder.layer.9.attention.self.query": 3,
+        "roberta.encoder.layer.9.attention.self.value": 2
+      },
+      "eva": {
+        "roberta.encoder.layer.1.attention.self.query": 1,
+        "roberta.encoder.layer.1.attention.self.value": 1,
+        "roberta.encoder.layer.10.attention.self.query": 2,
+        "roberta.encoder.layer.10.attention.self.value": 2,
+        "roberta.encoder.layer.11.attention.self.query": 2,
+        "roberta.encoder.layer.11.attention.self.value": 2,
+        "roberta.encoder.layer.2.attention.self.query": 1,
+        "roberta.encoder.layer.2.attention.self.value": 1,
+        "roberta.encoder.layer.4.attention.self.query": 1,
+        "roberta.encoder.layer.4.attention.self.value": 1,
+        "roberta.encoder.layer.5.attention.self.query": 1,
+        "roberta.encoder.layer.5.attention.self.value": 1,
+        "roberta.encoder.layer.6.attention.self.query": 1,
+        "roberta.encoder.layer.6.attention.self.value": 1,
+        "roberta.encoder.layer.7.attention.self.query": 1,
+        "roberta.encoder.layer.7.attention.self.value": 1,
+        "roberta.encoder.layer.8.attention.self.query": 1,
+        "roberta.encoder.layer.8.attention.self.value": 1,
+        "roberta.encoder.layer.9.attention.self.query": 1,
+        "roberta.encoder.layer.9.attention.self.value": 1
+      },
+      "group_rvm": {
+        "roberta.encoder.layer.11.attention.self.query": 2,
+        "roberta.encoder.layer.4.attention.self.query": 1,
+        "roberta.encoder.layer.6.attention.self.query": 1
+      },
+      "newton_own_null_threshold (diagnostic, not trained)": {
+        "roberta.encoder.layer.10.attention.self.value": 1,
+        "roberta.encoder.layer.3.attention.self.query": 2,
+        "roberta.encoder.layer.4.attention.self.query": 1,
+        "roberta.encoder.layer.6.attention.self.query": 1,
+        "roberta.encoder.layer.7.attention.self.value": 1
+      },
+      "oplora": {
+        "roberta.encoder.layer.10.attention.self.value": 8,
+        "roberta.encoder.layer.11.attention.self.query": 1,
+        "roberta.encoder.layer.11.attention.self.value": 8,
+        "roberta.encoder.layer.2.attention.self.value": 7
+      },
+      "rvm_no_logdet (offline ablation, not trained)": {
+        "roberta.encoder.layer.11.attention.self.query": 2,
+        "roberta.encoder.layer.3.attention.self.query": 2,
+        "roberta.encoder.layer.6.attention.self.query": 1,
+        "roberta.encoder.layer.6.attention.self.value": 1
+      }
+    },
+    "sst2/2025": {
+      "conditional_newton": {
+        "roberta.encoder.layer.0.attention.self.value": 2,
+        "roberta.encoder.layer.1.attention.self.value": 1,
+        "roberta.encoder.layer.10.attention.self.query": 1,
+        "roberta.encoder.layer.10.attention.self.value": 4,
+        "roberta.encoder.layer.11.attention.self.query": 1,
+        "roberta.encoder.layer.11.attention.self.value": 2,
+        "roberta.encoder.layer.2.attention.self.value": 1,
+        "roberta.encoder.layer.3.attention.self.value": 1,
+        "roberta.encoder.layer.4.attention.self.query": 1,
+        "roberta.encoder.layer.4.attention.self.value": 1,
+        "roberta.encoder.layer.7.attention.self.query": 2,
+        "roberta.encoder.layer.8.attention.self.query": 2,
+        "roberta.encoder.layer.8.attention.self.value": 4,
+        "roberta.encoder.layer.9.attention.self.query": 1
+      },
+      "eva": {
+        "roberta.encoder.layer.1.attention.self.query": 1,
+        "roberta.encoder.layer.1.attention.self.value": 1,
+        "roberta.encoder.layer.10.attention.self.query": 1,
+        "roberta.encoder.layer.10.attention.self.value": 1,
+        "roberta.encoder.layer.11.attention.self.query": 1,
+        "roberta.encoder.layer.11.attention.self.value": 1,
+        "roberta.encoder.layer.2.attention.self.query": 1,
+        "roberta.encoder.layer.2.attention.self.value": 1,
+        "roberta.encoder.layer.3.attention.self.query": 1,
+        "roberta.encoder.layer.3.attention.self.value": 1,
+        "roberta.encoder.layer.4.attention.self.query": 1,
+        "roberta.encoder.layer.4.attention.self.value": 1,
+        "roberta.encoder.layer.5.attention.self.query": 1,
+        "roberta.encoder.layer.5.attention.self.value": 1,
+        "roberta.encoder.layer.6.attention.self.query": 1,
+        "roberta.encoder.layer.6.attention.self.value": 1,
+        "roberta.encoder.layer.7.attention.self.query": 1,
+        "roberta.encoder.layer.7.attention.self.value": 1,
+        "roberta.encoder.layer.8.attention.self.query": 2,
+        "roberta.encoder.layer.8.attention.self.value": 2,
+        "roberta.encoder.layer.9.attention.self.query": 1,
+        "roberta.encoder.layer.9.attention.self.value": 1
+      },
+      "group_rvm": {
+        "roberta.encoder.layer.10.attention.self.query": 1,
+        "roberta.encoder.layer.11.attention.self.query": 1,
+        "roberta.encoder.layer.2.attention.self.value": 1
+      },
+      "newton_own_null_threshold (diagnostic, not trained)": {
+        "roberta.encoder.layer.10.attention.self.query": 1,
+        "roberta.encoder.layer.11.attention.self.query": 1,
+        "roberta.encoder.layer.2.attention.self.value": 1
+      },
+      "oplora": {
+        "roberta.encoder.layer.10.attention.self.value": 8,
+        "roberta.encoder.layer.11.attention.self.query": 1,
+        "roberta.encoder.layer.11.attention.self.value": 8,
+        "roberta.encoder.layer.9.attention.self.value": 7
+      },
+      "rvm_no_logdet (offline ablation, not trained)": {
+        "roberta.encoder.layer.10.attention.self.query": 1,
+        "roberta.encoder.layer.11.attention.self.query": 1,
+        "roberta.encoder.layer.2.attention.self.value": 1
+      }
+    },
+    "sst2/42": {
+      "conditional_newton": {
+        "roberta.encoder.layer.0.attention.self.value": 1,
+        "roberta.encoder.layer.1.attention.self.value": 1,
+        "roberta.encoder.layer.10.attention.self.query": 2,
+        "roberta.encoder.layer.10.attention.self.value": 1,
+        "roberta.encoder.layer.11.attention.self.query": 1,
+        "roberta.encoder.layer.11.attention.self.value": 5,
+        "roberta.encoder.layer.2.attention.self.value": 1,
+        "roberta.encoder.layer.3.attention.self.value": 1,
+        "roberta.encoder.layer.4.attention.self.query": 1,
+        "roberta.encoder.layer.5.attention.self.query": 1,
+        "roberta.encoder.layer.5.attention.self.value": 1,
+        "roberta.encoder.layer.7.attention.self.query": 1,
+        "roberta.encoder.layer.8.attention.self.query": 2,
+        "roberta.encoder.layer.8.attention.self.value": 4,
+        "roberta.encoder.layer.9.attention.self.query": 1
+      },
+      "eva": {
+        "roberta.encoder.layer.1.attention.self.query": 1,
+        "roberta.encoder.layer.1.attention.self.value": 1,
+        "roberta.encoder.layer.10.attention.self.query": 1,
+        "roberta.encoder.layer.10.attention.self.value": 1,
+        "roberta.encoder.layer.11.attention.self.query": 1,
+        "roberta.encoder.layer.11.attention.self.value": 1,
+        "roberta.encoder.layer.2.attention.self.query": 1,
+        "roberta.encoder.layer.2.attention.self.value": 1,
+        "roberta.encoder.layer.3.attention.self.query": 1,
+        "roberta.encoder.layer.3.attention.self.value": 1,
+        "roberta.encoder.layer.4.attention.self.query": 1,
+        "roberta.encoder.layer.4.attention.self.value": 1,
+        "roberta.encoder.layer.5.attention.self.query": 1,
+        "roberta.encoder.layer.5.attention.self.value": 1,
+        "roberta.encoder.layer.6.attention.self.query": 1,
+        "roberta.encoder.layer.6.attention.self.value": 1,
+        "roberta.encoder.layer.7.attention.self.query": 1,
+        "roberta.encoder.layer.7.attention.self.value": 1,
+        "roberta.encoder.layer.8.attention.self.query": 2,
+        "roberta.encoder.layer.8.attention.self.value": 2,
+        "roberta.encoder.layer.9.attention.self.query": 1,
+        "roberta.encoder.layer.9.attention.self.value": 1
+      },
+      "group_rvm": {
+        "roberta.encoder.layer.10.attention.self.query": 1,
+        "roberta.encoder.layer.11.attention.self.query": 1,
+        "roberta.encoder.layer.2.attention.self.value": 1
+      },
+      "newton_own_null_threshold (diagnostic, not trained)": {
+        "roberta.encoder.layer.10.attention.self.query": 1,
+        "roberta.encoder.layer.11.attention.self.query": 1,
+        "roberta.encoder.layer.2.attention.self.value": 1
+      },
+      "oplora": {
+        "roberta.encoder.layer.10.attention.self.value": 8,
+        "roberta.encoder.layer.11.attention.self.query": 1,
+        "roberta.encoder.layer.11.attention.self.value": 8,
+        "roberta.encoder.layer.9.attention.self.value": 7
+      },
+      "rvm_no_logdet (offline ablation, not trained)": {
+        "roberta.encoder.layer.10.attention.self.query": 1,
+        "roberta.encoder.layer.11.attention.self.query": 1,
+        "roberta.encoder.layer.2.attention.self.value": 1
+      }
+    }
+  },
+  "best_b24_baseline": "eva",
+  "bootstrap_vs_best_b24": {
+    "lower": -0.15713921758382882,
+    "n_boot": 2000,
+    "point": -0.14595657766518771,
+    "seed": 991,
+    "upper": -0.13497120148266292
+  },
+  "code_identity_vs_reference_freeze": {
+    "base": "d1aa145f3f35091afec68d5c53a628a03d9df158",
+    "diff_stat": "src/rvm_lora/cli.py       |  28 ++++++++-\n src/rvm_lora/gates.py     |  32 +++++++++-\n src/rvm_lora/integrity.py |  79 +++++++++++++++++++++++\n src/rvm_lora/pipeline.py  | 155 +++++++++++++++++++++++++++++++++++-----------\n src/rvm_lora/report.py    |  18 +++---\n src/rvm_lora/tracking.py  |   4 ++\n 6 files changed, 269 insertions(+), 47 deletions(-)",
+    "files": {
+      "adapters.py": "identical",
+      "baselines.py": "identical",
+      "config.py": "identical",
+      "data.py": "identical",
+      "evidence.py": "identical",
+      "gates.py": "changed",
+      "modeling.py": "identical",
+      "pipeline.py": "changed",
+      "probe.py": "identical",
+      "selection_job.py": "identical",
+      "selectors.py": "identical",
+      "tracking.py": "changed",
+      "train.py": "identical"
+    },
+    "training": "1e19fbd39b1da36af169480b9858d2f2b912c4ad"
+  },
+  "config_sha256": "d242007e14950316549f7278cd7bdc2bd091bae577510ffdd5111b6bdf9b2b05",
+  "criteria": [
+    {
+      "best_baseline": "eva",
+      "comparator": ">=",
+      "criterion": "routeA_aggregate_loss_advantage_vs_best_B24",
+      "cutoff": 0.01,
+      "execution_type": "exploratory_override",
+      "source": "artifacts/gate2/per_run_metrics.json",
+      "status": "FAIL",
+      "value": -0.14595657766518771
+    },
+    {
+      "comparator": ">=",
+      "criterion": "routeA_task_seed_wins",
+      "cutoff": 3,
+      "execution_type": "exploratory_override",
+      "pair_differences": {
+        "qnli/2025": -0.10296606606571318,
+        "qnli/42": -0.3015960094656081,
+        "sst2/2025": -0.08241259830450606,
+        "sst2/42": -0.09685163682492356
+      },
+      "source": "artifacts/gate2/per_run_metrics.json",
+      "status": "FAIL",
+      "value": 0
+    },
+    {
+      "bootstrap": {
+        "lower": -0.15713921758382882,
+        "n_boot": 2000,
+        "point": -0.14595657766518771,
+        "seed": 991,
+        "upper": -0.13497120148266292
+      },
+      "comparator": ">",
+      "criterion": "routeA_bootstrap_90pct_lower_bound",
+      "cutoff": 0.0,
+      "execution_type": "exploratory_override",
+      "source": "artifacts/gate2/bootstrap.json",
+      "status": "FAIL",
+      "value": -0.15713921758382882
+    },
+    {
+      "comparator": "<=",
+      "criterion": "routeB_rvm_excess_vs_uniform_r2",
+      "cutoff": 0.005,
+      "execution_type": "exploratory_override",
+      "source": "artifacts/gate2/per_run_metrics.json",
+      "status": "FAIL",
+      "value": 0.13154124469297884
+    },
+    {
+      "comparator": ">=",
+      "criterion": "routeB_rvm_advantage_vs_conditional_newton",
+      "cutoff": 0.005,
+      "execution_type": "exploratory_override",
+      "source": "artifacts/gate2/per_run_metrics.json",
+      "status": "FAIL",
+      "value": -0.11208035452561466
+    },
+    {
+      "comparator": "<=",
+      "criterion": "routeB_taskwise_excess_vs_uniform_r2",
+      "cutoff": 0.01,
+      "execution_type": "exploratory_override",
+      "per_task": {
+        "qnli": 0.19341790368787123,
+        "sst2": 0.06966458569808658
+      },
+      "source": "artifacts/gate2/per_run_metrics.json",
+      "status": "FAIL",
+      "value": 0.19341790368787123
+    },
+    {
+      "comparator": "rule",
+      "criterion": "mandatory_rvm_specificity",
+      "cutoff": "differs in >=1 config and Newton-RVM > 0 (A) / >= 0.005 (B)",
+      "execution_type": "exploratory_override",
+      "route_a_ok": false,
+      "route_b_ok": false,
+      "source": "artifacts/gate2/structures.json",
+      "status": "FAIL",
+      "value": {
+        "newton_minus_rvm_loss": -0.11208035452561466,
+        "structures_differ": {
+          "qnli/2025": true,
+          "qnli/42": true,
+          "sst2/2025": true,
+          "sst2/42": true
+        }
+      }
+    },
+    {
+      "comparator": "<=",
+      "criterion": "mandatory_overhead_ratio",
+      "cutoff": 0.25,
+      "execution_type": "exploratory_override",
+      "mean_rvm_selection_s": 35.404588788500405,
+      "median_uniform_r1_train_s": 69.13997478350211,
+      "source": "artifacts/gate2/per_run_metrics.json",
+      "status": "FAIL",
+      "value": 0.512071184569603
+    },
+    {
+      "comparator": "rule",
+      "criterion": "mandatory_baseline_integrity",
+      "cutoff": "all true",
+      "execution_type": "exploratory_override",
+      "source": "artifacts/gate2/fidelity.json",
+      "status": "PASS",
+      "value": {
+        "budget_ok": true,
+        "fidelity": {
+          "conditional_newton": true,
+          "eva": true,
+          "group_rvm": true,
+          "oplora": true,
+          "uniform_r1": true,
+          "uniform_r2": true
+        }
+      }
+    }
+  ],
+  "descriptive_comparisons": [
+    {
+      "L_competitor": 0.3071245508462432,
+      "L_rvm": 0.428094351556881,
+      "accuracy_advantage_rvm": -0.05999634530544934,
+      "bootstrap_90pct": {
+        "lower": -0.1295013381020593,
+        "n_boot": 2000,
+        "point": -0.12096980071063786,
+        "seed": 991,
+        "upper": -0.11257620550173192
+      },
+      "budget": "B24",
+      "competitor": "uniform_r1",
+      "complete": true,
+      "loss_advantage_rvm": -0.12096980071063793,
+      "per_task_loss_advantage": {
+        "qnli": -0.17857703131765418,
+        "sst2": -0.06336257010362166
+      },
+      "per_task_seed_accuracy_advantage": {
+        "qnli/2025": -0.022698151198974892,
+        "qnli/42": -0.15650741350906094,
+        "sst2/2025": -0.0240825688073395,
+        "sst2/42": -0.03669724770642202
+      },
+      "per_task_seed_loss_advantage": {
+        "qnli/2025": -0.07674728600432651,
+        "qnli/42": -0.28040677663098185,
+        "sst2/2025": -0.05721970994642481,
+        "sst2/42": -0.06950543026081851
+      },
+      "role": "descriptive",
+      "rvm_wins": 0
+    },
+    {
+      "L_competitor": 0.2821377738916933,
+      "L_rvm": 0.428094351556881,
+      "accuracy_advantage_rvm": -0.07456516272102398,
+      "bootstrap_90pct": {
+        "lower": -0.15713921758382882,
+        "n_boot": 2000,
+        "point": -0.14595657766518771,
+        "seed": 991,
+        "upper": -0.13497120148266292
+      },
+      "budget": "B24",
+      "competitor": "eva",
+      "complete": true,
+      "loss_advantage_rvm": -0.14595657766518774,
+      "per_task_loss_advantage": {
+        "qnli": -0.20228103776566064,
+        "sst2": -0.08963211756471481
+      },
+      "per_task_seed_accuracy_advantage": {
+        "qnli/2025": -0.041369211056196176,
+        "qnli/42": -0.16858868753432177,
+        "sst2/2025": -0.04357798165137616,
+        "sst2/42": -0.044724770642201817
+      },
+      "per_task_seed_loss_advantage": {
+        "qnli/2025": -0.10296606606571318,
+        "qnli/42": -0.3015960094656081,
+        "sst2/2025": -0.08241259830450606,
+        "sst2/42": -0.09685163682492356
+      },
+      "role": "descriptive",
+      "rvm_wins": 0
+    },
+    {
+      "L_competitor": 0.3756972794853194,
+      "L_rvm": 0.428094351556881,
+      "accuracy_advantage_rvm": -0.025238121927831425,
+      "bootstrap_90pct": {
+        "lower": -0.060048979957026176,
+        "n_boot": 2000,
+        "point": -0.05239707207156159,
+        "seed": 991,
+        "upper": -0.044884165453182516
+      },
+      "budget": "B24",
+      "competitor": "oplora",
+      "complete": true,
+      "loss_advantage_rvm": -0.05239707207156161,
+      "per_task_loss_advantage": {
+        "qnli": -0.08575602444479002,
+        "sst2": -0.01903811969833319
+      },
+      "per_task_seed_accuracy_advantage": {
+        "qnli/2025": 0.032216730734028975,
+        "qnli/42": -0.1136738056013179,
+        "sst2/2025": -0.005733944954128489,
+        "sst2/42": -0.013761467889908285
+      },
+      "per_task_seed_loss_advantage": {
+        "qnli/2025": 0.02436231448928705,
+        "qnli/42": -0.1958743633788671,
+        "sst2/2025": -0.013050077806062654,
+        "sst2/42": -0.025026161590603724
+      },
+      "role": "descriptive",
+      "rvm_wins": 1
+    },
+    {
+      "L_competitor": 0.31601399703126637,
+      "L_rvm": 0.428094351556881,
+      "accuracy_advantage_rvm": -0.05961539430396645,
+      "bootstrap_90pct": {
+        "lower": -0.12006685655356164,
+        "n_boot": 2000,
+        "point": -0.11208035452561471,
+        "seed": 991,
+        "upper": -0.10423937624035362
+      },
+      "budget": "B24",
+      "competitor": "conditional_newton",
+      "complete": true,
+      "loss_advantage_rvm": -0.11208035452561471,
+      "per_task_loss_advantage": {
+        "qnli": -0.16796812532053898,
+        "sst2": -0.05619258373069046
+      },
+      "per_task_seed_accuracy_advantage": {
+        "qnli/2025": -0.028555738605161918,
+        "qnli/42": -0.15485996705107086,
+        "sst2/2025": -0.02178899082568808,
+        "sst2/42": -0.03325688073394495
+      },
+      "per_task_seed_loss_advantage": {
+        "qnli/2025": -0.07176585571348693,
+        "qnli/42": -0.26417039492759103,
+        "sst2/2025": -0.052964990596778755,
+        "sst2/42": -0.05942017686460216
+      },
+      "role": "descriptive",
+      "rvm_wins": 0
+    },
+    {
+      "L_competitor": 0.2965531068639022,
+      "L_rvm": 0.428094351556881,
+      "accuracy_advantage_rvm": -0.06569785773183062,
+      "bootstrap_90pct": {
+        "lower": -0.14049377458489765,
+        "n_boot": 2000,
+        "point": -0.13154124469297887,
+        "seed": 991,
+        "upper": -0.12277671146517762
+      },
+      "budget": "B48",
+      "competitor": "uniform_r2",
+      "complete": true,
+      "loss_advantage_rvm": -0.1315412446929789,
+      "per_task_loss_advantage": {
+        "qnli": -0.19341790368787123,
+        "sst2": -0.06966458569808658
+      },
+      "per_task_seed_accuracy_advantage": {
+        "qnli/2025": -0.036609921288669245,
+        "qnli/42": -0.1585209591799377,
+        "sst2/2025": -0.029816513761467878,
+        "sst2/42": -0.037844036697247674
+      },
+      "per_task_seed_loss_advantage": {
+        "qnli/2025": -0.0969405189216817,
+        "qnli/42": -0.28989528845406076,
+        "sst2/2025": -0.06489521634058906,
+        "sst2/42": -0.07443395505558409
+      },
+      "role": "descriptive",
+      "rvm_wins": 0
+    }
+  ],
+  "environment": {
+    "bf16_supported": true,
+    "gpu_name": "NVIDIA RTX A4000",
+    "nvidia_smi": "NVIDIA RTX A4000, 16376 MiB, 595.71.05",
+    "packages": {
+      "accelerate": "1.15.0",
+      "datasets": "5.1.0",
+      "huggingface-hub": "2.2.0",
+      "matplotlib": "3.11.2",
+      "mlflow": "3.17.1",
+      "numpy": "2.4.6",
+      "pandas": "3.0.6",
+      "peft": "0.21.2",
+      "safetensors": "0.8.0",
+      "scipy": "1.17.1",
+      "torch": "2.14.1+cu130",
+      "transformers": "5.20.1"
+    },
+    "python": "3.11.17",
+    "torch_cuda": "13.0",
+    "uv_lock_sha256": "dd27a90b3e5e34e3bc11475da7a1b8ee41eeb871f9c3c26346cde36898cb38f5"
+  },
+  "execution_type": "exploratory_override",
+  "exploratory_gate2_standalone_result": "FAIL",
+  "gate0_in_namespace": {
+    "git_sha": "1e19fbd39b1da36af169480b9858d2f2b912c4ad",
+    "n_passed": 71,
+    "n_tests": 71,
+    "status": "PASS"
+  },
+  "gate1_status": "FAIL",
+  "generated_at": "2026-10-18T07:56:47+00:00",
+  "label": "COUNTERFACTUAL: frozen Gate-2 criteria evaluated as if Gate 1 had passed; does not count toward, and cannot change, the preregistered Go/No-Go decision",
+  "log_span": {
+    "first_start": "2026-10-18T07:16:41Z",
+    "last_done": "2026-10-18T07:52:44Z",
+    "script_starts": 1
+  },
+  "mlflow": {
+    "experiment": "rvm-lora/gate2",
+    "export": "reports/gate2_exploratory/mlflow_export.json",
+    "run_ids": {
+      "conditional_newton|qnli|2025": "c2ffb336195d45f5b824eed3c63af8b1",
+      "conditional_newton|qnli|42": "d1fdf38cbd254b6cb270b11882d1bce9",
+      "conditional_newton|sst2|2025": "85d60fb4bef149f3843291fea606960d",
+      "conditional_newton|sst2|42": "e949708570974661a9d135312be74b83",
+      "eva|qnli|2025": "94db179e53a64156803958515e16ad9d",
+      "eva|qnli|42": "f6e014107d324ecd8681926b24622eb9",
+      "eva|sst2|2025": "6386c1f2a4d74cdcba3df526d0508e40",
+      "eva|sst2|42": "9f72ace85bd3446e9d516e004fde74ba",
+      "group_rvm|qnli|2025": "e7d35f0527754ac9b3ee17a9bc2c8968",
+      "group_rvm|qnli|42": "ce38b646b7f345d6a68d857bde8603b0",
+      "group_rvm|sst2|2025": "b532e975a1b34c729d7842863d61d633",
+      "group_rvm|sst2|42": "f3b44f9a64b8418d9e063a1bb293882b",
+      "oplora|qnli|2025": "18d51ecbef02421db28065ab34b34b3a",
+      "oplora|qnli|42": "17550090ed0d486a9184bbe459b62934",
+      "oplora|sst2|2025": "9483cd2861784ab0bbf4c23f8c5f3be9",
+      "oplora|sst2|42": "b91142e5edb643e68fa0d40515d85620",
+      "uniform_r1|qnli|2025": "79d2710cdc4e4ef59cb3e165108aae82",
+      "uniform_r1|qnli|42": "524406e66fd64daa9872371fc9d7fe71",
+      "uniform_r1|sst2|2025": "74cd44d198934eae83c371276da1ebd2",
+      "uniform_r1|sst2|42": "4e40f105f1974ffa98af4374b454483c",
+      "uniform_r2|qnli|2025": "31acd68f9c4b4b9eb80aefd463fb2417",
+      "uniform_r2|qnli|42": "28632f9e667545778a977db10610b83d",
+      "uniform_r2|sst2|2025": "42ee7338f31b4dfabc73413fcaf1537b",
+      "uniform_r2|sst2|42": "16b9be0baf1d41929fd8236fccf3e99a"
+    },
+    "tracking_uri": "http://127.0.0.1:5000 (GPU host, loopback only)"
+  },
+  "overhead": {
+    "cutoff": 0.25,
+    "mean_rvm_selection_s": 35.404588788500405,
+    "median_uniform_r1_train_s": 69.13997478350211,
+    "ratio": 0.512071184569603,
+    "status": "FAIL"
+  },
+  "override": {
+    "execution_type": "exploratory_override",
+    "gate1_record": "artifacts/v2/gate1/gate1.json",
+    "gate1_record_sha256": "fb79f4c6bd33c921ae2885a6becbf4037a352c0d951ae177f7fb7fa91e990d20",
+    "gate1_status": "FAIL",
+    "protocol_version": "v2_corrected",
+    "reference_artifacts": "artifacts/v2",
+    "stage": "gate2"
+  },
+  "preregistered_decision_recomputed_from_statuses": "NO_GO",
+  "preregistered_decision_source": "reports/v2/gates.json",
+  "preregistered_gate2_status": "NOT_RUN_GATE_FAILURE",
+  "preregistered_gate_statuses": {
+    "gate0": "PASS",
+    "gate1": "FAIL",
+    "gate2": "NOT_RUN_GATE_FAILURE"
+  },
+  "preregistered_overall_decision": "NO_GO",
+  "reference_check_all_equal": [
+    true,
+    null,
+    null,
+    null
+  ],
+  "reference_integrity": {
+    "files_added": [],
+    "files_changed_or_missing": [],
+    "files_checked": 112,
+    "mlflow_runs_added": 35,
+    "mlflow_runs_changed_or_missing": [],
+    "mlflow_runs_checked": 73,
+    "reference_namespace": "v2",
+    "untouched": true
+  },
+  "report_git_sha": "471515f648f853a6456f90f1918408cebac00983",
+  "route_a": false,
+  "route_b": false,
+  "split_identity": {
+    "qnli": {
+      "all_equal": true,
+      "encoded_files_equal_manifest": {
+        "adapter_train": true,
+        "audit": true,
+        "directions": true,
+        "evidence": true,
+        "head": true
+      },
+      "manifest_file_sha256": "09cb486a77901636b2a319aebc7b3234b77301a6db241a5497c0bcea61a0b3a9",
+      "regenerated_equals_manifest": {
+        "adapter_train": true,
+        "audit": true,
+        "directions": true,
+        "evidence": true,
+        "head": true,
+        "other": true
+      },
+      "seed2025_head_ids_equal_manifest": true,
+      "seed2025_probe_direction_ids_equal_manifest": true,
+      "seed2025_probe_evidence_ids_equal_manifest": true,
+      "seed42_head_ids_equal_manifest": true,
+      "seed42_probe_direction_ids_equal_manifest": true,
+      "seed42_probe_evidence_ids_equal_manifest": true,
+      "validation_ids_sha256": "402a638310b2996a0e04a5e06e4eb846e47b24785a96eb3cdaeaa68d45e582a8",
+      "validation_rows": 5463
+    },
+    "sst2": {
+      "all_equal": true,
+      "encoded_files_equal_manifest": {
+        "adapter_train": true,
+        "audit": true,
+        "directions": true,
+        "evidence": true,
+        "head": true
+      },
+      "manifest_file_sha256": "dbd2d19ce993450f639914a989d62cf7f76021444e69bd019f9018bd06894baf",
+      "regenerated_equals_manifest": {
+        "adapter_train": true,
+        "audit": true,
+        "directions": true,
+        "evidence": true,
+        "head": true,
+        "other": true
+      },
+      "seed2025_head_ids_equal_manifest": true,
+      "seed2025_probe_direction_ids_equal_manifest": true,
+      "seed2025_probe_evidence_ids_equal_manifest": true,
+      "seed42_head_ids_equal_manifest": true,
+      "seed42_probe_direction_ids_equal_manifest": true,
+      "seed42_probe_evidence_ids_equal_manifest": true,
+      "validation_ids_sha256": "7aba309ccd1dc6b55a9db36dc8d2e54c061c99134d6002771236bd630a6722ee",
+      "validation_rows": 872
+    }
+  },
+  "split_manifests_equal_to_original": true,
+  "thresholds_source": "configs/preregistered.yaml (stage_b), unchanged",
+  "training_code_git_shas": [
+    "1e19fbd39b1da36af169480b9858d2f2b912c4ad"
+  ],
+  "uv_lock_equal_to_original": true
+}

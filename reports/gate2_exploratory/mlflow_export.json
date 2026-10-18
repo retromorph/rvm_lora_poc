@@ -1,0 +1,4957 @@
+{
+  "0fb005a442ac4401956f3b749901ecd3": {
+    "artifacts": [
+      "qnli_s42.json"
+    ],
+    "end_time": 1792308063840,
+    "experiment": "rvm-lora/gate2",
+    "experiment_id": "4",
+    "metric_history": {},
+    "metrics": {
+      "head_steps": 200.0,
+      "head_train_loss_first20": 0.7267308056354522,
+      "head_train_loss_last20": 0.6838110119104386,
+      "head_wall_s": 5.515644926999812
+    },
+    "params": {
+      "lr": "0.001",
+      "steps": "200"
+    },
+    "run_name": "head_warm_start-qnli-s42--a1",
+    "start_time": 1792308063365,
+    "status": "FINISHED",
+    "tags": {
+      "attempt": "1",
+      "dataset_revision": "bcdcba79d07bc864c1c254ccfcedcce55bcc9a8c",
+      "execution_type": "exploratory_override",
+      "gate": "gate2",
+      "gate1_record": "artifacts/v2/gate1/gate1.json",
+      "gate1_record_sha256": "fb79f4c6bd33c921ae2885a6becbf4037a352c0d951ae177f7fb7fa91e990d20",
+      "gate1_status": "FAIL",
+      "git_sha": "1e19fbd39b1da36af169480b9858d2f2b912c4ad",
+      "head_checkpoint_sha256": "08d1ce5a251956c08cea8736d3dc04ffbd7c2d439d80d97a53c1213c2e598034",
+      "hostname": "cv8161499.novalocal",
+      "method": "head_warm_start",
+      "mlflow.runName": "head_warm_start-qnli-s42--a1",
+      "model_revision": "e2da8e2f811d1448a5b465c236feacd80ffbac7b",
+      "protocol_sha256": "d242007e14950316549f7278cd7bdc2bd091bae577510ffdd5111b6bdf9b2b05",
+      "protocol_version": "v2_corrected",
+      "reference_artifacts": "artifacts/v2",
+      "run_key": "4f89983b83ee6fafb37c",
+      "run_namespace": "gate2_exploratory",
+      "seed": "42",
+      "stage": "gate2",
+      "status": "COMPLETED",
+      "task": "qnli"
+    }
+  },
+  "16b9be0baf1d41929fd8236fccf3e99a": {
+    "artifacts": [
+      "result.json",
+      "train_curve.json"
+    ],
+    "end_time": 1792309580873,
+    "experiment": "rvm-lora/gate2",
+    "experiment_id": "4",
+    "metric_history": {
+      "train_loss": [
+        [
+          20,
+          0.5813028249889612
+        ],
+        [
+          40,
+          0.5744194924831391
+        ],
+        [
+          60,
+          0.454792233556509
+        ],
+        [
+          80,
+          0.3711543601937592
+        ],
+        [
+          100,
+          0.3725702646188438
+        ],
+        [
+          120,
+          0.29209030233323574
+        ],
+        [
+          140,
+          0.29238968626596035
+        ],
+        [
+          160,
+          0.29788724072277545
+        ],
+        [
+          180,
+          0.32561195578891783
+        ],
+        [
+          200,
+          0.3508405061904341
+        ],
+        [
+          220,
+          0.28354089830536394
+        ],
+        [
+          240,
+          0.3186557706911117
+        ],
+        [
+          260,
+          0.31979177612811327
+        ],
+        [
+          280,
+          0.3249017278198153
+        ],
+        [
+          300,
+          0.3050522391684353
+        ],
+        [
+          320,
+          0.3121353666298091
+        ],
+        [
+          340,
+          0.2914258257485926
+        ],
+        [
+          360,
+          0.27712644308339807
+        ],
+        [
+          380,
+          0.2666984411422163
+        ],
+        [
+          400,
+          0.3115003837272525
+        ],
+        [
+          420,
+          0.2711305981501937
+        ],
+        [
+          440,
+          0.25669394398573786
+        ],
+        [
+          460,
+          0.2805524478899315
+        ],
+        [
+          480,
+          0.3076292054262012
+        ],
+        [
+          500,
+          0.28419068166986106
+        ],
+        [
+          520,
+          0.26388702446129175
+        ],
+        [
+          540,
+          0.3119353217771277
+        ],
+        [
+          560,
+          0.2500219663605094
+        ],
+        [
+          580,
+          0.2794311721343547
+        ],
+        [
+          600,
+          0.2575158329680562
+        ],
+        [
+          0,
+          0.2575158329680562
+        ]
+      ]
+    },
+    "metrics": {
+      "adapter_params": 73728.0,
+      "official_validation_accuracy": 0.9048165137614679,
+      "official_validation_loss": 0.2361650006780019,
+      "peak_gpu_memory_mb": 979.3603515625,
+      "rank_sum": 48.0,
+      "selection_wall_s": 0.0,
+      "total_wall_s": 68.76055959399673,
+      "train_loss": 0.2575158329680562,
+      "train_wall_s": 66.00613046499348
+    },
+    "params": {
+      "effective_batch": "32",
+      "eval_split": "validation",
+      "lora_alpha": "4",
+      "lr": "0.0002",
+      "ranks_json": "{\"roberta.encoder.layer.0.attention.self.query\": 2, \"roberta.encoder.layer.0.attention.self.value\": 2, \"roberta.encoder.layer.1.attention.self.query\": 2, \"roberta.encoder.layer.1.attention.self.value\": 2, \"roberta.encoder.layer.10.attention.self.query\": 2, \"roberta.encoder.layer.10.attention.self.value\": 2, \"roberta.encoder.layer.11.attention.self.query\": 2, \"roberta.encoder.layer.11.attention.self.value\": 2, \"roberta.encoder.layer.2.attention.self.query\": 2, \"roberta.encoder.layer.2.attention.self.value\": 2, \"roberta.encoder.layer.3.attention.self.query\": 2, \"roberta.encoder.layer.3.attention.self.value\": 2, \"roberta.encoder.layer.4.attention.self.query\": 2, \"roberta.encoder.layer.4.attention.self.value\": 2, \"roberta.encoder.layer.5.attention.self.query\": 2, \"roberta.encoder.layer.5.attention.self.value\": 2, \"roberta.encoder.layer.6.attention.self.query\": 2, \"roberta.encoder.layer.6.attention.self.value\": 2, \"roberta.encoder.layer.7.attention.self.query\": 2, \"roberta.encoder.layer.7.attention.self.value\": 2, \"roberta.encoder.layer.8.attention.self.query\": 2, \"roberta.encoder.layer.8.attention.self.value\": 2, \"roberta.encoder.layer.9.attention.self.query\": 2, \"roberta.encoder.layer.9.attention.self.value\": 2}",
+      "steps": "600",
+      "use_rslora": "True",
+      "weight_decay": "0.01"
+    },
+    "run_name": "uniform_r2-sst2-s42-uniform_r2-a1",
+    "start_time": 1792309511077,
+    "status": "FINISHED",
+    "tags": {
+      "arch_id": "uniform_r2",
+      "attempt": "1",
+      "data_split_sha256": "b2dade8b65d6b8cb58638b8ae910ed314c0839d7033494ab55c88df3c7ea5b86",
+      "dataset_revision": "bcdcba79d07bc864c1c254ccfcedcce55bcc9a8c",
+      "execution_type": "exploratory_override",
+      "gate": "gate2",
+      "gate1_record": "artifacts/v2/gate1/gate1.json",
+      "gate1_record_sha256": "fb79f4c6bd33c921ae2885a6becbf4037a352c0d951ae177f7fb7fa91e990d20",
+      "gate1_status": "FAIL",
+      "git_sha": "1e19fbd39b1da36af169480b9858d2f2b912c4ad",
+      "head_checkpoint_sha256": "06785967289b4a27a3f46df07766defdc7db93b2e325e53d7a0314d32dddac88",
+      "hostname": "cv8161499.novalocal",
+      "method": "uniform_r2",
+      "mlflow.runName": "uniform_r2-sst2-s42-uniform_r2-a1",
+      "model_revision": "e2da8e2f811d1448a5b465c236feacd80ffbac7b",
+      "protocol_sha256": "d242007e14950316549f7278cd7bdc2bd091bae577510ffdd5111b6bdf9b2b05",
+      "protocol_version": "v2_corrected",
+      "rank_allocation": "{\"roberta.encoder.layer.0.attention.self.query\": 2, \"roberta.encoder.layer.0.attention.self.value\": 2, \"roberta.encoder.layer.1.attention.self.query\": 2, \"roberta.encoder.layer.1.attention.self.value\": 2, \"roberta.encoder.layer.10.attention.self.query\": 2, \"roberta.encoder.layer.10.attention.self.value\": 2, \"roberta.encoder.layer.11.attention.self.query\": 2, \"roberta.encoder.layer.11.attention.self.value\": 2, \"roberta.encoder.layer.2.attention.self.query\": 2, \"roberta.encoder.layer.2.attention.self.value\": 2, \"roberta.encoder.layer.3.attention.self.query\": 2, \"roberta.encoder.layer.3.attention.self.value\": 2, \"roberta.encoder.layer.4.attention.self.query\": 2, \"roberta.encoder.layer.4.attention.self.value\": 2, \"roberta.encoder.layer.5.attention.self.query\": 2, \"roberta.encoder.layer.5.attention.self.value\": 2, \"roberta.encoder.layer.6.attention.self.query\": 2, \"roberta.encoder.layer.6.attention.self.value\": 2, \"roberta.encoder.layer.7.attention.self.query\": 2, \"roberta.encoder.layer.7.attention.self.value\": 2, \"roberta.encoder.layer.8.attention.self.query\": 2, \"roberta.encoder.layer.8.attention.self.value\": 2, \"roberta.encoder.layer.9.attention.self.query\": 2, \"roberta.encoder.layer.9.attention.self.value\": 2}",
+      "reference_artifacts": "artifacts/v2",
+      "run_key": "a33258a0848ea764b146",
+      "run_namespace": "gate2_exploratory",
+      "seed": "42",
+      "stage": "gate2",
+      "status": "COMPLETED",
+      "task": "sst2"
+    }
+  },
+  "17550090ed0d486a9184bbe459b62934": {
+    "artifacts": [
+      "result.json",
+      "train_curve.json"
+    ],
+    "end_time": 1792308538725,
+    "experiment": "rvm-lora/gate2",
+    "experiment_id": "4",
+    "metric_history": {
+      "train_loss": [
+        [
+          20,
+          0.6883132971823216
+        ],
+        [
+          40,
+          0.6749113284051418
+        ],
+        [
+          60,
+          0.6893034666776657
+        ],
+        [
+          80,
+          0.6836298272013664
+        ],
+        [
+          100,
+          0.6854685187339783
+        ],
+        [
+          120,
+          0.685986528545618
+        ],
+        [
+          140,
+          0.6734325982630253
+        ],
+        [
+          160,
+          0.6727302357554436
+        ],
+        [
+          180,
+          0.6748205572366714
+        ],
+        [
+          200,
+          0.6661252200603485
+        ],
+        [
+          220,
+          0.6548131577670574
+        ],
+        [
+          240,
+          0.6405001133680344
+        ],
+        [
+          260,
+          0.6162642609328032
+        ],
+        [
+          280,
+          0.5908402413129806
+        ],
+        [
+          300,
+          0.5844808209687471
+        ],
+        [
+          320,
+          0.5823109649121762
+        ],
+        [
+          340,
+          0.5503485694527626
+        ],
+        [
+          360,
+          0.5680186059325933
+        ],
+        [
+          380,
+          0.5575184684246779
+        ],
+        [
+          400,
+          0.5209364734590054
+        ],
+        [
+          420,
+          0.5567979713901877
+        ],
+        [
+          440,
+          0.5238160185515881
+        ],
+        [
+          460,
+          0.5321508668363094
+        ],
+        [
+          480,
+          0.5045912582427263
+        ],
+        [
+          500,
+          0.5316123718395829
+        ],
+        [
+          520,
+          0.5379617279395461
+        ],
+        [
+          540,
+          0.47821478862315414
+        ],
+        [
+          560,
+          0.4880680665373802
+        ],
+        [
+          580,
+          0.4976434538140893
+        ],
+        [
+          600,
+          0.5013319140300154
+        ],
+        [
+          0,
+          0.5013319140300154
+        ]
+      ]
+    },
+    "metrics": {
+      "adapter_params": 36864.0,
+      "official_validation_accuracy": 0.7993776313380926,
+      "official_validation_loss": 0.4569925645049009,
+      "peak_gpu_memory_mb": 878.4306640625,
+      "rank_sum": 24.0,
+      "selection_wall_s": 5.81212850400334,
+      "total_wall_s": 73.36530814400612,
+      "train_loss": 0.5013319140300154,
+      "train_wall_s": 51.38873123800295
+    },
+    "params": {
+      "effective_batch": "32",
+      "eval_split": "validation",
+      "lora_alpha": "4",
+      "lr": "0.0002",
+      "ranks_json": "{\"roberta.encoder.layer.10.attention.self.value\": 8, \"roberta.encoder.layer.11.attention.self.query\": 1, \"roberta.encoder.layer.11.attention.self.value\": 8, \"roberta.encoder.layer.2.attention.self.value\": 7}",
+      "steps": "600",
+      "use_rslora": "True",
+      "weight_decay": "0.01"
+    },
+    "run_name": "oplora-qnli-s42-oplora-a1",
+    "start_time": 1792308470114,
+    "status": "FINISHED",
+    "tags": {
+      "arch_id": "oplora",
+      "attempt": "1",
+      "data_split_sha256": "880378c3ead20ded1d3ef7e000ef7d3984ac5e63ff65d04187e4aa62fd0317bd",
+      "dataset_revision": "bcdcba79d07bc864c1c254ccfcedcce55bcc9a8c",
+      "execution_type": "exploratory_override",
+      "gate": "gate2",
+      "gate1_record": "artifacts/v2/gate1/gate1.json",
+      "gate1_record_sha256": "fb79f4c6bd33c921ae2885a6becbf4037a352c0d951ae177f7fb7fa91e990d20",
+      "gate1_status": "FAIL",
+      "git_sha": "1e19fbd39b1da36af169480b9858d2f2b912c4ad",
+      "head_checkpoint_sha256": "08d1ce5a251956c08cea8736d3dc04ffbd7c2d439d80d97a53c1213c2e598034",
+      "hostname": "cv8161499.novalocal",
+      "method": "oplora",
+      "mlflow.runName": "oplora-qnli-s42-oplora-a1",
+      "model_revision": "e2da8e2f811d1448a5b465c236feacd80ffbac7b",
+      "protocol_sha256": "d242007e14950316549f7278cd7bdc2bd091bae577510ffdd5111b6bdf9b2b05",
+      "protocol_version": "v2_corrected",
+      "rank_allocation": "{\"roberta.encoder.layer.10.attention.self.value\": 8, \"roberta.encoder.layer.11.attention.self.query\": 1, \"roberta.encoder.layer.11.attention.self.value\": 8, \"roberta.encoder.layer.2.attention.self.value\": 7}",
+      "reference_artifacts": "artifacts/v2",
+      "run_key": "cf9a6ce6a2deddcf0643",
+      "run_namespace": "gate2_exploratory",
+      "seed": "42",
+      "stage": "gate2",
+      "status": "COMPLETED",
+      "task": "qnli"
+    }
+  },
+  "18d51ecbef02421db28065ab34b34b3a": {
+    "artifacts": [
+      "result.json",
+      "train_curve.json"
+    ],
+    "end_time": 1792308994173,
+    "experiment": "rvm-lora/gate2",
+    "experiment_id": "4",
+    "metric_history": {
+      "train_loss": [
+        [
+          20,
+          0.6859019860625267
+        ],
+        [
+          40,
+          0.6861048333346844
+        ],
+        [
+          60,
+          0.6834452107548714
+        ],
+        [
+          80,
+          0.6834573730826378
+        ],
+        [
+          100,
+          0.6842064425349236
+        ],
+        [
+          120,
+          0.6867004446685314
+        ],
+        [
+          140,
+          0.6791513934731483
+        ],
+        [
+          160,
+          0.6736454933881759
+        ],
+        [
+          180,
+          0.6689760565757752
+        ],
+        [
+          200,
+          0.6604783929884434
+        ],
+        [
+          220,
+          0.6538669884204864
+        ],
+        [
+          240,
+          0.6403541915118695
+        ],
+        [
+          260,
+          0.601061661913991
+        ],
+        [
+          280,
+          0.5675818536430597
+        ],
+        [
+          300,
+          0.5598458498716354
+        ],
+        [
+          320,
+          0.5765282541513443
+        ],
+        [
+          340,
+          0.5349717874079942
+        ],
+        [
+          360,
+          0.5236878940835595
+        ],
+        [
+          380,
+          0.5507810901850462
+        ],
+        [
+          400,
+          0.5500454895198346
+        ],
+        [
+          420,
+          0.5685964832082391
+        ],
+        [
+          440,
+          0.557709951326251
+        ],
+        [
+          460,
+          0.5488310359418392
+        ],
+        [
+          480,
+          0.5182064052671194
+        ],
+        [
+          500,
+          0.522720061801374
+        ],
+        [
+          520,
+          0.5610999524593353
+        ],
+        [
+          540,
+          0.49937091413885354
+        ],
+        [
+          560,
+          0.5250599395483733
+        ],
+        [
+          580,
+          0.5408676998689771
+        ],
+        [
+          600,
+          0.5065148746594786
+        ],
+        [
+          0,
+          0.5065148746594786
+        ]
+      ]
+    },
+    "metrics": {
+      "adapter_params": 36864.0,
+      "official_validation_accuracy": 0.7834523155775215,
+      "official_validation_loss": 0.4740153639256875,
+      "peak_gpu_memory_mb": 628.3681640625,
+      "rank_sum": 24.0,
+      "selection_wall_s": 5.8110242990005645,
+      "total_wall_s": 56.47218926300411,
+      "train_loss": 0.5065148746594786,
+      "train_wall_s": 34.88136071599729
+    },
+    "params": {
+      "effective_batch": "32",
+      "eval_split": "validation",
+      "lora_alpha": "4",
+      "lr": "0.0002",
+      "ranks_json": "{\"roberta.encoder.layer.10.attention.self.value\": 8, \"roberta.encoder.layer.11.attention.self.query\": 1, \"roberta.encoder.layer.11.attention.self.value\": 8, \"roberta.encoder.layer.9.attention.self.value\": 7}",
+      "steps": "600",
+      "use_rslora": "True",
+      "weight_decay": "0.01"
+    },
+    "run_name": "oplora-qnli-s2025-oplora-a1",
+    "start_time": 1792308942442,
+    "status": "FINISHED",
+    "tags": {
+      "arch_id": "oplora",
+      "attempt": "1",
+      "data_split_sha256": "880378c3ead20ded1d3ef7e000ef7d3984ac5e63ff65d04187e4aa62fd0317bd",
+      "dataset_revision": "bcdcba79d07bc864c1c254ccfcedcce55bcc9a8c",
+      "execution_type": "exploratory_override",
+      "gate": "gate2",
+      "gate1_record": "artifacts/v2/gate1/gate1.json",
+      "gate1_record_sha256": "fb79f4c6bd33c921ae2885a6becbf4037a352c0d951ae177f7fb7fa91e990d20",
+      "gate1_status": "FAIL",
+      "git_sha": "1e19fbd39b1da36af169480b9858d2f2b912c4ad",
+      "head_checkpoint_sha256": "08ca038ae27d5ea5114cf2470ffeb4464524092dd02ff07c96b48b250c294e57",
+      "hostname": "cv8161499.novalocal",
+      "method": "oplora",
+      "mlflow.runName": "oplora-qnli-s2025-oplora-a1",
+      "model_revision": "e2da8e2f811d1448a5b465c236feacd80ffbac7b",
+      "protocol_sha256": "d242007e14950316549f7278cd7bdc2bd091bae577510ffdd5111b6bdf9b2b05",
+      "protocol_version": "v2_corrected",
+      "rank_allocation": "{\"roberta.encoder.layer.10.attention.self.value\": 8, \"roberta.encoder.layer.11.attention.self.query\": 1, \"roberta.encoder.layer.11.attention.self.value\": 8, \"roberta.encoder.layer.9.attention.self.value\": 7}",
+      "reference_artifacts": "artifacts/v2",
+      "run_key": "8b8ed0b320da11ba9d20",
+      "run_namespace": "gate2_exploratory",
+      "seed": "2025",
+      "stage": "gate2",
+      "status": "COMPLETED",
+      "task": "qnli"
+    }
+  },
+  "28632f9e667545778a977db10610b83d": {
+    "artifacts": [
+      "result.json",
+      "train_curve.json"
+    ],
+    "end_time": 1792308767236,
+    "experiment": "rvm-lora/gate2",
+    "experiment_id": "4",
+    "metric_history": {
+      "train_loss": [
+        [
+          20,
+          0.6882395595312119
+        ],
+        [
+          40,
+          0.6743670359253884
+        ],
+        [
+          60,
+          0.6867100231349468
+        ],
+        [
+          80,
+          0.6773896776139736
+        ],
+        [
+          100,
+          0.6739303901791572
+        ],
+        [
+          120,
+          0.6593910671770573
+        ],
+        [
+          140,
+          0.612395565956831
+        ],
+        [
+          160,
+          0.5580971021205187
+        ],
+        [
+          180,
+          0.5285837810486556
+        ],
+        [
+          200,
+          0.5307000191882253
+        ],
+        [
+          220,
+          0.48838291484862567
+        ],
+        [
+          240,
+          0.5035201210528613
+        ],
+        [
+          260,
+          0.4902716288343072
+        ],
+        [
+          280,
+          0.45811967793852093
+        ],
+        [
+          300,
+          0.4786669144406915
+        ],
+        [
+          320,
+          0.4495078904554248
+        ],
+        [
+          340,
+          0.44972726702690125
+        ],
+        [
+          360,
+          0.45795274917036294
+        ],
+        [
+          380,
+          0.4719973910599947
+        ],
+        [
+          400,
+          0.42464314168319106
+        ],
+        [
+          420,
+          0.4650128860026598
+        ],
+        [
+          440,
+          0.44246860314160585
+        ],
+        [
+          460,
+          0.40887813195586203
+        ],
+        [
+          480,
+          0.4034672384150326
+        ],
+        [
+          500,
+          0.4530507119372487
+        ],
+        [
+          520,
+          0.445340228267014
+        ],
+        [
+          540,
+          0.40119138807058335
+        ],
+        [
+          560,
+          0.4219804433174431
+        ],
+        [
+          580,
+          0.422720386646688
+        ],
+        [
+          600,
+          0.4010565902106464
+        ],
+        [
+          0,
+          0.4010565902106464
+        ]
+      ]
+    },
+    "metrics": {
+      "adapter_params": 73728.0,
+      "official_validation_accuracy": 0.8442247849167124,
+      "official_validation_loss": 0.3629716394297072,
+      "peak_gpu_memory_mb": 979.3603515625,
+      "rank_sum": 48.0,
+      "selection_wall_s": 0.0,
+      "total_wall_s": 87.4387349480021,
+      "train_loss": 0.4010565902106464,
+      "train_wall_s": 71.10777263100317
+    },
+    "params": {
+      "effective_batch": "32",
+      "eval_split": "validation",
+      "lora_alpha": "4",
+      "lr": "0.0002",
+      "ranks_json": "{\"roberta.encoder.layer.0.attention.self.query\": 2, \"roberta.encoder.layer.0.attention.self.value\": 2, \"roberta.encoder.layer.1.attention.self.query\": 2, \"roberta.encoder.layer.1.attention.self.value\": 2, \"roberta.encoder.layer.10.attention.self.query\": 2, \"roberta.encoder.layer.10.attention.self.value\": 2, \"roberta.encoder.layer.11.attention.self.query\": 2, \"roberta.encoder.layer.11.attention.self.value\": 2, \"roberta.encoder.layer.2.attention.self.query\": 2, \"roberta.encoder.layer.2.attention.self.value\": 2, \"roberta.encoder.layer.3.attention.self.query\": 2, \"roberta.encoder.layer.3.attention.self.value\": 2, \"roberta.encoder.layer.4.attention.self.query\": 2, \"roberta.encoder.layer.4.attention.self.value\": 2, \"roberta.encoder.layer.5.attention.self.query\": 2, \"roberta.encoder.layer.5.attention.self.value\": 2, \"roberta.encoder.layer.6.attention.self.query\": 2, \"roberta.encoder.layer.6.attention.self.value\": 2, \"roberta.encoder.layer.7.attention.self.query\": 2, \"roberta.encoder.layer.7.attention.self.value\": 2, \"roberta.encoder.layer.8.attention.self.query\": 2, \"roberta.encoder.layer.8.attention.self.value\": 2, \"roberta.encoder.layer.9.attention.self.query\": 2, \"roberta.encoder.layer.9.attention.self.value\": 2}",
+      "steps": "600",
+      "use_rslora": "True",
+      "weight_decay": "0.01"
+    },
+    "run_name": "uniform_r2-qnli-s42-uniform_r2-a1",
+    "start_time": 1792308678760,
+    "status": "FINISHED",
+    "tags": {
+      "arch_id": "uniform_r2",
+      "attempt": "1",
+      "data_split_sha256": "880378c3ead20ded1d3ef7e000ef7d3984ac5e63ff65d04187e4aa62fd0317bd",
+      "dataset_revision": "bcdcba79d07bc864c1c254ccfcedcce55bcc9a8c",
+      "execution_type": "exploratory_override",
+      "gate": "gate2",
+      "gate1_record": "artifacts/v2/gate1/gate1.json",
+      "gate1_record_sha256": "fb79f4c6bd33c921ae2885a6becbf4037a352c0d951ae177f7fb7fa91e990d20",
+      "gate1_status": "FAIL",
+      "git_sha": "1e19fbd39b1da36af169480b9858d2f2b912c4ad",
+      "head_checkpoint_sha256": "08d1ce5a251956c08cea8736d3dc04ffbd7c2d439d80d97a53c1213c2e598034",
+      "hostname": "cv8161499.novalocal",
+      "method": "uniform_r2",
+      "mlflow.runName": "uniform_r2-qnli-s42-uniform_r2-a1",
+      "model_revision": "e2da8e2f811d1448a5b465c236feacd80ffbac7b",
+      "protocol_sha256": "d242007e14950316549f7278cd7bdc2bd091bae577510ffdd5111b6bdf9b2b05",
+      "protocol_version": "v2_corrected",
+      "rank_allocation": "{\"roberta.encoder.layer.0.attention.self.query\": 2, \"roberta.encoder.layer.0.attention.self.value\": 2, \"roberta.encoder.layer.1.attention.self.query\": 2, \"roberta.encoder.layer.1.attention.self.value\": 2, \"roberta.encoder.layer.10.attention.self.query\": 2, \"roberta.encoder.layer.10.attention.self.value\": 2, \"roberta.encoder.layer.11.attention.self.query\": 2, \"roberta.encoder.layer.11.attention.self.value\": 2, \"roberta.encoder.layer.2.attention.self.query\": 2, \"roberta.encoder.layer.2.attention.self.value\": 2, \"roberta.encoder.layer.3.attention.self.query\": 2, \"roberta.encoder.layer.3.attention.self.value\": 2, \"roberta.encoder.layer.4.attention.self.query\": 2, \"roberta.encoder.layer.4.attention.self.value\": 2, \"roberta.encoder.layer.5.attention.self.query\": 2, \"roberta.encoder.layer.5.attention.self.value\": 2, \"roberta.encoder.layer.6.attention.self.query\": 2, \"roberta.encoder.layer.6.attention.self.value\": 2, \"roberta.encoder.layer.7.attention.self.query\": 2, \"roberta.encoder.layer.7.attention.self.value\": 2, \"roberta.encoder.layer.8.attention.self.query\": 2, \"roberta.encoder.layer.8.attention.self.value\": 2, \"roberta.encoder.layer.9.attention.self.query\": 2, \"roberta.encoder.layer.9.attention.self.value\": 2}",
+      "reference_artifacts": "artifacts/v2",
+      "run_key": "d344c73d9972d847ae98",
+      "run_namespace": "gate2_exploratory",
+      "seed": "42",
+      "stage": "gate2",
+      "status": "COMPLETED",
+      "task": "qnli"
+    }
+  },
+  "31acd68f9c4b4b9eb80aefd463fb2417": {
+    "artifacts": [
+      "result.json",
+      "train_curve.json"
+    ],
+    "end_time": 1792309215716,
+    "experiment": "rvm-lora/gate2",
+    "experiment_id": "4",
+    "metric_history": {
+      "train_loss": [
+        [
+          20,
+          0.685975669324398
+        ],
+        [
+          40,
+          0.6856402613222599
+        ],
+        [
+          60,
+          0.6820254005491734
+        ],
+        [
+          80,
+          0.6809000752866268
+        ],
+        [
+          100,
+          0.6776828706264496
+        ],
+        [
+          120,
+          0.6685280777513981
+        ],
+        [
+          140,
+          0.6183594617992639
+        ],
+        [
+          160,
+          0.5517265914008022
+        ],
+        [
+          180,
+          0.5191491043195129
+        ],
+        [
+          200,
+          0.4717946702614427
+        ],
+        [
+          220,
+          0.47356653995811937
+        ],
+        [
+          240,
+          0.4766141604632139
+        ],
+        [
+          260,
+          0.4444239092990756
+        ],
+        [
+          280,
+          0.45595047138631345
+        ],
+        [
+          300,
+          0.4299688719213009
+        ],
+        [
+          320,
+          0.4437254110351205
+        ],
+        [
+          340,
+          0.42964797616004946
+        ],
+        [
+          360,
+          0.4498354636132717
+        ],
+        [
+          380,
+          0.4409474391490221
+        ],
+        [
+          400,
+          0.4359553888440132
+        ],
+        [
+          420,
+          0.46967780254781244
+        ],
+        [
+          440,
+          0.46868147756904366
+        ],
+        [
+          460,
+          0.42554288934916257
+        ],
+        [
+          480,
+          0.4307847622781992
+        ],
+        [
+          500,
+          0.39953219769522547
+        ],
+        [
+          520,
+          0.47061042245477436
+        ],
+        [
+          540,
+          0.42474010977894067
+        ],
+        [
+          560,
+          0.4368372829630971
+        ],
+        [
+          580,
+          0.43410580130293963
+        ],
+        [
+          600,
+          0.4277054833248258
+        ],
+        [
+          0,
+          0.4277054833248258
+        ]
+      ]
+    },
+    "metrics": {
+      "adapter_params": 73728.0,
+      "official_validation_accuracy": 0.8522789676002197,
+      "official_validation_loss": 0.35271253051471874,
+      "peak_gpu_memory_mb": 979.3603515625,
+      "rank_sum": 48.0,
+      "selection_wall_s": 0.0,
+      "total_wall_s": 88.83829913299996,
+      "train_loss": 0.4277054833248258,
+      "train_wall_s": 72.48426872299751
+    },
+    "params": {
+      "effective_batch": "32",
+      "eval_split": "validation",
+      "lora_alpha": "4",
+      "lr": "0.0002",
+      "ranks_json": "{\"roberta.encoder.layer.0.attention.self.query\": 2, \"roberta.encoder.layer.0.attention.self.value\": 2, \"roberta.encoder.layer.1.attention.self.query\": 2, \"roberta.encoder.layer.1.attention.self.value\": 2, \"roberta.encoder.layer.10.attention.self.query\": 2, \"roberta.encoder.layer.10.attention.self.value\": 2, \"roberta.encoder.layer.11.attention.self.query\": 2, \"roberta.encoder.layer.11.attention.self.value\": 2, \"roberta.encoder.layer.2.attention.self.query\": 2, \"roberta.encoder.layer.2.attention.self.value\": 2, \"roberta.encoder.layer.3.attention.self.query\": 2, \"roberta.encoder.layer.3.attention.self.value\": 2, \"roberta.encoder.layer.4.attention.self.query\": 2, \"roberta.encoder.layer.4.attention.self.value\": 2, \"roberta.encoder.layer.5.attention.self.query\": 2, \"roberta.encoder.layer.5.attention.self.value\": 2, \"roberta.encoder.layer.6.attention.self.query\": 2, \"roberta.encoder.layer.6.attention.self.value\": 2, \"roberta.encoder.layer.7.attention.self.query\": 2, \"roberta.encoder.layer.7.attention.self.value\": 2, \"roberta.encoder.layer.8.attention.self.query\": 2, \"roberta.encoder.layer.8.attention.self.value\": 2, \"roberta.encoder.layer.9.attention.self.query\": 2, \"roberta.encoder.layer.9.attention.self.value\": 2}",
+      "steps": "600",
+      "use_rslora": "True",
+      "weight_decay": "0.01"
+    },
+    "run_name": "uniform_r2-qnli-s2025-uniform_r2-a1",
+    "start_time": 1792309125817,
+    "status": "FINISHED",
+    "tags": {
+      "arch_id": "uniform_r2",
+      "attempt": "1",
+      "data_split_sha256": "880378c3ead20ded1d3ef7e000ef7d3984ac5e63ff65d04187e4aa62fd0317bd",
+      "dataset_revision": "bcdcba79d07bc864c1c254ccfcedcce55bcc9a8c",
+      "execution_type": "exploratory_override",
+      "gate": "gate2",
+      "gate1_record": "artifacts/v2/gate1/gate1.json",
+      "gate1_record_sha256": "fb79f4c6bd33c921ae2885a6becbf4037a352c0d951ae177f7fb7fa91e990d20",
+      "gate1_status": "FAIL",
+      "git_sha": "1e19fbd39b1da36af169480b9858d2f2b912c4ad",
+      "head_checkpoint_sha256": "08ca038ae27d5ea5114cf2470ffeb4464524092dd02ff07c96b48b250c294e57",
+      "hostname": "cv8161499.novalocal",
+      "method": "uniform_r2",
+      "mlflow.runName": "uniform_r2-qnli-s2025-uniform_r2-a1",
+      "model_revision": "e2da8e2f811d1448a5b465c236feacd80ffbac7b",
+      "protocol_sha256": "d242007e14950316549f7278cd7bdc2bd091bae577510ffdd5111b6bdf9b2b05",
+      "protocol_version": "v2_corrected",
+      "rank_allocation": "{\"roberta.encoder.layer.0.attention.self.query\": 2, \"roberta.encoder.layer.0.attention.self.value\": 2, \"roberta.encoder.layer.1.attention.self.query\": 2, \"roberta.encoder.layer.1.attention.self.value\": 2, \"roberta.encoder.layer.10.attention.self.query\": 2, \"roberta.encoder.layer.10.attention.self.value\": 2, \"roberta.encoder.layer.11.attention.self.query\": 2, \"roberta.encoder.layer.11.attention.self.value\": 2, \"roberta.encoder.layer.2.attention.self.query\": 2, \"roberta.encoder.layer.2.attention.self.value\": 2, \"roberta.encoder.layer.3.attention.self.query\": 2, \"roberta.encoder.layer.3.attention.self.value\": 2, \"roberta.encoder.layer.4.attention.self.query\": 2, \"roberta.encoder.layer.4.attention.self.value\": 2, \"roberta.encoder.layer.5.attention.self.query\": 2, \"roberta.encoder.layer.5.attention.self.value\": 2, \"roberta.encoder.layer.6.attention.self.query\": 2, \"roberta.encoder.layer.6.attention.self.value\": 2, \"roberta.encoder.layer.7.attention.self.query\": 2, \"roberta.encoder.layer.7.attention.self.value\": 2, \"roberta.encoder.layer.8.attention.self.query\": 2, \"roberta.encoder.layer.8.attention.self.value\": 2, \"roberta.encoder.layer.9.attention.self.query\": 2, \"roberta.encoder.layer.9.attention.self.value\": 2}",
+      "reference_artifacts": "artifacts/v2",
+      "run_key": "e3c7751779d184c2fcd2",
+      "run_namespace": "gate2_exploratory",
+      "seed": "2025",
+      "stage": "gate2",
+      "status": "COMPLETED",
+      "task": "qnli"
+    }
+  },
+  "3b2e2e107b1c4035a45fbb4547e6c4dd": {
+    "artifacts": [
+      "oplora.json",
+      "probe_result.json",
+      "selection.json"
+    ],
+    "end_time": 1792308292280,
+    "experiment": "rvm-lora/gate2",
+    "experiment_id": "4",
+    "metric_history": {},
+    "metrics": {
+      "conditional_newton_selection_s": 25.025798611997743,
+      "direction_pass_s": 21.63201940200088,
+      "feature_pass_s": 2.8715337210014695,
+      "group_rvm_selection_s": 35.203670946000784,
+      "newton_rank_units": 24.0,
+      "oplora_importance_pass_s": 5.75373971699446,
+      "oplora_selection_s": 5.761888298991835,
+      "rvm_fresh_null_activations": 0.0,
+      "rvm_rank_units": 3.0,
+      "rvm_threshold": 0.0016665668058235218,
+      "selection_job_startup_s": 0.44151663199590985,
+      "selection_job_wall_s": 19.506643464999797
+    },
+    "params": {
+      "directions": "512",
+      "evidence": "512",
+      "n_atoms": "192"
+    },
+    "run_name": "probe_selection-sst2-s2025--a1",
+    "start_time": 1792308291327,
+    "status": "FINISHED",
+    "tags": {
+      "attempt": "1",
+      "dataset_revision": "bcdcba79d07bc864c1c254ccfcedcce55bcc9a8c",
+      "execution_type": "exploratory_override",
+      "gate": "gate2",
+      "gate1_record": "artifacts/v2/gate1/gate1.json",
+      "gate1_record_sha256": "fb79f4c6bd33c921ae2885a6becbf4037a352c0d951ae177f7fb7fa91e990d20",
+      "gate1_status": "FAIL",
+      "git_sha": "1e19fbd39b1da36af169480b9858d2f2b912c4ad",
+      "head_checkpoint_sha256": "2d10dbe827669c2ec351b5b47f38a5e4187172ddbbddb6a061aca9aa435f97be",
+      "hostname": "cv8161499.novalocal",
+      "method": "probe_selection",
+      "mlflow.runName": "probe_selection-sst2-s2025--a1",
+      "model_revision": "e2da8e2f811d1448a5b465c236feacd80ffbac7b",
+      "protocol_sha256": "d242007e14950316549f7278cd7bdc2bd091bae577510ffdd5111b6bdf9b2b05",
+      "protocol_version": "v2_corrected",
+      "reference_artifacts": "artifacts/v2",
+      "run_key": "e44927070c63d46f4ef8",
+      "run_namespace": "gate2_exploratory",
+      "seed": "2025",
+      "stage": "gate2",
+      "status": "COMPLETED",
+      "task": "sst2"
+    }
+  },
+  "42ee7338f31b4dfabc73413fcaf1537b": {
+    "artifacts": [
+      "result.json",
+      "train_curve.json"
+    ],
+    "end_time": 1792309962712,
+    "experiment": "rvm-lora/gate2",
+    "experiment_id": "4",
+    "metric_history": {
+      "train_loss": [
+        [
+          20,
+          0.620187395438552
+        ],
+        [
+          40,
+          0.5499742303043604
+        ],
+        [
+          60,
+          0.495503262989223
+        ],
+        [
+          80,
+          0.41083431569859385
+        ],
+        [
+          100,
+          0.45068948417901994
+        ],
+        [
+          120,
+          0.3946534526534379
+        ],
+        [
+          140,
+          0.3174576978199184
+        ],
+        [
+          160,
+          0.3275393458083272
+        ],
+        [
+          180,
+          0.35432431739754977
+        ],
+        [
+          200,
+          0.3064322688151151
+        ],
+        [
+          220,
+          0.3178739201743156
+        ],
+        [
+          240,
+          0.33645138386636975
+        ],
+        [
+          260,
+          0.2673653002362698
+        ],
+        [
+          280,
+          0.3397101506125182
+        ],
+        [
+          300,
+          0.2674964081030339
+        ],
+        [
+          320,
+          0.31673701833933593
+        ],
+        [
+          340,
+          0.33295051464810965
+        ],
+        [
+          360,
+          0.27690166151151063
+        ],
+        [
+          380,
+          0.25659671269822865
+        ],
+        [
+          400,
+          0.2827693587867543
+        ],
+        [
+          420,
+          0.30055477644782513
+        ],
+        [
+          440,
+          0.25898981634527446
+        ],
+        [
+          460,
+          0.28705911573488263
+        ],
+        [
+          480,
+          0.2680916174082085
+        ],
+        [
+          500,
+          0.3191436885623261
+        ],
+        [
+          520,
+          0.3046423440799117
+        ],
+        [
+          540,
+          0.26304210239322856
+        ],
+        [
+          560,
+          0.2671227083541453
+        ],
+        [
+          580,
+          0.2822512065060437
+        ],
+        [
+          600,
+          0.3355976518709213
+        ],
+        [
+          0,
+          0.3355976518709213
+        ]
+      ]
+    },
+    "metrics": {
+      "adapter_params": 73728.0,
+      "official_validation_accuracy": 0.9013761467889908,
+      "official_validation_loss": 0.23436325683318074,
+      "peak_gpu_memory_mb": 979.3603515625,
+      "rank_sum": 48.0,
+      "selection_wall_s": 0.0,
+      "total_wall_s": 72.15730789499503,
+      "train_loss": 0.3355976518709213,
+      "train_wall_s": 69.39852992500528
+    },
+    "params": {
+      "effective_batch": "32",
+      "eval_split": "validation",
+      "lora_alpha": "4",
+      "lr": "0.0002",
+      "ranks_json": "{\"roberta.encoder.layer.0.attention.self.query\": 2, \"roberta.encoder.layer.0.attention.self.value\": 2, \"roberta.encoder.layer.1.attention.self.query\": 2, \"roberta.encoder.layer.1.attention.self.value\": 2, \"roberta.encoder.layer.10.attention.self.query\": 2, \"roberta.encoder.layer.10.attention.self.value\": 2, \"roberta.encoder.layer.11.attention.self.query\": 2, \"roberta.encoder.layer.11.attention.self.value\": 2, \"roberta.encoder.layer.2.attention.self.query\": 2, \"roberta.encoder.layer.2.attention.self.value\": 2, \"roberta.encoder.layer.3.attention.self.query\": 2, \"roberta.encoder.layer.3.attention.self.value\": 2, \"roberta.encoder.layer.4.attention.self.query\": 2, \"roberta.encoder.layer.4.attention.self.value\": 2, \"roberta.encoder.layer.5.attention.self.query\": 2, \"roberta.encoder.layer.5.attention.self.value\": 2, \"roberta.encoder.layer.6.attention.self.query\": 2, \"roberta.encoder.layer.6.attention.self.value\": 2, \"roberta.encoder.layer.7.attention.self.query\": 2, \"roberta.encoder.layer.7.attention.self.value\": 2, \"roberta.encoder.layer.8.attention.self.query\": 2, \"roberta.encoder.layer.8.attention.self.value\": 2, \"roberta.encoder.layer.9.attention.self.query\": 2, \"roberta.encoder.layer.9.attention.self.value\": 2}",
+      "steps": "600",
+      "use_rslora": "True",
+      "weight_decay": "0.01"
+    },
+    "run_name": "uniform_r2-sst2-s2025-uniform_r2-a1",
+    "start_time": 1792309889508,
+    "status": "FINISHED",
+    "tags": {
+      "arch_id": "uniform_r2",
+      "attempt": "1",
+      "data_split_sha256": "b2dade8b65d6b8cb58638b8ae910ed314c0839d7033494ab55c88df3c7ea5b86",
+      "dataset_revision": "bcdcba79d07bc864c1c254ccfcedcce55bcc9a8c",
+      "execution_type": "exploratory_override",
+      "gate": "gate2",
+      "gate1_record": "artifacts/v2/gate1/gate1.json",
+      "gate1_record_sha256": "fb79f4c6bd33c921ae2885a6becbf4037a352c0d951ae177f7fb7fa91e990d20",
+      "gate1_status": "FAIL",
+      "git_sha": "1e19fbd39b1da36af169480b9858d2f2b912c4ad",
+      "head_checkpoint_sha256": "2d10dbe827669c2ec351b5b47f38a5e4187172ddbbddb6a061aca9aa435f97be",
+      "hostname": "cv8161499.novalocal",
+      "method": "uniform_r2",
+      "mlflow.runName": "uniform_r2-sst2-s2025-uniform_r2-a1",
+      "model_revision": "e2da8e2f811d1448a5b465c236feacd80ffbac7b",
+      "protocol_sha256": "d242007e14950316549f7278cd7bdc2bd091bae577510ffdd5111b6bdf9b2b05",
+      "protocol_version": "v2_corrected",
+      "rank_allocation": "{\"roberta.encoder.layer.0.attention.self.query\": 2, \"roberta.encoder.layer.0.attention.self.value\": 2, \"roberta.encoder.layer.1.attention.self.query\": 2, \"roberta.encoder.layer.1.attention.self.value\": 2, \"roberta.encoder.layer.10.attention.self.query\": 2, \"roberta.encoder.layer.10.attention.self.value\": 2, \"roberta.encoder.layer.11.attention.self.query\": 2, \"roberta.encoder.layer.11.attention.self.value\": 2, \"roberta.encoder.layer.2.attention.self.query\": 2, \"roberta.encoder.layer.2.attention.self.value\": 2, \"roberta.encoder.layer.3.attention.self.query\": 2, \"roberta.encoder.layer.3.attention.self.value\": 2, \"roberta.encoder.layer.4.attention.self.query\": 2, \"roberta.encoder.layer.4.attention.self.value\": 2, \"roberta.encoder.layer.5.attention.self.query\": 2, \"roberta.encoder.layer.5.attention.self.value\": 2, \"roberta.encoder.layer.6.attention.self.query\": 2, \"roberta.encoder.layer.6.attention.self.value\": 2, \"roberta.encoder.layer.7.attention.self.query\": 2, \"roberta.encoder.layer.7.attention.self.value\": 2, \"roberta.encoder.layer.8.attention.self.query\": 2, \"roberta.encoder.layer.8.attention.self.value\": 2, \"roberta.encoder.layer.9.attention.self.query\": 2, \"roberta.encoder.layer.9.attention.self.value\": 2}",
+      "reference_artifacts": "artifacts/v2",
+      "run_key": "32b4c4fd1543aa22fc86",
+      "run_namespace": "gate2_exploratory",
+      "seed": "2025",
+      "stage": "gate2",
+      "status": "COMPLETED",
+      "task": "sst2"
+    }
+  },
+  "4e40f105f1974ffa98af4374b454483c": {
+    "artifacts": [
+      "result.json",
+      "train_curve.json"
+    ],
+    "end_time": 1792309287843,
+    "experiment": "rvm-lora/gate2",
+    "experiment_id": "4",
+    "metric_history": {
+      "train_loss": [
+        [
+          20,
+          0.5817061550915241
+        ],
+        [
+          40,
+          0.5809513453394175
+        ],
+        [
+          60,
+          0.4875820778310299
+        ],
+        [
+          80,
+          0.3904450422152877
+        ],
+        [
+          100,
+          0.38380094468593595
+        ],
+        [
+          120,
+          0.3015263953246176
+        ],
+        [
+          140,
+          0.3024030706845224
+        ],
+        [
+          160,
+          0.3032444863580167
+        ],
+        [
+          180,
+          0.3321727349422872
+        ],
+        [
+          200,
+          0.3528370629064739
+        ],
+        [
+          220,
+          0.2901866360101849
+        ],
+        [
+          240,
+          0.32289046379737557
+        ],
+        [
+          260,
+          0.3265728880185634
+        ],
+        [
+          280,
+          0.32916272087022663
+        ],
+        [
+          300,
+          0.3052319119218737
+        ],
+        [
+          320,
+          0.3080890157725662
+        ],
+        [
+          340,
+          0.29842130388133226
+        ],
+        [
+          360,
+          0.2860297481063753
+        ],
+        [
+          380,
+          0.2710878093726933
+        ],
+        [
+          400,
+          0.31327651818282903
+        ],
+        [
+          420,
+          0.2737813228741288
+        ],
+        [
+          440,
+          0.2640346478670835
+        ],
+        [
+          460,
+          0.2853365037590265
+        ],
+        [
+          480,
+          0.30935574881732464
+        ],
+        [
+          500,
+          0.2909351876936853
+        ],
+        [
+          520,
+          0.27237756925169376
+        ],
+        [
+          540,
+          0.3175470202928409
+        ],
+        [
+          560,
+          0.258185494504869
+        ],
+        [
+          580,
+          0.28294310935307293
+        ],
+        [
+          600,
+          0.26120211468078197
+        ],
+        [
+          0,
+          0.26120211468078197
+        ]
+      ]
+    },
+    "metrics": {
+      "adapter_params": 36864.0,
+      "official_validation_accuracy": 0.9036697247706422,
+      "official_validation_loss": 0.24109352547276747,
+      "peak_gpu_memory_mb": 978.6806640625,
+      "rank_sum": 24.0,
+      "selection_wall_s": 0.0,
+      "total_wall_s": 70.90861906899954,
+      "train_loss": 0.26120211468078197,
+      "train_wall_s": 68.15030145000492
+    },
+    "params": {
+      "effective_batch": "32",
+      "eval_split": "validation",
+      "lora_alpha": "4",
+      "lr": "0.0002",
+      "ranks_json": "{\"roberta.encoder.layer.0.attention.self.query\": 1, \"roberta.encoder.layer.0.attention.self.value\": 1, \"roberta.encoder.layer.1.attention.self.query\": 1, \"roberta.encoder.layer.1.attention.self.value\": 1, \"roberta.encoder.layer.10.attention.self.query\": 1, \"roberta.encoder.layer.10.attention.self.value\": 1, \"roberta.encoder.layer.11.attention.self.query\": 1, \"roberta.encoder.layer.11.attention.self.value\": 1, \"roberta.encoder.layer.2.attention.self.query\": 1, \"roberta.encoder.layer.2.attention.self.value\": 1, \"roberta.encoder.layer.3.attention.self.query\": 1, \"roberta.encoder.layer.3.attention.self.value\": 1, \"roberta.encoder.layer.4.attention.self.query\": 1, \"roberta.encoder.layer.4.attention.self.value\": 1, \"roberta.encoder.layer.5.attention.self.query\": 1, \"roberta.encoder.layer.5.attention.self.value\": 1, \"roberta.encoder.layer.6.attention.self.query\": 1, \"roberta.encoder.layer.6.attention.self.value\": 1, \"roberta.encoder.layer.7.attention.self.query\": 1, \"roberta.encoder.layer.7.attention.self.value\": 1, \"roberta.encoder.layer.8.attention.self.query\": 1, \"roberta.encoder.layer.8.attention.self.value\": 1, \"roberta.encoder.layer.9.attention.self.query\": 1, \"roberta.encoder.layer.9.attention.self.value\": 1}",
+      "steps": "600",
+      "use_rslora": "True",
+      "weight_decay": "0.01"
+    },
+    "run_name": "uniform_r1-sst2-s42-uniform_r1-a1",
+    "start_time": 1792309215870,
+    "status": "FINISHED",
+    "tags": {
+      "arch_id": "uniform_r1",
+      "attempt": "1",
+      "data_split_sha256": "b2dade8b65d6b8cb58638b8ae910ed314c0839d7033494ab55c88df3c7ea5b86",
+      "dataset_revision": "bcdcba79d07bc864c1c254ccfcedcce55bcc9a8c",
+      "execution_type": "exploratory_override",
+      "gate": "gate2",
+      "gate1_record": "artifacts/v2/gate1/gate1.json",
+      "gate1_record_sha256": "fb79f4c6bd33c921ae2885a6becbf4037a352c0d951ae177f7fb7fa91e990d20",
+      "gate1_status": "FAIL",
+      "git_sha": "1e19fbd39b1da36af169480b9858d2f2b912c4ad",
+      "head_checkpoint_sha256": "06785967289b4a27a3f46df07766defdc7db93b2e325e53d7a0314d32dddac88",
+      "hostname": "cv8161499.novalocal",
+      "method": "uniform_r1",
+      "mlflow.runName": "uniform_r1-sst2-s42-uniform_r1-a1",
+      "model_revision": "e2da8e2f811d1448a5b465c236feacd80ffbac7b",
+      "protocol_sha256": "d242007e14950316549f7278cd7bdc2bd091bae577510ffdd5111b6bdf9b2b05",
+      "protocol_version": "v2_corrected",
+      "rank_allocation": "{\"roberta.encoder.layer.0.attention.self.query\": 1, \"roberta.encoder.layer.0.attention.self.value\": 1, \"roberta.encoder.layer.1.attention.self.query\": 1, \"roberta.encoder.layer.1.attention.self.value\": 1, \"roberta.encoder.layer.10.attention.self.query\": 1, \"roberta.encoder.layer.10.attention.self.value\": 1, \"roberta.encoder.layer.11.attention.self.query\": 1, \"roberta.encoder.layer.11.attention.self.value\": 1, \"roberta.encoder.layer.2.attention.self.query\": 1, \"roberta.encoder.layer.2.attention.self.value\": 1, \"roberta.encoder.layer.3.attention.self.query\": 1, \"roberta.encoder.layer.3.attention.self.value\": 1, \"roberta.encoder.layer.4.attention.self.query\": 1, \"roberta.encoder.layer.4.attention.self.value\": 1, \"roberta.encoder.layer.5.attention.self.query\": 1, \"roberta.encoder.layer.5.attention.self.value\": 1, \"roberta.encoder.layer.6.attention.self.query\": 1, \"roberta.encoder.layer.6.attention.self.value\": 1, \"roberta.encoder.layer.7.attention.self.query\": 1, \"roberta.encoder.layer.7.attention.self.value\": 1, \"roberta.encoder.layer.8.attention.self.query\": 1, \"roberta.encoder.layer.8.attention.self.value\": 1, \"roberta.encoder.layer.9.attention.self.query\": 1, \"roberta.encoder.layer.9.attention.self.value\": 1}",
+      "reference_artifacts": "artifacts/v2",
+      "run_key": "f3c9c298a1e9124b1a14",
+      "run_namespace": "gate2_exploratory",
+      "seed": "42",
+      "stage": "gate2",
+      "status": "COMPLETED",
+      "task": "sst2"
+    }
+  },
+  "524406e66fd64daa9872371fc9d7fe71": {
+    "artifacts": [
+      "result.json",
+      "train_curve.json"
+    ],
+    "end_time": 1792308386400,
+    "experiment": "rvm-lora/gate2",
+    "experiment_id": "4",
+    "metric_history": {
+      "train_loss": [
+        [
+          20,
+          0.6884510830044747
+        ],
+        [
+          40,
+          0.6743810817599296
+        ],
+        [
+          60,
+          0.6868719235062599
+        ],
+        [
+          80,
+          0.6806608982384205
+        ],
+        [
+          100,
+          0.6839686557650566
+        ],
+        [
+          120,
+          0.6774630509316921
+        ],
+        [
+          140,
+          0.6558263622224331
+        ],
+        [
+          160,
+          0.6345647491514683
+        ],
+        [
+          180,
+          0.582909731194377
+        ],
+        [
+          200,
+          0.5500931348651648
+        ],
+        [
+          220,
+          0.5064884014427662
+        ],
+        [
+          240,
+          0.52108741030097
+        ],
+        [
+          260,
+          0.4954875782132149
+        ],
+        [
+          280,
+          0.46967191975563766
+        ],
+        [
+          300,
+          0.4959531070664525
+        ],
+        [
+          320,
+          0.46076922342181204
+        ],
+        [
+          340,
+          0.4590509062632918
+        ],
+        [
+          360,
+          0.4633248133584857
+        ],
+        [
+          380,
+          0.47728582117706536
+        ],
+        [
+          400,
+          0.4327199495397508
+        ],
+        [
+          420,
+          0.47609526552259923
+        ],
+        [
+          440,
+          0.4528598988428712
+        ],
+        [
+          460,
+          0.42364846877753737
+        ],
+        [
+          480,
+          0.4117345968261361
+        ],
+        [
+          500,
+          0.4550565738230944
+        ],
+        [
+          520,
+          0.4485720194876194
+        ],
+        [
+          540,
+          0.4128992546349764
+        ],
+        [
+          560,
+          0.42818857338279487
+        ],
+        [
+          580,
+          0.4285746715962887
+        ],
+        [
+          600,
+          0.4098391057923436
+        ],
+        [
+          0,
+          0.4098391057923436
+        ]
+      ]
+    },
+    "metrics": {
+      "adapter_params": 36864.0,
+      "official_validation_accuracy": 0.8422112392458356,
+      "official_validation_loss": 0.37246015125278614,
+      "peak_gpu_memory_mb": 978.6806640625,
+      "rank_sum": 24.0,
+      "selection_wall_s": 0.0,
+      "total_wall_s": 88.1519800130045,
+      "train_loss": 0.4098391057923436,
+      "train_wall_s": 71.8147780290019
+    },
+    "params": {
+      "effective_batch": "32",
+      "eval_split": "validation",
+      "lora_alpha": "4",
+      "lr": "0.0002",
+      "ranks_json": "{\"roberta.encoder.layer.0.attention.self.query\": 1, \"roberta.encoder.layer.0.attention.self.value\": 1, \"roberta.encoder.layer.1.attention.self.query\": 1, \"roberta.encoder.layer.1.attention.self.value\": 1, \"roberta.encoder.layer.10.attention.self.query\": 1, \"roberta.encoder.layer.10.attention.self.value\": 1, \"roberta.encoder.layer.11.attention.self.query\": 1, \"roberta.encoder.layer.11.attention.self.value\": 1, \"roberta.encoder.layer.2.attention.self.query\": 1, \"roberta.encoder.layer.2.attention.self.value\": 1, \"roberta.encoder.layer.3.attention.self.query\": 1, \"roberta.encoder.layer.3.attention.self.value\": 1, \"roberta.encoder.layer.4.attention.self.query\": 1, \"roberta.encoder.layer.4.attention.self.value\": 1, \"roberta.encoder.layer.5.attention.self.query\": 1, \"roberta.encoder.layer.5.attention.self.value\": 1, \"roberta.encoder.layer.6.attention.self.query\": 1, \"roberta.encoder.layer.6.attention.self.value\": 1, \"roberta.encoder.layer.7.attention.self.query\": 1, \"roberta.encoder.layer.7.attention.self.value\": 1, \"roberta.encoder.layer.8.attention.self.query\": 1, \"roberta.encoder.layer.8.attention.self.value\": 1, \"roberta.encoder.layer.9.attention.self.query\": 1, \"roberta.encoder.layer.9.attention.self.value\": 1}",
+      "steps": "600",
+      "use_rslora": "True",
+      "weight_decay": "0.01"
+    },
+    "run_name": "uniform_r1-qnli-s42-uniform_r1-a1",
+    "start_time": 1792308297178,
+    "status": "FINISHED",
+    "tags": {
+      "arch_id": "uniform_r1",
+      "attempt": "1",
+      "data_split_sha256": "880378c3ead20ded1d3ef7e000ef7d3984ac5e63ff65d04187e4aa62fd0317bd",
+      "dataset_revision": "bcdcba79d07bc864c1c254ccfcedcce55bcc9a8c",
+      "execution_type": "exploratory_override",
+      "gate": "gate2",
+      "gate1_record": "artifacts/v2/gate1/gate1.json",
+      "gate1_record_sha256": "fb79f4c6bd33c921ae2885a6becbf4037a352c0d951ae177f7fb7fa91e990d20",
+      "gate1_status": "FAIL",
+      "git_sha": "1e19fbd39b1da36af169480b9858d2f2b912c4ad",
+      "head_checkpoint_sha256": "08d1ce5a251956c08cea8736d3dc04ffbd7c2d439d80d97a53c1213c2e598034",
+      "hostname": "cv8161499.novalocal",
+      "method": "uniform_r1",
+      "mlflow.runName": "uniform_r1-qnli-s42-uniform_r1-a1",
+      "model_revision": "e2da8e2f811d1448a5b465c236feacd80ffbac7b",
+      "protocol_sha256": "d242007e14950316549f7278cd7bdc2bd091bae577510ffdd5111b6bdf9b2b05",
+      "protocol_version": "v2_corrected",
+      "rank_allocation": "{\"roberta.encoder.layer.0.attention.self.query\": 1, \"roberta.encoder.layer.0.attention.self.value\": 1, \"roberta.encoder.layer.1.attention.self.query\": 1, \"roberta.encoder.layer.1.attention.self.value\": 1, \"roberta.encoder.layer.10.attention.self.query\": 1, \"roberta.encoder.layer.10.attention.self.value\": 1, \"roberta.encoder.layer.11.attention.self.query\": 1, \"roberta.encoder.layer.11.attention.self.value\": 1, \"roberta.encoder.layer.2.attention.self.query\": 1, \"roberta.encoder.layer.2.attention.self.value\": 1, \"roberta.encoder.layer.3.attention.self.query\": 1, \"roberta.encoder.layer.3.attention.self.value\": 1, \"roberta.encoder.layer.4.attention.self.query\": 1, \"roberta.encoder.layer.4.attention.self.value\": 1, \"roberta.encoder.layer.5.attention.self.query\": 1, \"roberta.encoder.layer.5.attention.self.value\": 1, \"roberta.encoder.layer.6.attention.self.query\": 1, \"roberta.encoder.layer.6.attention.self.value\": 1, \"roberta.encoder.layer.7.attention.self.query\": 1, \"roberta.encoder.layer.7.attention.self.value\": 1, \"roberta.encoder.layer.8.attention.self.query\": 1, \"roberta.encoder.layer.8.attention.self.value\": 1, \"roberta.encoder.layer.9.attention.self.query\": 1, \"roberta.encoder.layer.9.attention.self.value\": 1}",
+      "reference_artifacts": "artifacts/v2",
+      "run_key": "30f69adfd3d01a577f04",
+      "run_namespace": "gate2_exploratory",
+      "seed": "42",
+      "stage": "gate2",
+      "status": "COMPLETED",
+      "task": "qnli"
+    }
+  },
+  "53254317e0d341c49323bb7ff92b3f8a": {
+    "artifacts": [
+      "oplora.json",
+      "probe_result.json",
+      "selection.json"
+    ],
+    "end_time": 1792308235179,
+    "experiment": "rvm-lora/gate2",
+    "experiment_id": "4",
+    "metric_history": {},
+    "metrics": {
+      "conditional_newton_selection_s": 24.950386709999293,
+      "direction_pass_s": 21.53575935000117,
+      "feature_pass_s": 2.856878400001733,
+      "group_rvm_selection_s": 35.00292178300879,
+      "newton_rank_units": 24.0,
+      "oplora_importance_pass_s": 5.760733518000052,
+      "oplora_selection_s": 5.769127539999317,
+      "rvm_fresh_null_activations": 1.0,
+      "rvm_rank_units": 3.0,
+      "rvm_threshold": 0.0017205267610994283,
+      "selection_job_startup_s": 0.4802464280001004,
+      "selection_job_wall_s": 20.40854108399799
+    },
+    "params": {
+      "directions": "512",
+      "evidence": "512",
+      "n_atoms": "192"
+    },
+    "run_name": "probe_selection-sst2-s42--a1",
+    "start_time": 1792308234210,
+    "status": "FINISHED",
+    "tags": {
+      "attempt": "1",
+      "dataset_revision": "bcdcba79d07bc864c1c254ccfcedcce55bcc9a8c",
+      "execution_type": "exploratory_override",
+      "gate": "gate2",
+      "gate1_record": "artifacts/v2/gate1/gate1.json",
+      "gate1_record_sha256": "fb79f4c6bd33c921ae2885a6becbf4037a352c0d951ae177f7fb7fa91e990d20",
+      "gate1_status": "FAIL",
+      "git_sha": "1e19fbd39b1da36af169480b9858d2f2b912c4ad",
+      "head_checkpoint_sha256": "06785967289b4a27a3f46df07766defdc7db93b2e325e53d7a0314d32dddac88",
+      "hostname": "cv8161499.novalocal",
+      "method": "probe_selection",
+      "mlflow.runName": "probe_selection-sst2-s42--a1",
+      "model_revision": "e2da8e2f811d1448a5b465c236feacd80ffbac7b",
+      "protocol_sha256": "d242007e14950316549f7278cd7bdc2bd091bae577510ffdd5111b6bdf9b2b05",
+      "protocol_version": "v2_corrected",
+      "reference_artifacts": "artifacts/v2",
+      "run_key": "e515c5f19cb541fdb865",
+      "run_namespace": "gate2_exploratory",
+      "seed": "42",
+      "stage": "gate2",
+      "status": "COMPLETED",
+      "task": "sst2"
+    }
+  },
+  "6386c1f2a4d74cdcba3df526d0508e40": {
+    "artifacts": [
+      "result.json",
+      "train_curve.json"
+    ],
+    "end_time": 1792309731946,
+    "experiment": "rvm-lora/gate2",
+    "experiment_id": "4",
+    "metric_history": {
+      "train_loss": [
+        [
+          20,
+          0.5799356944859028
+        ],
+        [
+          40,
+          0.3907637905795127
+        ],
+        [
+          60,
+          0.3981638036668301
+        ],
+        [
+          80,
+          0.39654482724145057
+        ],
+        [
+          100,
+          0.4164866513572633
+        ],
+        [
+          120,
+          0.4321193089708686
+        ],
+        [
+          140,
+          0.3186182466801256
+        ],
+        [
+          160,
+          0.33821457754820583
+        ],
+        [
+          180,
+          0.3814252167008817
+        ],
+        [
+          200,
+          0.3796399780549109
+        ],
+        [
+          220,
+          0.39769326224923135
+        ],
+        [
+          240,
+          0.3964755289722234
+        ],
+        [
+          260,
+          0.3178633094765246
+        ],
+        [
+          280,
+          0.33226588666439055
+        ],
+        [
+          300,
+          0.2912142720306292
+        ],
+        [
+          320,
+          0.3112918248167261
+        ],
+        [
+          340,
+          0.3794760715216398
+        ],
+        [
+          360,
+          0.30981405954807995
+        ],
+        [
+          380,
+          0.2913871094584465
+        ],
+        [
+          400,
+          0.29005009098909795
+        ],
+        [
+          420,
+          0.30033998247236016
+        ],
+        [
+          440,
+          0.24769056832883507
+        ],
+        [
+          460,
+          0.28651308217085897
+        ],
+        [
+          480,
+          0.28838515453971925
+        ],
+        [
+          500,
+          0.3240615307353437
+        ],
+        [
+          520,
+          0.29892398826777933
+        ],
+        [
+          540,
+          0.27506094083655624
+        ],
+        [
+          560,
+          0.24142710212618113
+        ],
+        [
+          580,
+          0.27384673468768594
+        ],
+        [
+          600,
+          0.32427317756228147
+        ],
+        [
+          0,
+          0.32427317756228147
+        ]
+      ]
+    },
+    "metrics": {
+      "adapter_params": 36864.0,
+      "official_validation_accuracy": 0.9151376146788991,
+      "official_validation_loss": 0.21684587486926374,
+      "peak_gpu_memory_mb": 937.7431640625,
+      "rank_sum": 24.0,
+      "selection_wall_s": 0.7679445550020318,
+      "total_wall_s": 75.75396548400022,
+      "train_loss": 0.32427317756228147,
+      "train_wall_s": 72.22883174900198
+    },
+    "params": {
+      "effective_batch": "32",
+      "eval_split": "validation",
+      "lora_alpha": "4",
+      "lr": "0.0002",
+      "ranks_json": "EVA",
+      "steps": "600",
+      "use_rslora": "True",
+      "weight_decay": "0.01"
+    },
+    "run_name": "eva-sst2-s2025-eva-a1",
+    "start_time": 1792309655127,
+    "status": "FINISHED",
+    "tags": {
+      "arch_id": "eva",
+      "attempt": "1",
+      "data_split_sha256": "b2dade8b65d6b8cb58638b8ae910ed314c0839d7033494ab55c88df3c7ea5b86",
+      "dataset_revision": "bcdcba79d07bc864c1c254ccfcedcce55bcc9a8c",
+      "execution_type": "exploratory_override",
+      "gate": "gate2",
+      "gate1_record": "artifacts/v2/gate1/gate1.json",
+      "gate1_record_sha256": "fb79f4c6bd33c921ae2885a6becbf4037a352c0d951ae177f7fb7fa91e990d20",
+      "gate1_status": "FAIL",
+      "git_sha": "1e19fbd39b1da36af169480b9858d2f2b912c4ad",
+      "head_checkpoint_sha256": "2d10dbe827669c2ec351b5b47f38a5e4187172ddbbddb6a061aca9aa435f97be",
+      "hostname": "cv8161499.novalocal",
+      "method": "eva",
+      "mlflow.runName": "eva-sst2-s2025-eva-a1",
+      "model_revision": "e2da8e2f811d1448a5b465c236feacd80ffbac7b",
+      "protocol_sha256": "d242007e14950316549f7278cd7bdc2bd091bae577510ffdd5111b6bdf9b2b05",
+      "protocol_version": "v2_corrected",
+      "rank_allocation": "{\"roberta.encoder.layer.1.attention.self.query\": 1, \"roberta.encoder.layer.1.attention.self.value\": 1, \"roberta.encoder.layer.10.attention.self.query\": 1, \"roberta.encoder.layer.10.attention.self.value\": 1, \"roberta.encoder.layer.11.attention.self.query\": 1, \"roberta.encoder.layer.11.attention.self.value\": 1, \"roberta.encoder.layer.2.attention.self.query\": 1, \"roberta.encoder.layer.2.attention.self.value\": 1, \"roberta.encoder.layer.3.attention.self.query\": 1, \"roberta.encoder.layer.3.attention.self.value\": 1, \"roberta.encoder.layer.4.attention.self.query\": 1, \"roberta.encoder.layer.4.attention.self.value\": 1, \"roberta.encoder.layer.5.attention.self.query\": 1, \"roberta.encoder.layer.5.attention.self.value\": 1, \"roberta.encoder.layer.6.attention.self.query\": 1, \"roberta.encoder.layer.6.attention.self.value\": 1, \"roberta.encoder.layer.7.attention.self.query\": 1, \"roberta.encoder.layer.7.attention.self.value\": 1, \"roberta.encoder.layer.8.attention.self.query\": 2, \"roberta.encoder.layer.8.attention.self.value\": 2, \"roberta.encoder.layer.9.attention.self.query\": 1, \"roberta.encoder.layer.9.attention.self.value\": 1}",
+      "reference_artifacts": "artifacts/v2",
+      "run_key": "9c03bffb398067305865",
+      "run_namespace": "gate2_exploratory",
+      "seed": "2025",
+      "stage": "gate2",
+      "status": "COMPLETED",
+      "task": "sst2"
+    }
+  },
+  "6df69e0f6e894768b0057e64a52f1c78": {
+    "artifacts": [
+      "sst2_s42.json"
+    ],
+    "end_time": 1792308183182,
+    "experiment": "rvm-lora/gate2",
+    "experiment_id": "4",
+    "metric_history": {},
+    "metrics": {
+      "head_steps": 200.0,
+      "head_train_loss_first20": 0.7216847956180572,
+      "head_train_loss_last20": 0.6157443434000015,
+      "head_wall_s": 5.072288889001356
+    },
+    "params": {
+      "lr": "0.001",
+      "steps": "200"
+    },
+    "run_name": "head_warm_start-sst2-s42--a1",
+    "start_time": 1792308182708,
+    "status": "FINISHED",
+    "tags": {
+      "attempt": "1",
+      "dataset_revision": "bcdcba79d07bc864c1c254ccfcedcce55bcc9a8c",
+      "execution_type": "exploratory_override",
+      "gate": "gate2",
+      "gate1_record": "artifacts/v2/gate1/gate1.json",
+      "gate1_record_sha256": "fb79f4c6bd33c921ae2885a6becbf4037a352c0d951ae177f7fb7fa91e990d20",
+      "gate1_status": "FAIL",
+      "git_sha": "1e19fbd39b1da36af169480b9858d2f2b912c4ad",
+      "head_checkpoint_sha256": "06785967289b4a27a3f46df07766defdc7db93b2e325e53d7a0314d32dddac88",
+      "hostname": "cv8161499.novalocal",
+      "method": "head_warm_start",
+      "mlflow.runName": "head_warm_start-sst2-s42--a1",
+      "model_revision": "e2da8e2f811d1448a5b465c236feacd80ffbac7b",
+      "protocol_sha256": "d242007e14950316549f7278cd7bdc2bd091bae577510ffdd5111b6bdf9b2b05",
+      "protocol_version": "v2_corrected",
+      "reference_artifacts": "artifacts/v2",
+      "run_key": "3e548124804a0ea8d2f1",
+      "run_namespace": "gate2_exploratory",
+      "seed": "42",
+      "stage": "gate2",
+      "status": "COMPLETED",
+      "task": "sst2"
+    }
+  },
+  "74cd44d198934eae83c371276da1ebd2": {
+    "artifacts": [
+      "result.json",
+      "train_curve.json"
+    ],
+    "end_time": 1792309654964,
+    "experiment": "rvm-lora/gate2",
+    "experiment_id": "4",
+    "metric_history": {
+      "train_loss": [
+        [
+          20,
+          0.6223526585847139
+        ],
+        [
+          40,
+          0.5593095138669014
+        ],
+        [
+          60,
+          0.5293602522462606
+        ],
+        [
+          80,
+          0.44679306661710144
+        ],
+        [
+          100,
+          0.44851605826988816
+        ],
+        [
+          120,
+          0.39583155130967496
+        ],
+        [
+          140,
+          0.3305463290773332
+        ],
+        [
+          160,
+          0.3368188907857984
+        ],
+        [
+          180,
+          0.3615788288414478
+        ],
+        [
+          200,
+          0.31426417687907815
+        ],
+        [
+          220,
+          0.31825358886271715
+        ],
+        [
+          240,
+          0.33697044213768096
+        ],
+        [
+          260,
+          0.2653188325930387
+        ],
+        [
+          280,
+          0.35009294166229665
+        ],
+        [
+          300,
+          0.2733879575040191
+        ],
+        [
+          320,
+          0.31913616093806924
+        ],
+        [
+          340,
+          0.3379017179366201
+        ],
+        [
+          360,
+          0.27928289943374696
+        ],
+        [
+          380,
+          0.2608622553758323
+        ],
+        [
+          400,
+          0.28735171309672297
+        ],
+        [
+          420,
+          0.3063169180415571
+        ],
+        [
+          440,
+          0.2646654651733115
+        ],
+        [
+          460,
+          0.2901430707424879
+        ],
+        [
+          480,
+          0.2667058510240167
+        ],
+        [
+          500,
+          0.32662348430603744
+        ],
+        [
+          520,
+          0.3137754302471876
+        ],
+        [
+          540,
+          0.27185292227659374
+        ],
+        [
+          560,
+          0.28117513777688147
+        ],
+        [
+          580,
+          0.28945708586834373
+        ],
+        [
+          600,
+          0.33694887785241007
+        ],
+        [
+          0,
+          0.33694887785241007
+        ]
+      ]
+    },
+    "metrics": {
+      "adapter_params": 36864.0,
+      "official_validation_accuracy": 0.8956422018348624,
+      "official_validation_loss": 0.242038763227345,
+      "peak_gpu_memory_mb": 978.6806640625,
+      "rank_sum": 24.0,
+      "selection_wall_s": 0.0,
+      "total_wall_s": 72.88397554599942,
+      "train_loss": 0.33694887785241007,
+      "train_wall_s": 70.1296481169993
+    },
+    "params": {
+      "effective_batch": "32",
+      "eval_split": "validation",
+      "lora_alpha": "4",
+      "lr": "0.0002",
+      "ranks_json": "{\"roberta.encoder.layer.0.attention.self.query\": 1, \"roberta.encoder.layer.0.attention.self.value\": 1, \"roberta.encoder.layer.1.attention.self.query\": 1, \"roberta.encoder.layer.1.attention.self.value\": 1, \"roberta.encoder.layer.10.attention.self.query\": 1, \"roberta.encoder.layer.10.attention.self.value\": 1, \"roberta.encoder.layer.11.attention.self.query\": 1, \"roberta.encoder.layer.11.attention.self.value\": 1, \"roberta.encoder.layer.2.attention.self.query\": 1, \"roberta.encoder.layer.2.attention.self.value\": 1, \"roberta.encoder.layer.3.attention.self.query\": 1, \"roberta.encoder.layer.3.attention.self.value\": 1, \"roberta.encoder.layer.4.attention.self.query\": 1, \"roberta.encoder.layer.4.attention.self.value\": 1, \"roberta.encoder.layer.5.attention.self.query\": 1, \"roberta.encoder.layer.5.attention.self.value\": 1, \"roberta.encoder.layer.6.attention.self.query\": 1, \"roberta.encoder.layer.6.attention.self.value\": 1, \"roberta.encoder.layer.7.attention.self.query\": 1, \"roberta.encoder.layer.7.attention.self.value\": 1, \"roberta.encoder.layer.8.attention.self.query\": 1, \"roberta.encoder.layer.8.attention.self.value\": 1, \"roberta.encoder.layer.9.attention.self.query\": 1, \"roberta.encoder.layer.9.attention.self.value\": 1}",
+      "steps": "600",
+      "use_rslora": "True",
+      "weight_decay": "0.01"
+    },
+    "run_name": "uniform_r1-sst2-s2025-uniform_r1-a1",
+    "start_time": 1792309581023,
+    "status": "FINISHED",
+    "tags": {
+      "arch_id": "uniform_r1",
+      "attempt": "1",
+      "data_split_sha256": "b2dade8b65d6b8cb58638b8ae910ed314c0839d7033494ab55c88df3c7ea5b86",
+      "dataset_revision": "bcdcba79d07bc864c1c254ccfcedcce55bcc9a8c",
+      "execution_type": "exploratory_override",
+      "gate": "gate2",
+      "gate1_record": "artifacts/v2/gate1/gate1.json",
+      "gate1_record_sha256": "fb79f4c6bd33c921ae2885a6becbf4037a352c0d951ae177f7fb7fa91e990d20",
+      "gate1_status": "FAIL",
+      "git_sha": "1e19fbd39b1da36af169480b9858d2f2b912c4ad",
+      "head_checkpoint_sha256": "2d10dbe827669c2ec351b5b47f38a5e4187172ddbbddb6a061aca9aa435f97be",
+      "hostname": "cv8161499.novalocal",
+      "method": "uniform_r1",
+      "mlflow.runName": "uniform_r1-sst2-s2025-uniform_r1-a1",
+      "model_revision": "e2da8e2f811d1448a5b465c236feacd80ffbac7b",
+      "protocol_sha256": "d242007e14950316549f7278cd7bdc2bd091bae577510ffdd5111b6bdf9b2b05",
+      "protocol_version": "v2_corrected",
+      "rank_allocation": "{\"roberta.encoder.layer.0.attention.self.query\": 1, \"roberta.encoder.layer.0.attention.self.value\": 1, \"roberta.encoder.layer.1.attention.self.query\": 1, \"roberta.encoder.layer.1.attention.self.value\": 1, \"roberta.encoder.layer.10.attention.self.query\": 1, \"roberta.encoder.layer.10.attention.self.value\": 1, \"roberta.encoder.layer.11.attention.self.query\": 1, \"roberta.encoder.layer.11.attention.self.value\": 1, \"roberta.encoder.layer.2.attention.self.query\": 1, \"roberta.encoder.layer.2.attention.self.value\": 1, \"roberta.encoder.layer.3.attention.self.query\": 1, \"roberta.encoder.layer.3.attention.self.value\": 1, \"roberta.encoder.layer.4.attention.self.query\": 1, \"roberta.encoder.layer.4.attention.self.value\": 1, \"roberta.encoder.layer.5.attention.self.query\": 1, \"roberta.encoder.layer.5.attention.self.value\": 1, \"roberta.encoder.layer.6.attention.self.query\": 1, \"roberta.encoder.layer.6.attention.self.value\": 1, \"roberta.encoder.layer.7.attention.self.query\": 1, \"roberta.encoder.layer.7.attention.self.value\": 1, \"roberta.encoder.layer.8.attention.self.query\": 1, \"roberta.encoder.layer.8.attention.self.value\": 1, \"roberta.encoder.layer.9.attention.self.query\": 1, \"roberta.encoder.layer.9.attention.self.value\": 1}",
+      "reference_artifacts": "artifacts/v2",
+      "run_key": "62056729a9327aaf79dd",
+      "run_namespace": "gate2_exploratory",
+      "seed": "2025",
+      "stage": "gate2",
+      "status": "COMPLETED",
+      "task": "sst2"
+    }
+  },
+  "79d2710cdc4e4ef59cb3e165108aae82": {
+    "artifacts": [
+      "result.json",
+      "train_curve.json"
+    ],
+    "end_time": 1792308852797,
+    "experiment": "rvm-lora/gate2",
+    "experiment_id": "4",
+    "metric_history": {
+      "train_loss": [
+        [
+          20,
+          0.6859566308557987
+        ],
+        [
+          40,
+          0.6858653388917446
+        ],
+        [
+          60,
+          0.683091539144516
+        ],
+        [
+          80,
+          0.6827060535550118
+        ],
+        [
+          100,
+          0.6816081032156944
+        ],
+        [
+          120,
+          0.6811314627528191
+        ],
+        [
+          140,
+          0.6635789208114147
+        ],
+        [
+          160,
+          0.6302153304219246
+        ],
+        [
+          180,
+          0.5555398315191269
+        ],
+        [
+          200,
+          0.4964454459026456
+        ],
+        [
+          220,
+          0.4880547123029828
+        ],
+        [
+          240,
+          0.5039782948791981
+        ],
+        [
+          260,
+          0.4529774621129036
+        ],
+        [
+          280,
+          0.48380853421986103
+        ],
+        [
+          300,
+          0.4536160506308079
+        ],
+        [
+          320,
+          0.46452197022736075
+        ],
+        [
+          340,
+          0.43404658064246177
+        ],
+        [
+          360,
+          0.4550968096591532
+        ],
+        [
+          380,
+          0.4668705590069294
+        ],
+        [
+          400,
+          0.45312198866158726
+        ],
+        [
+          420,
+          0.49287160048261286
+        ],
+        [
+          440,
+          0.4836223689839244
+        ],
+        [
+          460,
+          0.4406465882435441
+        ],
+        [
+          480,
+          0.4466395188122988
+        ],
+        [
+          500,
+          0.4167965601198375
+        ],
+        [
+          520,
+          0.47979270154610276
+        ],
+        [
+          540,
+          0.4437025612220168
+        ],
+        [
+          560,
+          0.44944848138839005
+        ],
+        [
+          580,
+          0.45212126364931465
+        ],
+        [
+          600,
+          0.4473348241299391
+        ],
+        [
+          0,
+          0.4473348241299391
+        ]
+      ]
+    },
+    "metrics": {
+      "adapter_params": 36864.0,
+      "official_validation_accuracy": 0.8383671975105254,
+      "official_validation_loss": 0.37290576343207393,
+      "peak_gpu_memory_mb": 978.6806640625,
+      "rank_sum": 24.0,
+      "selection_wall_s": 0.0,
+      "total_wall_s": 84.32441885300068,
+      "train_loss": 0.4473348241299391,
+      "train_wall_s": 68.093282697002
+    },
+    "params": {
+      "effective_batch": "32",
+      "eval_split": "validation",
+      "lora_alpha": "4",
+      "lr": "0.0002",
+      "ranks_json": "{\"roberta.encoder.layer.0.attention.self.query\": 1, \"roberta.encoder.layer.0.attention.self.value\": 1, \"roberta.encoder.layer.1.attention.self.query\": 1, \"roberta.encoder.layer.1.attention.self.value\": 1, \"roberta.encoder.layer.10.attention.self.query\": 1, \"roberta.encoder.layer.10.attention.self.value\": 1, \"roberta.encoder.layer.11.attention.self.query\": 1, \"roberta.encoder.layer.11.attention.self.value\": 1, \"roberta.encoder.layer.2.attention.self.query\": 1, \"roberta.encoder.layer.2.attention.self.value\": 1, \"roberta.encoder.layer.3.attention.self.query\": 1, \"roberta.encoder.layer.3.attention.self.value\": 1, \"roberta.encoder.layer.4.attention.self.query\": 1, \"roberta.encoder.layer.4.attention.self.value\": 1, \"roberta.encoder.layer.5.attention.self.query\": 1, \"roberta.encoder.layer.5.attention.self.value\": 1, \"roberta.encoder.layer.6.attention.self.query\": 1, \"roberta.encoder.layer.6.attention.self.value\": 1, \"roberta.encoder.layer.7.attention.self.query\": 1, \"roberta.encoder.layer.7.attention.self.value\": 1, \"roberta.encoder.layer.8.attention.self.query\": 1, \"roberta.encoder.layer.8.attention.self.value\": 1, \"roberta.encoder.layer.9.attention.self.query\": 1, \"roberta.encoder.layer.9.attention.self.value\": 1}",
+      "steps": "600",
+      "use_rslora": "True",
+      "weight_decay": "0.01"
+    },
+    "run_name": "uniform_r1-qnli-s2025-uniform_r1-a1",
+    "start_time": 1792308767430,
+    "status": "FINISHED",
+    "tags": {
+      "arch_id": "uniform_r1",
+      "attempt": "1",
+      "data_split_sha256": "880378c3ead20ded1d3ef7e000ef7d3984ac5e63ff65d04187e4aa62fd0317bd",
+      "dataset_revision": "bcdcba79d07bc864c1c254ccfcedcce55bcc9a8c",
+      "execution_type": "exploratory_override",
+      "gate": "gate2",
+      "gate1_record": "artifacts/v2/gate1/gate1.json",
+      "gate1_record_sha256": "fb79f4c6bd33c921ae2885a6becbf4037a352c0d951ae177f7fb7fa91e990d20",
+      "gate1_status": "FAIL",
+      "git_sha": "1e19fbd39b1da36af169480b9858d2f2b912c4ad",
+      "head_checkpoint_sha256": "08ca038ae27d5ea5114cf2470ffeb4464524092dd02ff07c96b48b250c294e57",
+      "hostname": "cv8161499.novalocal",
+      "method": "uniform_r1",
+      "mlflow.runName": "uniform_r1-qnli-s2025-uniform_r1-a1",
+      "model_revision": "e2da8e2f811d1448a5b465c236feacd80ffbac7b",
+      "protocol_sha256": "d242007e14950316549f7278cd7bdc2bd091bae577510ffdd5111b6bdf9b2b05",
+      "protocol_version": "v2_corrected",
+      "rank_allocation": "{\"roberta.encoder.layer.0.attention.self.query\": 1, \"roberta.encoder.layer.0.attention.self.value\": 1, \"roberta.encoder.layer.1.attention.self.query\": 1, \"roberta.encoder.layer.1.attention.self.value\": 1, \"roberta.encoder.layer.10.attention.self.query\": 1, \"roberta.encoder.layer.10.attention.self.value\": 1, \"roberta.encoder.layer.11.attention.self.query\": 1, \"roberta.encoder.layer.11.attention.self.value\": 1, \"roberta.encoder.layer.2.attention.self.query\": 1, \"roberta.encoder.layer.2.attention.self.value\": 1, \"roberta.encoder.layer.3.attention.self.query\": 1, \"roberta.encoder.layer.3.attention.self.value\": 1, \"roberta.encoder.layer.4.attention.self.query\": 1, \"roberta.encoder.layer.4.attention.self.value\": 1, \"roberta.encoder.layer.5.attention.self.query\": 1, \"roberta.encoder.layer.5.attention.self.value\": 1, \"roberta.encoder.layer.6.attention.self.query\": 1, \"roberta.encoder.layer.6.attention.self.value\": 1, \"roberta.encoder.layer.7.attention.self.query\": 1, \"roberta.encoder.layer.7.attention.self.value\": 1, \"roberta.encoder.layer.8.attention.self.query\": 1, \"roberta.encoder.layer.8.attention.self.value\": 1, \"roberta.encoder.layer.9.attention.self.query\": 1, \"roberta.encoder.layer.9.attention.self.value\": 1}",
+      "reference_artifacts": "artifacts/v2",
+      "run_key": "acf80505cc6c560682bc",
+      "run_namespace": "gate2_exploratory",
+      "seed": "2025",
+      "stage": "gate2",
+      "status": "COMPLETED",
+      "task": "qnli"
+    }
+  },
+  "85d60fb4bef149f3843291fea606960d": {
+    "artifacts": [
+      "result.json",
+      "train_curve.json"
+    ],
+    "end_time": 1792309839500,
+    "experiment": "rvm-lora/gate2",
+    "experiment_id": "4",
+    "metric_history": {
+      "train_loss": [
+        [
+          20,
+          0.6214878350496292
+        ],
+        [
+          40,
+          0.5623843144625426
+        ],
+        [
+          60,
+          0.5438790690153837
+        ],
+        [
+          80,
+          0.48032352663576605
+        ],
+        [
+          100,
+          0.4504828142002225
+        ],
+        [
+          120,
+          0.39850512202829125
+        ],
+        [
+          140,
+          0.34449100042693315
+        ],
+        [
+          160,
+          0.3403227367438376
+        ],
+        [
+          180,
+          0.36132597997784616
+        ],
+        [
+          200,
+          0.3122251030057669
+        ],
+        [
+          220,
+          0.3381942532258108
+        ],
+        [
+          240,
+          0.3395106217823923
+        ],
+        [
+          260,
+          0.26526612574234604
+        ],
+        [
+          280,
+          0.35070964572951197
+        ],
+        [
+          300,
+          0.2761505133938044
+        ],
+        [
+          320,
+          0.3179955183994025
+        ],
+        [
+          340,
+          0.3379222367890179
+        ],
+        [
+          360,
+          0.27205845778807997
+        ],
+        [
+          380,
+          0.26006461028009653
+        ],
+        [
+          400,
+          0.2927034750115126
+        ],
+        [
+          420,
+          0.3186296965926886
+        ],
+        [
+          440,
+          0.26414379340130834
+        ],
+        [
+          460,
+          0.29758423469029366
+        ],
+        [
+          480,
+          0.27109263332094996
+        ],
+        [
+          500,
+          0.3272772159660235
+        ],
+        [
+          520,
+          0.30242721978574993
+        ],
+        [
+          540,
+          0.2838332517887466
+        ],
+        [
+          560,
+          0.28509662197902796
+        ],
+        [
+          580,
+          0.30226384634152054
+        ],
+        [
+          600,
+          0.3453900221269578
+        ],
+        [
+          0,
+          0.3453900221269578
+        ]
+      ]
+    },
+    "metrics": {
+      "adapter_params": 36864.0,
+      "official_validation_accuracy": 0.893348623853211,
+      "official_validation_loss": 0.24629348257699105,
+      "peak_gpu_memory_mb": 964.0556640625,
+      "rank_sum": 24.0,
+      "selection_wall_s": 25.025798611997743,
+      "total_wall_s": 91.10548198099423,
+      "train_loss": 0.3453900221269578,
+      "train_wall_s": 62.88617688899831
+    },
+    "params": {
+      "effective_batch": "32",
+      "eval_split": "validation",
+      "lora_alpha": "4",
+      "lr": "0.0002",
+      "ranks_json": "{\"roberta.encoder.layer.0.attention.self.value\": 2, \"roberta.encoder.layer.1.attention.self.value\": 1, \"roberta.encoder.layer.10.attention.self.query\": 1, \"roberta.encoder.layer.10.attention.self.value\": 4, \"roberta.encoder.layer.11.attention.self.query\": 1, \"roberta.encoder.layer.11.attention.self.value\": 2, \"roberta.encoder.layer.2.attention.self.value\": 1, \"roberta.encoder.layer.3.attention.self.value\": 1, \"roberta.encoder.layer.4.attention.self.query\": 1, \"roberta.encoder.layer.4.attention.self.value\": 1, \"roberta.encoder.layer.7.attention.self.query\": 2, \"roberta.encoder.layer.8.attention.self.query\": 2, \"roberta.encoder.layer.8.attention.self.value\": 4, \"roberta.encoder.layer.9.attention.self.query\": 1}",
+      "steps": "600",
+      "use_rslora": "True",
+      "weight_decay": "0.01"
+    },
+    "run_name": "conditional_newton-sst2-s2025-conditional_newton-a1",
+    "start_time": 1792309772378,
+    "status": "FINISHED",
+    "tags": {
+      "arch_id": "conditional_newton",
+      "attempt": "1",
+      "data_split_sha256": "b2dade8b65d6b8cb58638b8ae910ed314c0839d7033494ab55c88df3c7ea5b86",
+      "dataset_revision": "bcdcba79d07bc864c1c254ccfcedcce55bcc9a8c",
+      "execution_type": "exploratory_override",
+      "gate": "gate2",
+      "gate1_record": "artifacts/v2/gate1/gate1.json",
+      "gate1_record_sha256": "fb79f4c6bd33c921ae2885a6becbf4037a352c0d951ae177f7fb7fa91e990d20",
+      "gate1_status": "FAIL",
+      "git_sha": "1e19fbd39b1da36af169480b9858d2f2b912c4ad",
+      "head_checkpoint_sha256": "2d10dbe827669c2ec351b5b47f38a5e4187172ddbbddb6a061aca9aa435f97be",
+      "hostname": "cv8161499.novalocal",
+      "method": "conditional_newton",
+      "mlflow.runName": "conditional_newton-sst2-s2025-conditional_newton-a1",
+      "model_revision": "e2da8e2f811d1448a5b465c236feacd80ffbac7b",
+      "protocol_sha256": "d242007e14950316549f7278cd7bdc2bd091bae577510ffdd5111b6bdf9b2b05",
+      "protocol_version": "v2_corrected",
+      "rank_allocation": "{\"roberta.encoder.layer.0.attention.self.value\": 2, \"roberta.encoder.layer.1.attention.self.value\": 1, \"roberta.encoder.layer.10.attention.self.query\": 1, \"roberta.encoder.layer.10.attention.self.value\": 4, \"roberta.encoder.layer.11.attention.self.query\": 1, \"roberta.encoder.layer.11.attention.self.value\": 2, \"roberta.encoder.layer.2.attention.self.value\": 1, \"roberta.encoder.layer.3.attention.self.value\": 1, \"roberta.encoder.layer.4.attention.self.query\": 1, \"roberta.encoder.layer.4.attention.self.value\": 1, \"roberta.encoder.layer.7.attention.self.query\": 2, \"roberta.encoder.layer.8.attention.self.query\": 2, \"roberta.encoder.layer.8.attention.self.value\": 4, \"roberta.encoder.layer.9.attention.self.query\": 1}",
+      "reference_artifacts": "artifacts/v2",
+      "run_key": "84493c619b50b414ddf2",
+      "run_namespace": "gate2_exploratory",
+      "seed": "2025",
+      "stage": "gate2",
+      "status": "COMPLETED",
+      "task": "sst2"
+    }
+  },
+  "9483cd2861784ab0bbf4c23f8c5f3be9": {
+    "artifacts": [
+      "result.json",
+      "train_curve.json"
+    ],
+    "end_time": 1792309772200,
+    "experiment": "rvm-lora/gate2",
+    "experiment_id": "4",
+    "metric_history": {
+      "train_loss": [
+        [
+          20,
+          0.6205732069909573
+        ],
+        [
+          40,
+          0.5721174821257591
+        ],
+        [
+          60,
+          0.5760985862463712
+        ],
+        [
+          80,
+          0.5649319544434548
+        ],
+        [
+          100,
+          0.5401334673166275
+        ],
+        [
+          120,
+          0.49858337864279745
+        ],
+        [
+          140,
+          0.4466660160571337
+        ],
+        [
+          160,
+          0.4208912057802081
+        ],
+        [
+          180,
+          0.45584262162446976
+        ],
+        [
+          200,
+          0.40709407115355134
+        ],
+        [
+          220,
+          0.40237710494548085
+        ],
+        [
+          240,
+          0.4212646322324872
+        ],
+        [
+          260,
+          0.3503878813236952
+        ],
+        [
+          280,
+          0.3958692576736212
+        ],
+        [
+          300,
+          0.3278822015970945
+        ],
+        [
+          320,
+          0.36732994159683585
+        ],
+        [
+          340,
+          0.40215024282224476
+        ],
+        [
+          360,
+          0.36158013506792486
+        ],
+        [
+          380,
+          0.33728573517873883
+        ],
+        [
+          400,
+          0.34312046514824035
+        ],
+        [
+          420,
+          0.37825015727430583
+        ],
+        [
+          440,
+          0.31869284780696033
+        ],
+        [
+          460,
+          0.3447130264947191
+        ],
+        [
+          480,
+          0.3527032180689275
+        ],
+        [
+          500,
+          0.3906450902111828
+        ],
+        [
+          520,
+          0.36786713362671436
+        ],
+        [
+          540,
+          0.38548944648355243
+        ],
+        [
+          560,
+          0.35518852369859816
+        ],
+        [
+          580,
+          0.35214946055784824
+        ],
+        [
+          600,
+          0.4020829200744629
+        ],
+        [
+          0,
+          0.4020829200744629
+        ]
+      ]
+    },
+    "metrics": {
+      "adapter_params": 36864.0,
+      "official_validation_accuracy": 0.8772935779816514,
+      "official_validation_loss": 0.28620839536770715,
+      "peak_gpu_memory_mb": 628.3681640625,
+      "rank_sum": 24.0,
+      "selection_wall_s": 5.761888298991835,
+      "total_wall_s": 44.783033567997336,
+      "train_loss": 0.4020829200744629,
+      "train_wall_s": 36.36295914500079
+    },
+    "params": {
+      "effective_batch": "32",
+      "eval_split": "validation",
+      "lora_alpha": "4",
+      "lr": "0.0002",
+      "ranks_json": "{\"roberta.encoder.layer.10.attention.self.value\": 8, \"roberta.encoder.layer.11.attention.self.query\": 1, \"roberta.encoder.layer.11.attention.self.value\": 8, \"roberta.encoder.layer.9.attention.self.value\": 7}",
+      "steps": "600",
+      "use_rslora": "True",
+      "weight_decay": "0.01"
+    },
+    "run_name": "oplora-sst2-s2025-oplora-a1",
+    "start_time": 1792309732136,
+    "status": "FINISHED",
+    "tags": {
+      "arch_id": "oplora",
+      "attempt": "1",
+      "data_split_sha256": "b2dade8b65d6b8cb58638b8ae910ed314c0839d7033494ab55c88df3c7ea5b86",
+      "dataset_revision": "bcdcba79d07bc864c1c254ccfcedcce55bcc9a8c",
+      "execution_type": "exploratory_override",
+      "gate": "gate2",
+      "gate1_record": "artifacts/v2/gate1/gate1.json",
+      "gate1_record_sha256": "fb79f4c6bd33c921ae2885a6becbf4037a352c0d951ae177f7fb7fa91e990d20",
+      "gate1_status": "FAIL",
+      "git_sha": "1e19fbd39b1da36af169480b9858d2f2b912c4ad",
+      "head_checkpoint_sha256": "2d10dbe827669c2ec351b5b47f38a5e4187172ddbbddb6a061aca9aa435f97be",
+      "hostname": "cv8161499.novalocal",
+      "method": "oplora",
+      "mlflow.runName": "oplora-sst2-s2025-oplora-a1",
+      "model_revision": "e2da8e2f811d1448a5b465c236feacd80ffbac7b",
+      "protocol_sha256": "d242007e14950316549f7278cd7bdc2bd091bae577510ffdd5111b6bdf9b2b05",
+      "protocol_version": "v2_corrected",
+      "rank_allocation": "{\"roberta.encoder.layer.10.attention.self.value\": 8, \"roberta.encoder.layer.11.attention.self.query\": 1, \"roberta.encoder.layer.11.attention.self.value\": 8, \"roberta.encoder.layer.9.attention.self.value\": 7}",
+      "reference_artifacts": "artifacts/v2",
+      "run_key": "cc955f52812dca86740b",
+      "run_namespace": "gate2_exploratory",
+      "seed": "2025",
+      "stage": "gate2",
+      "status": "COMPLETED",
+      "task": "sst2"
+    }
+  },
+  "94db179e53a64156803958515e16ad9d": {
+    "artifacts": [
+      "result.json",
+      "train_curve.json"
+    ],
+    "end_time": 1792308942253,
+    "experiment": "rvm-lora/gate2",
+    "experiment_id": "4",
+    "metric_history": {
+      "train_loss": [
+        [
+          20,
+          0.6875529669225215
+        ],
+        [
+          40,
+          0.7005947530269623
+        ],
+        [
+          60,
+          0.6561168789863586
+        ],
+        [
+          80,
+          0.6141457810997963
+        ],
+        [
+          100,
+          0.5312661904841661
+        ],
+        [
+          120,
+          0.5285381043329835
+        ],
+        [
+          140,
+          0.5274392280727624
+        ],
+        [
+          160,
+          0.5249114019796253
+        ],
+        [
+          180,
+          0.5278153784573079
+        ],
+        [
+          200,
+          0.4902533767744899
+        ],
+        [
+          220,
+          0.4731594013050199
+        ],
+        [
+          240,
+          0.5076471574604511
+        ],
+        [
+          260,
+          0.4414478210732341
+        ],
+        [
+          280,
+          0.4808167386800051
+        ],
+        [
+          300,
+          0.45245581232011317
+        ],
+        [
+          320,
+          0.46023210436105727
+        ],
+        [
+          340,
+          0.41644853288307787
+        ],
+        [
+          360,
+          0.43859926164150237
+        ],
+        [
+          380,
+          0.46340317409485576
+        ],
+        [
+          400,
+          0.4404295448213816
+        ],
+        [
+          420,
+          0.4566525139845908
+        ],
+        [
+          440,
+          0.4584413092583418
+        ],
+        [
+          460,
+          0.4165022287517786
+        ],
+        [
+          480,
+          0.44013203848153354
+        ],
+        [
+          500,
+          0.4090996850281954
+        ],
+        [
+          520,
+          0.4606928277760744
+        ],
+        [
+          540,
+          0.4238331174477935
+        ],
+        [
+          560,
+          0.41796313812956215
+        ],
+        [
+          580,
+          0.43058674335479735
+        ],
+        [
+          600,
+          0.40842206925153735
+        ],
+        [
+          0,
+          0.40842206925153735
+        ]
+      ]
+    },
+    "metrics": {
+      "adapter_params": 36864.0,
+      "official_validation_accuracy": 0.8570382573677466,
+      "official_validation_loss": 0.34668698337068726,
+      "peak_gpu_memory_mb": 934.2431640625,
+      "rank_sum": 24.0,
+      "selection_wall_s": 2.252714317997743,
+      "total_wall_s": 88.22962767900026,
+      "train_loss": 0.40842206925153735,
+      "train_wall_s": 69.77215378600522
+    },
+    "params": {
+      "effective_batch": "32",
+      "eval_split": "validation",
+      "lora_alpha": "4",
+      "lr": "0.0002",
+      "ranks_json": "EVA",
+      "steps": "600",
+      "use_rslora": "True",
+      "weight_decay": "0.01"
+    },
+    "run_name": "eva-qnli-s2025-eva-a1",
+    "start_time": 1792308852991,
+    "status": "FINISHED",
+    "tags": {
+      "arch_id": "eva",
+      "attempt": "1",
+      "data_split_sha256": "880378c3ead20ded1d3ef7e000ef7d3984ac5e63ff65d04187e4aa62fd0317bd",
+      "dataset_revision": "bcdcba79d07bc864c1c254ccfcedcce55bcc9a8c",
+      "execution_type": "exploratory_override",
+      "gate": "gate2",
+      "gate1_record": "artifacts/v2/gate1/gate1.json",
+      "gate1_record_sha256": "fb79f4c6bd33c921ae2885a6becbf4037a352c0d951ae177f7fb7fa91e990d20",
+      "gate1_status": "FAIL",
+      "git_sha": "1e19fbd39b1da36af169480b9858d2f2b912c4ad",
+      "head_checkpoint_sha256": "08ca038ae27d5ea5114cf2470ffeb4464524092dd02ff07c96b48b250c294e57",
+      "hostname": "cv8161499.novalocal",
+      "method": "eva",
+      "mlflow.runName": "eva-qnli-s2025-eva-a1",
+      "model_revision": "e2da8e2f811d1448a5b465c236feacd80ffbac7b",
+      "protocol_sha256": "d242007e14950316549f7278cd7bdc2bd091bae577510ffdd5111b6bdf9b2b05",
+      "protocol_version": "v2_corrected",
+      "rank_allocation": "{\"roberta.encoder.layer.1.attention.self.query\": 1, \"roberta.encoder.layer.1.attention.self.value\": 1, \"roberta.encoder.layer.10.attention.self.query\": 2, \"roberta.encoder.layer.10.attention.self.value\": 2, \"roberta.encoder.layer.11.attention.self.query\": 2, \"roberta.encoder.layer.11.attention.self.value\": 2, \"roberta.encoder.layer.2.attention.self.query\": 1, \"roberta.encoder.layer.2.attention.self.value\": 1, \"roberta.encoder.layer.4.attention.self.query\": 1, \"roberta.encoder.layer.4.attention.self.value\": 1, \"roberta.encoder.layer.5.attention.self.query\": 1, \"roberta.encoder.layer.5.attention.self.value\": 1, \"roberta.encoder.layer.6.attention.self.query\": 1, \"roberta.encoder.layer.6.attention.self.value\": 1, \"roberta.encoder.layer.7.attention.self.query\": 1, \"roberta.encoder.layer.7.attention.self.value\": 1, \"roberta.encoder.layer.8.attention.self.query\": 1, \"roberta.encoder.layer.8.attention.self.value\": 1, \"roberta.encoder.layer.9.attention.self.query\": 1, \"roberta.encoder.layer.9.attention.self.value\": 1}",
+      "reference_artifacts": "artifacts/v2",
+      "run_key": "69797948189512eb988c",
+      "run_namespace": "gate2_exploratory",
+      "seed": "2025",
+      "stage": "gate2",
+      "status": "COMPLETED",
+      "task": "qnli"
+    }
+  },
+  "9f72ace85bd3446e9d516e004fde74ba": {
+    "artifacts": [
+      "result.json",
+      "train_curve.json"
+    ],
+    "end_time": 1792309356620,
+    "experiment": "rvm-lora/gate2",
+    "experiment_id": "4",
+    "metric_history": {
+      "train_loss": [
+        [
+          20,
+          0.5476931504905224
+        ],
+        [
+          40,
+          0.45608998090028763
+        ],
+        [
+          60,
+          0.3922608345746994
+        ],
+        [
+          80,
+          0.34673010497353973
+        ],
+        [
+          100,
+          0.4289782388135791
+        ],
+        [
+          120,
+          0.32288970169611275
+        ],
+        [
+          140,
+          0.34469638830050825
+        ],
+        [
+          160,
+          0.34776392541825774
+        ],
+        [
+          180,
+          0.37042470222804696
+        ],
+        [
+          200,
+          0.35779317538253963
+        ],
+        [
+          220,
+          0.3239598612766713
+        ],
+        [
+          240,
+          0.37616054303944113
+        ],
+        [
+          260,
+          0.3296291120816022
+        ],
+        [
+          280,
+          0.31319693857803943
+        ],
+        [
+          300,
+          0.3016080868430436
+        ],
+        [
+          320,
+          0.30322875468991695
+        ],
+        [
+          340,
+          0.27757210899144413
+        ],
+        [
+          360,
+          0.2841727510560304
+        ],
+        [
+          380,
+          0.2910208885092288
+        ],
+        [
+          400,
+          0.3044507443904877
+        ],
+        [
+          420,
+          0.26577018457464874
+        ],
+        [
+          440,
+          0.27985116126947107
+        ],
+        [
+          460,
+          0.2875286931055598
+        ],
+        [
+          480,
+          0.3181068243226036
+        ],
+        [
+          500,
+          0.28899467771407217
+        ],
+        [
+          520,
+          0.2564455805812031
+        ],
+        [
+          540,
+          0.3235138073330745
+        ],
+        [
+          560,
+          0.2526026715524495
+        ],
+        [
+          580,
+          0.2694974127458408
+        ],
+        [
+          600,
+          0.2453868196113035
+        ],
+        [
+          0,
+          0.2453868196113035
+        ]
+      ]
+    },
+    "metrics": {
+      "adapter_params": 36864.0,
+      "official_validation_accuracy": 0.911697247706422,
+      "official_validation_loss": 0.21374731890866241,
+      "peak_gpu_memory_mb": 937.7431640625,
+      "rank_sum": 24.0,
+      "selection_wall_s": 0.7544057799968868,
+      "total_wall_s": 67.51579462700465,
+      "train_loss": 0.2453868196113035,
+      "train_wall_s": 63.99279264899815
+    },
+    "params": {
+      "effective_batch": "32",
+      "eval_split": "validation",
+      "lora_alpha": "4",
+      "lr": "0.0002",
+      "ranks_json": "EVA",
+      "steps": "600",
+      "use_rslora": "True",
+      "weight_decay": "0.01"
+    },
+    "run_name": "eva-sst2-s42-eva-a1",
+    "start_time": 1792309288042,
+    "status": "FINISHED",
+    "tags": {
+      "arch_id": "eva",
+      "attempt": "1",
+      "data_split_sha256": "b2dade8b65d6b8cb58638b8ae910ed314c0839d7033494ab55c88df3c7ea5b86",
+      "dataset_revision": "bcdcba79d07bc864c1c254ccfcedcce55bcc9a8c",
+      "execution_type": "exploratory_override",
+      "gate": "gate2",
+      "gate1_record": "artifacts/v2/gate1/gate1.json",
+      "gate1_record_sha256": "fb79f4c6bd33c921ae2885a6becbf4037a352c0d951ae177f7fb7fa91e990d20",
+      "gate1_status": "FAIL",
+      "git_sha": "1e19fbd39b1da36af169480b9858d2f2b912c4ad",
+      "head_checkpoint_sha256": "06785967289b4a27a3f46df07766defdc7db93b2e325e53d7a0314d32dddac88",
+      "hostname": "cv8161499.novalocal",
+      "method": "eva",
+      "mlflow.runName": "eva-sst2-s42-eva-a1",
+      "model_revision": "e2da8e2f811d1448a5b465c236feacd80ffbac7b",
+      "protocol_sha256": "d242007e14950316549f7278cd7bdc2bd091bae577510ffdd5111b6bdf9b2b05",
+      "protocol_version": "v2_corrected",
+      "rank_allocation": "{\"roberta.encoder.layer.1.attention.self.query\": 1, \"roberta.encoder.layer.1.attention.self.value\": 1, \"roberta.encoder.layer.10.attention.self.query\": 1, \"roberta.encoder.layer.10.attention.self.value\": 1, \"roberta.encoder.layer.11.attention.self.query\": 1, \"roberta.encoder.layer.11.attention.self.value\": 1, \"roberta.encoder.layer.2.attention.self.query\": 1, \"roberta.encoder.layer.2.attention.self.value\": 1, \"roberta.encoder.layer.3.attention.self.query\": 1, \"roberta.encoder.layer.3.attention.self.value\": 1, \"roberta.encoder.layer.4.attention.self.query\": 1, \"roberta.encoder.layer.4.attention.self.value\": 1, \"roberta.encoder.layer.5.attention.self.query\": 1, \"roberta.encoder.layer.5.attention.self.value\": 1, \"roberta.encoder.layer.6.attention.self.query\": 1, \"roberta.encoder.layer.6.attention.self.value\": 1, \"roberta.encoder.layer.7.attention.self.query\": 1, \"roberta.encoder.layer.7.attention.self.value\": 1, \"roberta.encoder.layer.8.attention.self.query\": 2, \"roberta.encoder.layer.8.attention.self.value\": 2, \"roberta.encoder.layer.9.attention.self.query\": 1, \"roberta.encoder.layer.9.attention.self.value\": 1}",
+      "reference_artifacts": "artifacts/v2",
+      "run_key": "66a85fefdc73cc7bb251",
+      "run_namespace": "gate2_exploratory",
+      "seed": "42",
+      "stage": "gate2",
+      "status": "COMPLETED",
+      "task": "sst2"
+    }
+  },
+  "b0ee11a29637455ba7457ebcd449d022": {
+    "artifacts": [
+      "gate0.json",
+      "pytest_junit.xml"
+    ],
+    "end_time": 1792308051076,
+    "experiment": "rvm-lora/gate0",
+    "experiment_id": "1",
+    "metric_history": {},
+    "metrics": {
+      "n_passed": 71.0,
+      "n_tests": 71.0
+    },
+    "params": {},
+    "run_name": "gate0_suite-none-s0--a1",
+    "start_time": 1792308050814,
+    "status": "FINISHED",
+    "tags": {
+      "attempt": "1",
+      "gate": "gate0",
+      "git_sha": "1e19fbd39b1da36af169480b9858d2f2b912c4ad",
+      "hostname": "cv8161499.novalocal",
+      "method": "gate0_suite",
+      "mlflow.runName": "gate0_suite-none-s0--a1",
+      "protocol_sha256": "d242007e14950316549f7278cd7bdc2bd091bae577510ffdd5111b6bdf9b2b05",
+      "run_key": "97938df50d438938b7d8",
+      "seed": "0",
+      "status": "COMPLETED",
+      "task": "none"
+    }
+  },
+  "b532e975a1b34c729d7842863d61d633": {
+    "artifacts": [
+      "result.json",
+      "train_curve.json"
+    ],
+    "end_time": 1792309889348,
+    "experiment": "rvm-lora/gate2",
+    "experiment_id": "4",
+    "metric_history": {
+      "train_loss": [
+        [
+          20,
+          0.6309700727462768
+        ],
+        [
+          40,
+          0.5906732454895973
+        ],
+        [
+          60,
+          0.5905902445316314
+        ],
+        [
+          80,
+          0.5781129725277424
+        ],
+        [
+          100,
+          0.5457818731665611
+        ],
+        [
+          120,
+          0.5137510854750872
+        ],
+        [
+          140,
+          0.4634117316454649
+        ],
+        [
+          160,
+          0.4417699420824647
+        ],
+        [
+          180,
+          0.45340287163853643
+        ],
+        [
+          200,
+          0.40585767980664966
+        ],
+        [
+          220,
+          0.42285218350589276
+        ],
+        [
+          240,
+          0.4154313554055989
+        ],
+        [
+          260,
+          0.34591738451272247
+        ],
+        [
+          280,
+          0.404361667111516
+        ],
+        [
+          300,
+          0.3380749553442001
+        ],
+        [
+          320,
+          0.3684338454157114
+        ],
+        [
+          340,
+          0.39968175506219267
+        ],
+        [
+          360,
+          0.3518022243399173
+        ],
+        [
+          380,
+          0.31483221184462307
+        ],
+        [
+          400,
+          0.35183258894830943
+        ],
+        [
+          420,
+          0.3811103939078748
+        ],
+        [
+          440,
+          0.33776125833392145
+        ],
+        [
+          460,
+          0.3651997203938663
+        ],
+        [
+          480,
+          0.3349568168167025
+        ],
+        [
+          500,
+          0.37752327099442484
+        ],
+        [
+          520,
+          0.3793913204688579
+        ],
+        [
+          540,
+          0.36736866598948836
+        ],
+        [
+          560,
+          0.35705060604959726
+        ],
+        [
+          580,
+          0.34993325509130957
+        ],
+        [
+          600,
+          0.40666042631492016
+        ],
+        [
+          0,
+          0.40666042631492016
+        ]
+      ]
+    },
+    "metrics": {
+      "adapter_params": 4608.0,
+      "official_validation_accuracy": 0.8715596330275229,
+      "official_validation_loss": 0.2992584731737698,
+      "peak_gpu_memory_mb": 876.8359375,
+      "rank_sum": 3.0,
+      "selection_wall_s": 35.203670946000784,
+      "total_wall_s": 83.85380337300012,
+      "train_loss": 0.40666042631492016,
+      "train_wall_s": 45.99532825000642
+    },
+    "params": {
+      "effective_batch": "32",
+      "eval_split": "validation",
+      "lora_alpha": "4",
+      "lr": "0.0002",
+      "ranks_json": "{\"roberta.encoder.layer.10.attention.self.query\": 1, \"roberta.encoder.layer.11.attention.self.query\": 1, \"roberta.encoder.layer.2.attention.self.value\": 1}",
+      "steps": "600",
+      "use_rslora": "True",
+      "weight_decay": "0.01"
+    },
+    "run_name": "group_rvm-sst2-s2025-group_rvm-a1",
+    "start_time": 1792309839654,
+    "status": "FINISHED",
+    "tags": {
+      "arch_id": "group_rvm",
+      "attempt": "1",
+      "data_split_sha256": "b2dade8b65d6b8cb58638b8ae910ed314c0839d7033494ab55c88df3c7ea5b86",
+      "dataset_revision": "bcdcba79d07bc864c1c254ccfcedcce55bcc9a8c",
+      "execution_type": "exploratory_override",
+      "gate": "gate2",
+      "gate1_record": "artifacts/v2/gate1/gate1.json",
+      "gate1_record_sha256": "fb79f4c6bd33c921ae2885a6becbf4037a352c0d951ae177f7fb7fa91e990d20",
+      "gate1_status": "FAIL",
+      "git_sha": "1e19fbd39b1da36af169480b9858d2f2b912c4ad",
+      "head_checkpoint_sha256": "2d10dbe827669c2ec351b5b47f38a5e4187172ddbbddb6a061aca9aa435f97be",
+      "hostname": "cv8161499.novalocal",
+      "method": "group_rvm",
+      "mlflow.runName": "group_rvm-sst2-s2025-group_rvm-a1",
+      "model_revision": "e2da8e2f811d1448a5b465c236feacd80ffbac7b",
+      "protocol_sha256": "d242007e14950316549f7278cd7bdc2bd091bae577510ffdd5111b6bdf9b2b05",
+      "protocol_version": "v2_corrected",
+      "rank_allocation": "{\"roberta.encoder.layer.10.attention.self.query\": 1, \"roberta.encoder.layer.11.attention.self.query\": 1, \"roberta.encoder.layer.2.attention.self.value\": 1}",
+      "reference_artifacts": "artifacts/v2",
+      "run_key": "002355eedf5ae3f32390",
+      "run_namespace": "gate2_exploratory",
+      "seed": "2025",
+      "stage": "gate2",
+      "status": "COMPLETED",
+      "task": "sst2"
+    }
+  },
+  "b91142e5edb643e68fa0d40515d85620": {
+    "artifacts": [
+      "result.json",
+      "train_curve.json"
+    ],
+    "end_time": 1792309393518,
+    "experiment": "rvm-lora/gate2",
+    "experiment_id": "4",
+    "metric_history": {
+      "train_loss": [
+        [
+          20,
+          0.5830634105950594
+        ],
+        [
+          40,
+          0.5981373634189368
+        ],
+        [
+          60,
+          0.5663434509187937
+        ],
+        [
+          80,
+          0.5485268868505955
+        ],
+        [
+          100,
+          0.5145762393251061
+        ],
+        [
+          120,
+          0.4415413197129965
+        ],
+        [
+          140,
+          0.42905798349529506
+        ],
+        [
+          160,
+          0.38808150086551907
+        ],
+        [
+          180,
+          0.3864750288426876
+        ],
+        [
+          200,
+          0.400820209691301
+        ],
+        [
+          220,
+          0.3664666355587542
+        ],
+        [
+          240,
+          0.3875667221844196
+        ],
+        [
+          260,
+          0.4288591952063143
+        ],
+        [
+          280,
+          0.40291339391842484
+        ],
+        [
+          300,
+          0.35115865617990494
+        ],
+        [
+          320,
+          0.3557330464478582
+        ],
+        [
+          340,
+          0.3720601797103882
+        ],
+        [
+          360,
+          0.3725440062582493
+        ],
+        [
+          380,
+          0.3721248441375792
+        ],
+        [
+          400,
+          0.38511267499998214
+        ],
+        [
+          420,
+          0.34401322100311515
+        ],
+        [
+          440,
+          0.3464731774292886
+        ],
+        [
+          460,
+          0.3740565468557179
+        ],
+        [
+          480,
+          0.33935023776721207
+        ],
+        [
+          500,
+          0.34162428667768835
+        ],
+        [
+          520,
+          0.33313244676683096
+        ],
+        [
+          540,
+          0.38536692201159894
+        ],
+        [
+          560,
+          0.3068116161972284
+        ],
+        [
+          580,
+          0.33660818382631985
+        ],
+        [
+          600,
+          0.3054845767561346
+        ],
+        [
+          0,
+          0.3054845767561346
+        ]
+      ]
+    },
+    "metrics": {
+      "adapter_params": 36864.0,
+      "official_validation_accuracy": 0.8807339449541285,
+      "official_validation_loss": 0.28557279414298226,
+      "peak_gpu_memory_mb": 628.3681640625,
+      "rank_sum": 24.0,
+      "selection_wall_s": 5.769127539999317,
+      "total_wall_s": 41.4289510019953,
+      "train_loss": 0.3054845767561346,
+      "train_wall_s": 33.03663997200056
+    },
+    "params": {
+      "effective_batch": "32",
+      "eval_split": "validation",
+      "lora_alpha": "4",
+      "lr": "0.0002",
+      "ranks_json": "{\"roberta.encoder.layer.10.attention.self.value\": 8, \"roberta.encoder.layer.11.attention.self.query\": 1, \"roberta.encoder.layer.11.attention.self.value\": 8, \"roberta.encoder.layer.9.attention.self.value\": 7}",
+      "steps": "600",
+      "use_rslora": "True",
+      "weight_decay": "0.01"
+    },
+    "run_name": "oplora-sst2-s42-oplora-a1",
+    "start_time": 1792309356810,
+    "status": "FINISHED",
+    "tags": {
+      "arch_id": "oplora",
+      "attempt": "1",
+      "data_split_sha256": "b2dade8b65d6b8cb58638b8ae910ed314c0839d7033494ab55c88df3c7ea5b86",
+      "dataset_revision": "bcdcba79d07bc864c1c254ccfcedcce55bcc9a8c",
+      "execution_type": "exploratory_override",
+      "gate": "gate2",
+      "gate1_record": "artifacts/v2/gate1/gate1.json",
+      "gate1_record_sha256": "fb79f4c6bd33c921ae2885a6becbf4037a352c0d951ae177f7fb7fa91e990d20",
+      "gate1_status": "FAIL",
+      "git_sha": "1e19fbd39b1da36af169480b9858d2f2b912c4ad",
+      "head_checkpoint_sha256": "06785967289b4a27a3f46df07766defdc7db93b2e325e53d7a0314d32dddac88",
+      "hostname": "cv8161499.novalocal",
+      "method": "oplora",
+      "mlflow.runName": "oplora-sst2-s42-oplora-a1",
+      "model_revision": "e2da8e2f811d1448a5b465c236feacd80ffbac7b",
+      "protocol_sha256": "d242007e14950316549f7278cd7bdc2bd091bae577510ffdd5111b6bdf9b2b05",
+      "protocol_version": "v2_corrected",
+      "rank_allocation": "{\"roberta.encoder.layer.10.attention.self.value\": 8, \"roberta.encoder.layer.11.attention.self.query\": 1, \"roberta.encoder.layer.11.attention.self.value\": 8, \"roberta.encoder.layer.9.attention.self.value\": 7}",
+      "reference_artifacts": "artifacts/v2",
+      "run_key": "d9060b1adf7b332ad65a",
+      "run_namespace": "gate2_exploratory",
+      "seed": "42",
+      "stage": "gate2",
+      "status": "COMPLETED",
+      "task": "sst2"
+    }
+  },
+  "bf212607f0b349fcb28e37d525a0ebe5": {
+    "artifacts": [
+      "oplora.json",
+      "probe_result.json",
+      "selection.json"
+    ],
+    "end_time": 1792308118946,
+    "experiment": "rvm-lora/gate2",
+    "experiment_id": "4",
+    "metric_history": {},
+    "metrics": {
+      "conditional_newton_selection_s": 25.307682396982273,
+      "direction_pass_s": 21.6015828899981,
+      "feature_pass_s": 3.1844457389961462,
+      "group_rvm_selection_s": 36.06698257998505,
+      "newton_rank_units": 24.0,
+      "oplora_importance_pass_s": 5.803655889998481,
+      "oplora_selection_s": 5.81212850400334,
+      "rvm_fresh_null_activations": 5.0,
+      "rvm_rank_units": 4.0,
+      "rvm_threshold": 0.0013718244091873446,
+      "selection_job_startup_s": 0.4478640659872326,
+      "selection_job_wall_s": 23.09263230599754
+    },
+    "params": {
+      "directions": "512",
+      "evidence": "512",
+      "n_atoms": "192"
+    },
+    "run_name": "probe_selection-qnli-s42--a1",
+    "start_time": 1792308118010,
+    "status": "FINISHED",
+    "tags": {
+      "attempt": "1",
+      "dataset_revision": "bcdcba79d07bc864c1c254ccfcedcce55bcc9a8c",
+      "execution_type": "exploratory_override",
+      "gate": "gate2",
+      "gate1_record": "artifacts/v2/gate1/gate1.json",
+      "gate1_record_sha256": "fb79f4c6bd33c921ae2885a6becbf4037a352c0d951ae177f7fb7fa91e990d20",
+      "gate1_status": "FAIL",
+      "git_sha": "1e19fbd39b1da36af169480b9858d2f2b912c4ad",
+      "head_checkpoint_sha256": "08d1ce5a251956c08cea8736d3dc04ffbd7c2d439d80d97a53c1213c2e598034",
+      "hostname": "cv8161499.novalocal",
+      "method": "probe_selection",
+      "mlflow.runName": "probe_selection-qnli-s42--a1",
+      "model_revision": "e2da8e2f811d1448a5b465c236feacd80ffbac7b",
+      "protocol_sha256": "d242007e14950316549f7278cd7bdc2bd091bae577510ffdd5111b6bdf9b2b05",
+      "protocol_version": "v2_corrected",
+      "reference_artifacts": "artifacts/v2",
+      "run_key": "81cecdd124367e090839",
+      "run_namespace": "gate2_exploratory",
+      "seed": "42",
+      "stage": "gate2",
+      "status": "COMPLETED",
+      "task": "qnli"
+    }
+  },
+  "c2ffb336195d45f5b824eed3c63af8b1": {
+    "artifacts": [
+      "result.json",
+      "train_curve.json"
+    ],
+    "end_time": 1792309070426,
+    "experiment": "rvm-lora/gate2",
+    "experiment_id": "4",
+    "metric_history": {
+      "train_loss": [
+        [
+          20,
+          0.6859585843980313
+        ],
+        [
+          40,
+          0.6861085839569568
+        ],
+        [
+          60,
+          0.6828163348138332
+        ],
+        [
+          80,
+          0.6825607679784298
+        ],
+        [
+          100,
+          0.6819449938833714
+        ],
+        [
+          120,
+          0.6812017776072026
+        ],
+        [
+          140,
+          0.6661752231419087
+        ],
+        [
+          160,
+          0.6403907470405101
+        ],
+        [
+          180,
+          0.5686630208045245
+        ],
+        [
+          200,
+          0.4972815077751875
+        ],
+        [
+          220,
+          0.49651514943689107
+        ],
+        [
+          240,
+          0.5025729008018971
+        ],
+        [
+          260,
+          0.463858063519001
+        ],
+        [
+          280,
+          0.47864556331187486
+        ],
+        [
+          300,
+          0.4473293563351035
+        ],
+        [
+          320,
+          0.4696656495332718
+        ],
+        [
+          340,
+          0.4527684189379215
+        ],
+        [
+          360,
+          0.4769084632396698
+        ],
+        [
+          380,
+          0.47347230892628434
+        ],
+        [
+          400,
+          0.45900210812687875
+        ],
+        [
+          420,
+          0.483085816912353
+        ],
+        [
+          440,
+          0.48810942731797696
+        ],
+        [
+          460,
+          0.4406750414520502
+        ],
+        [
+          480,
+          0.45258732298389076
+        ],
+        [
+          500,
+          0.41451496351510286
+        ],
+        [
+          520,
+          0.4855847779661417
+        ],
+        [
+          540,
+          0.44405846688896417
+        ],
+        [
+          560,
+          0.4487871785648167
+        ],
+        [
+          580,
+          0.44194728368893266
+        ],
+        [
+          600,
+          0.4544619843363762
+        ],
+        [
+          0,
+          0.4544619843363762
+        ]
+      ]
+    },
+    "metrics": {
+      "adapter_params": 36864.0,
+      "official_validation_accuracy": 0.8442247849167124,
+      "official_validation_loss": 0.3778871937229135,
+      "peak_gpu_memory_mb": 928.2431640625,
+      "rank_sum": 24.0,
+      "selection_wall_s": 24.83294989600836,
+      "total_wall_s": 99.83053433601162,
+      "train_loss": 0.4544619843363762,
+      "train_wall_s": 58.87027201800083
+    },
+    "params": {
+      "effective_batch": "32",
+      "eval_split": "validation",
+      "lora_alpha": "4",
+      "lr": "0.0002",
+      "ranks_json": "{\"roberta.encoder.layer.1.attention.self.query\": 1, \"roberta.encoder.layer.1.attention.self.value\": 1, \"roberta.encoder.layer.10.attention.self.value\": 2, \"roberta.encoder.layer.11.attention.self.value\": 1, \"roberta.encoder.layer.3.attention.self.query\": 1, \"roberta.encoder.layer.3.attention.self.value\": 1, \"roberta.encoder.layer.4.attention.self.query\": 2, \"roberta.encoder.layer.4.attention.self.value\": 2, \"roberta.encoder.layer.6.attention.self.query\": 1, \"roberta.encoder.layer.6.attention.self.value\": 3, \"roberta.encoder.layer.7.attention.self.query\": 1, \"roberta.encoder.layer.7.attention.self.value\": 3, \"roberta.encoder.layer.8.attention.self.query\": 1, \"roberta.encoder.layer.8.attention.self.value\": 2, \"roberta.encoder.layer.9.attention.self.value\": 2}",
+      "steps": "600",
+      "use_rslora": "True",
+      "weight_decay": "0.01"
+    },
+    "run_name": "conditional_newton-qnli-s2025-conditional_newton-a1",
+    "start_time": 1792308994354,
+    "status": "FINISHED",
+    "tags": {
+      "arch_id": "conditional_newton",
+      "attempt": "1",
+      "data_split_sha256": "880378c3ead20ded1d3ef7e000ef7d3984ac5e63ff65d04187e4aa62fd0317bd",
+      "dataset_revision": "bcdcba79d07bc864c1c254ccfcedcce55bcc9a8c",
+      "execution_type": "exploratory_override",
+      "gate": "gate2",
+      "gate1_record": "artifacts/v2/gate1/gate1.json",
+      "gate1_record_sha256": "fb79f4c6bd33c921ae2885a6becbf4037a352c0d951ae177f7fb7fa91e990d20",
+      "gate1_status": "FAIL",
+      "git_sha": "1e19fbd39b1da36af169480b9858d2f2b912c4ad",
+      "head_checkpoint_sha256": "08ca038ae27d5ea5114cf2470ffeb4464524092dd02ff07c96b48b250c294e57",
+      "hostname": "cv8161499.novalocal",
+      "method": "conditional_newton",
+      "mlflow.runName": "conditional_newton-qnli-s2025-conditional_newton-a1",
+      "model_revision": "e2da8e2f811d1448a5b465c236feacd80ffbac7b",
+      "protocol_sha256": "d242007e14950316549f7278cd7bdc2bd091bae577510ffdd5111b6bdf9b2b05",
+      "protocol_version": "v2_corrected",
+      "rank_allocation": "{\"roberta.encoder.layer.1.attention.self.query\": 1, \"roberta.encoder.layer.1.attention.self.value\": 1, \"roberta.encoder.layer.10.attention.self.value\": 2, \"roberta.encoder.layer.11.attention.self.value\": 1, \"roberta.encoder.layer.3.attention.self.query\": 1, \"roberta.encoder.layer.3.attention.self.value\": 1, \"roberta.encoder.layer.4.attention.self.query\": 2, \"roberta.encoder.layer.4.attention.self.value\": 2, \"roberta.encoder.layer.6.attention.self.query\": 1, \"roberta.encoder.layer.6.attention.self.value\": 3, \"roberta.encoder.layer.7.attention.self.query\": 1, \"roberta.encoder.layer.7.attention.self.value\": 3, \"roberta.encoder.layer.8.attention.self.query\": 1, \"roberta.encoder.layer.8.attention.self.value\": 2, \"roberta.encoder.layer.9.attention.self.value\": 2}",
+      "reference_artifacts": "artifacts/v2",
+      "run_key": "17d527370c27fb605b3f",
+      "run_namespace": "gate2_exploratory",
+      "seed": "2025",
+      "stage": "gate2",
+      "status": "COMPLETED",
+      "task": "qnli"
+    }
+  },
+  "c82161ae329842ac869250b30773a3be": {
+    "artifacts": [
+      "sst2_s2025.json"
+    ],
+    "end_time": 1792308241110,
+    "experiment": "rvm-lora/gate2",
+    "experiment_id": "4",
+    "metric_history": {},
+    "metrics": {
+      "head_steps": 200.0,
+      "head_train_loss_first20": 0.7227236330509186,
+      "head_train_loss_last20": 0.589803034067154,
+      "head_wall_s": 5.079573109003832
+    },
+    "params": {
+      "lr": "0.001",
+      "steps": "200"
+    },
+    "run_name": "head_warm_start-sst2-s2025--a1",
+    "start_time": 1792308240625,
+    "status": "FINISHED",
+    "tags": {
+      "attempt": "1",
+      "dataset_revision": "bcdcba79d07bc864c1c254ccfcedcce55bcc9a8c",
+      "execution_type": "exploratory_override",
+      "gate": "gate2",
+      "gate1_record": "artifacts/v2/gate1/gate1.json",
+      "gate1_record_sha256": "fb79f4c6bd33c921ae2885a6becbf4037a352c0d951ae177f7fb7fa91e990d20",
+      "gate1_status": "FAIL",
+      "git_sha": "1e19fbd39b1da36af169480b9858d2f2b912c4ad",
+      "head_checkpoint_sha256": "2d10dbe827669c2ec351b5b47f38a5e4187172ddbbddb6a061aca9aa435f97be",
+      "hostname": "cv8161499.novalocal",
+      "method": "head_warm_start",
+      "mlflow.runName": "head_warm_start-sst2-s2025--a1",
+      "model_revision": "e2da8e2f811d1448a5b465c236feacd80ffbac7b",
+      "protocol_sha256": "d242007e14950316549f7278cd7bdc2bd091bae577510ffdd5111b6bdf9b2b05",
+      "protocol_version": "v2_corrected",
+      "reference_artifacts": "artifacts/v2",
+      "run_key": "f95ef39008073f8862e8",
+      "run_namespace": "gate2_exploratory",
+      "seed": "2025",
+      "stage": "gate2",
+      "status": "COMPLETED",
+      "task": "sst2"
+    }
+  },
+  "cdcbe495725f4538983480565831bfac": {
+    "artifacts": [
+      "oplora.json",
+      "probe_result.json",
+      "selection.json"
+    ],
+    "end_time": 1792308177282,
+    "experiment": "rvm-lora/gate2",
+    "experiment_id": "4",
+    "metric_history": {},
+    "metrics": {
+      "conditional_newton_selection_s": 24.83294989600836,
+      "direction_pass_s": 21.429433539000456,
+      "feature_pass_s": 2.9043574250026722,
+      "group_rvm_selection_s": 35.344779845007,
+      "newton_rank_units": 24.0,
+      "oplora_importance_pass_s": 5.802800286001002,
+      "oplora_selection_s": 5.8110242990005645,
+      "rvm_fresh_null_activations": 3.0,
+      "rvm_rank_units": 4.0,
+      "rvm_threshold": 0.0021121285177668776,
+      "selection_job_startup_s": 0.4287431910051964,
+      "selection_job_wall_s": 20.770603429999028
+    },
+    "params": {
+      "directions": "512",
+      "evidence": "512",
+      "n_atoms": "192"
+    },
+    "run_name": "probe_selection-qnli-s2025--a1",
+    "start_time": 1792308176305,
+    "status": "FINISHED",
+    "tags": {
+      "attempt": "1",
+      "dataset_revision": "bcdcba79d07bc864c1c254ccfcedcce55bcc9a8c",
+      "execution_type": "exploratory_override",
+      "gate": "gate2",
+      "gate1_record": "artifacts/v2/gate1/gate1.json",
+      "gate1_record_sha256": "fb79f4c6bd33c921ae2885a6becbf4037a352c0d951ae177f7fb7fa91e990d20",
+      "gate1_status": "FAIL",
+      "git_sha": "1e19fbd39b1da36af169480b9858d2f2b912c4ad",
+      "head_checkpoint_sha256": "08ca038ae27d5ea5114cf2470ffeb4464524092dd02ff07c96b48b250c294e57",
+      "hostname": "cv8161499.novalocal",
+      "method": "probe_selection",
+      "mlflow.runName": "probe_selection-qnli-s2025--a1",
+      "model_revision": "e2da8e2f811d1448a5b465c236feacd80ffbac7b",
+      "protocol_sha256": "d242007e14950316549f7278cd7bdc2bd091bae577510ffdd5111b6bdf9b2b05",
+      "protocol_version": "v2_corrected",
+      "reference_artifacts": "artifacts/v2",
+      "run_key": "509167e160a8024b4234",
+      "run_namespace": "gate2_exploratory",
+      "seed": "2025",
+      "stage": "gate2",
+      "status": "COMPLETED",
+      "task": "qnli"
+    }
+  },
+  "ce38b646b7f345d6a68d857bde8603b0": {
+    "artifacts": [
+      "result.json",
+      "train_curve.json"
+    ],
+    "end_time": 1792308678572,
+    "experiment": "rvm-lora/gate2",
+    "experiment_id": "4",
+    "metric_history": {
+      "train_loss": [
+        [
+          20,
+          0.688952848315239
+        ],
+        [
+          40,
+          0.6736341543495655
+        ],
+        [
+          60,
+          0.6935209386050701
+        ],
+        [
+          80,
+          0.6937530480325222
+        ],
+        [
+          100,
+          0.6818977922201157
+        ],
+        [
+          120,
+          0.6929336436092853
+        ],
+        [
+          140,
+          0.6829929880797863
+        ],
+        [
+          160,
+          0.6823880553245545
+        ],
+        [
+          180,
+          0.6878345400094986
+        ],
+        [
+          200,
+          0.6901967383921146
+        ],
+        [
+          220,
+          0.6795040316879749
+        ],
+        [
+          240,
+          0.6818001873791217
+        ],
+        [
+          260,
+          0.6727515622973442
+        ],
+        [
+          280,
+          0.6776339933276176
+        ],
+        [
+          300,
+          0.6729775756597519
+        ],
+        [
+          320,
+          0.670924536138773
+        ],
+        [
+          340,
+          0.6716252692043782
+        ],
+        [
+          360,
+          0.6786302998661995
+        ],
+        [
+          380,
+          0.6742274448275566
+        ],
+        [
+          400,
+          0.6712948597967625
+        ],
+        [
+          420,
+          0.6771681047976017
+        ],
+        [
+          440,
+          0.6623547188937664
+        ],
+        [
+          460,
+          0.6655053786933423
+        ],
+        [
+          480,
+          0.6645933285355567
+        ],
+        [
+          500,
+          0.6633290834724903
+        ],
+        [
+          520,
+          0.670074638724327
+        ],
+        [
+          540,
+          0.6588723599910736
+        ],
+        [
+          560,
+          0.6641329392790795
+        ],
+        [
+          580,
+          0.6559594668447971
+        ],
+        [
+          600,
+          0.664971823990345
+        ],
+        [
+          0,
+          0.664971823990345
+        ]
+      ]
+    },
+    "metrics": {
+      "adapter_params": 6144.0,
+      "official_validation_accuracy": 0.6857038257367747,
+      "official_validation_loss": 0.652866927883768,
+      "peak_gpu_memory_mb": 803.7392578125,
+      "rank_sum": 4.0,
+      "selection_wall_s": 36.06698257998505,
+      "total_wall_s": 92.5270178449864,
+      "train_loss": 0.664971823990345,
+      "train_wall_s": 40.63505342400458
+    },
+    "params": {
+      "effective_batch": "32",
+      "eval_split": "validation",
+      "lora_alpha": "4",
+      "lr": "0.0002",
+      "ranks_json": "{\"roberta.encoder.layer.11.attention.self.query\": 2, \"roberta.encoder.layer.4.attention.self.query\": 1, \"roberta.encoder.layer.6.attention.self.query\": 1}",
+      "steps": "600",
+      "use_rslora": "True",
+      "weight_decay": "0.01"
+    },
+    "run_name": "group_rvm-qnli-s42-group_rvm-a1",
+    "start_time": 1792308621055,
+    "status": "FINISHED",
+    "tags": {
+      "arch_id": "group_rvm",
+      "attempt": "1",
+      "data_split_sha256": "880378c3ead20ded1d3ef7e000ef7d3984ac5e63ff65d04187e4aa62fd0317bd",
+      "dataset_revision": "bcdcba79d07bc864c1c254ccfcedcce55bcc9a8c",
+      "execution_type": "exploratory_override",
+      "gate": "gate2",
+      "gate1_record": "artifacts/v2/gate1/gate1.json",
+      "gate1_record_sha256": "fb79f4c6bd33c921ae2885a6becbf4037a352c0d951ae177f7fb7fa91e990d20",
+      "gate1_status": "FAIL",
+      "git_sha": "1e19fbd39b1da36af169480b9858d2f2b912c4ad",
+      "head_checkpoint_sha256": "08d1ce5a251956c08cea8736d3dc04ffbd7c2d439d80d97a53c1213c2e598034",
+      "hostname": "cv8161499.novalocal",
+      "method": "group_rvm",
+      "mlflow.runName": "group_rvm-qnli-s42-group_rvm-a1",
+      "model_revision": "e2da8e2f811d1448a5b465c236feacd80ffbac7b",
+      "protocol_sha256": "d242007e14950316549f7278cd7bdc2bd091bae577510ffdd5111b6bdf9b2b05",
+      "protocol_version": "v2_corrected",
+      "rank_allocation": "{\"roberta.encoder.layer.11.attention.self.query\": 2, \"roberta.encoder.layer.4.attention.self.query\": 1, \"roberta.encoder.layer.6.attention.self.query\": 1}",
+      "reference_artifacts": "artifacts/v2",
+      "run_key": "e47a86477adc5503fd1e",
+      "run_namespace": "gate2_exploratory",
+      "seed": "42",
+      "stage": "gate2",
+      "status": "COMPLETED",
+      "task": "qnli"
+    }
+  },
+  "d0a3a3a3a32e4e7ab6ddf703e8d7ad87": {
+    "artifacts": [
+      "qnli_s2025.json"
+    ],
+    "end_time": 1792308124918,
+    "experiment": "rvm-lora/gate2",
+    "experiment_id": "4",
+    "metric_history": {},
+    "metrics": {
+      "head_steps": 200.0,
+      "head_train_loss_first20": 0.7218576699495316,
+      "head_train_loss_last20": 0.6909625440835953,
+      "head_wall_s": 5.090965094997955
+    },
+    "params": {
+      "lr": "0.001",
+      "steps": "200"
+    },
+    "run_name": "head_warm_start-qnli-s2025--a1",
+    "start_time": 1792308124432,
+    "status": "FINISHED",
+    "tags": {
+      "attempt": "1",
+      "dataset_revision": "bcdcba79d07bc864c1c254ccfcedcce55bcc9a8c",
+      "execution_type": "exploratory_override",
+      "gate": "gate2",
+      "gate1_record": "artifacts/v2/gate1/gate1.json",
+      "gate1_record_sha256": "fb79f4c6bd33c921ae2885a6becbf4037a352c0d951ae177f7fb7fa91e990d20",
+      "gate1_status": "FAIL",
+      "git_sha": "1e19fbd39b1da36af169480b9858d2f2b912c4ad",
+      "head_checkpoint_sha256": "08ca038ae27d5ea5114cf2470ffeb4464524092dd02ff07c96b48b250c294e57",
+      "hostname": "cv8161499.novalocal",
+      "method": "head_warm_start",
+      "mlflow.runName": "head_warm_start-qnli-s2025--a1",
+      "model_revision": "e2da8e2f811d1448a5b465c236feacd80ffbac7b",
+      "protocol_sha256": "d242007e14950316549f7278cd7bdc2bd091bae577510ffdd5111b6bdf9b2b05",
+      "protocol_version": "v2_corrected",
+      "reference_artifacts": "artifacts/v2",
+      "run_key": "5f003ef33c4148a12914",
+      "run_namespace": "gate2_exploratory",
+      "seed": "2025",
+      "stage": "gate2",
+      "status": "COMPLETED",
+      "task": "qnli"
+    }
+  },
+  "d1fdf38cbd254b6cb270b11882d1bce9": {
+    "artifacts": [
+      "result.json",
+      "train_curve.json"
+    ],
+    "end_time": 1792308620856,
+    "experiment": "rvm-lora/gate2",
+    "experiment_id": "4",
+    "metric_history": {
+      "train_loss": [
+        [
+          20,
+          0.6884034663438797
+        ],
+        [
+          40,
+          0.6743629969656467
+        ],
+        [
+          60,
+          0.6885566331446171
+        ],
+        [
+          80,
+          0.6827353283762931
+        ],
+        [
+          100,
+          0.6837082199752331
+        ],
+        [
+          120,
+          0.6812895774841309
+        ],
+        [
+          140,
+          0.6651722140610218
+        ],
+        [
+          160,
+          0.6587208494544029
+        ],
+        [
+          180,
+          0.6370067976415157
+        ],
+        [
+          200,
+          0.5835063394159079
+        ],
+        [
+          220,
+          0.5318305373191834
+        ],
+        [
+          240,
+          0.5476075522601604
+        ],
+        [
+          260,
+          0.5147963358089328
+        ],
+        [
+          280,
+          0.4810151407495141
+        ],
+        [
+          300,
+          0.5174323823302984
+        ],
+        [
+          320,
+          0.48078391067683696
+        ],
+        [
+          340,
+          0.48005820214748385
+        ],
+        [
+          360,
+          0.4755052400752902
+        ],
+        [
+          380,
+          0.49375161454081534
+        ],
+        [
+          400,
+          0.45848252465948464
+        ],
+        [
+          420,
+          0.49022579230368135
+        ],
+        [
+          440,
+          0.47204309366643427
+        ],
+        [
+          460,
+          0.44154977444559335
+        ],
+        [
+          480,
+          0.4387642776593566
+        ],
+        [
+          500,
+          0.4721684163436294
+        ],
+        [
+          520,
+          0.464337270706892
+        ],
+        [
+          540,
+          0.4382633401080966
+        ],
+        [
+          560,
+          0.43747446984052657
+        ],
+        [
+          580,
+          0.44293359369039537
+        ],
+        [
+          600,
+          0.4200424228794873
+        ],
+        [
+          0,
+          0.4200424228794873
+        ]
+      ]
+    },
+    "metrics": {
+      "adapter_params": 36864.0,
+      "official_validation_accuracy": 0.8405637927878455,
+      "official_validation_loss": 0.38869653295617695,
+      "peak_gpu_memory_mb": 961.0556640625,
+      "rank_sum": 24.0,
+      "selection_wall_s": 25.307682396982273,
+      "total_wall_s": 106.0100625189807,
+      "train_loss": 0.4200424228794873,
+      "train_wall_s": 64.58898132999457
+    },
+    "params": {
+      "effective_batch": "32",
+      "eval_split": "validation",
+      "lora_alpha": "4",
+      "lr": "0.0002",
+      "ranks_json": "{\"roberta.encoder.layer.0.attention.self.value\": 1, \"roberta.encoder.layer.10.attention.self.value\": 1, \"roberta.encoder.layer.11.attention.self.value\": 1, \"roberta.encoder.layer.2.attention.self.value\": 1, \"roberta.encoder.layer.3.attention.self.query\": 2, \"roberta.encoder.layer.3.attention.self.value\": 1, \"roberta.encoder.layer.4.attention.self.query\": 1, \"roberta.encoder.layer.6.attention.self.query\": 5, \"roberta.encoder.layer.6.attention.self.value\": 2, \"roberta.encoder.layer.7.attention.self.query\": 1, \"roberta.encoder.layer.7.attention.self.value\": 3, \"roberta.encoder.layer.9.attention.self.query\": 3, \"roberta.encoder.layer.9.attention.self.value\": 2}",
+      "steps": "600",
+      "use_rslora": "True",
+      "weight_decay": "0.01"
+    },
+    "run_name": "conditional_newton-qnli-s42-conditional_newton-a1",
+    "start_time": 1792308538893,
+    "status": "FINISHED",
+    "tags": {
+      "arch_id": "conditional_newton",
+      "attempt": "1",
+      "data_split_sha256": "880378c3ead20ded1d3ef7e000ef7d3984ac5e63ff65d04187e4aa62fd0317bd",
+      "dataset_revision": "bcdcba79d07bc864c1c254ccfcedcce55bcc9a8c",
+      "execution_type": "exploratory_override",
+      "gate": "gate2",
+      "gate1_record": "artifacts/v2/gate1/gate1.json",
+      "gate1_record_sha256": "fb79f4c6bd33c921ae2885a6becbf4037a352c0d951ae177f7fb7fa91e990d20",
+      "gate1_status": "FAIL",
+      "git_sha": "1e19fbd39b1da36af169480b9858d2f2b912c4ad",
+      "head_checkpoint_sha256": "08d1ce5a251956c08cea8736d3dc04ffbd7c2d439d80d97a53c1213c2e598034",
+      "hostname": "cv8161499.novalocal",
+      "method": "conditional_newton",
+      "mlflow.runName": "conditional_newton-qnli-s42-conditional_newton-a1",
+      "model_revision": "e2da8e2f811d1448a5b465c236feacd80ffbac7b",
+      "protocol_sha256": "d242007e14950316549f7278cd7bdc2bd091bae577510ffdd5111b6bdf9b2b05",
+      "protocol_version": "v2_corrected",
+      "rank_allocation": "{\"roberta.encoder.layer.0.attention.self.value\": 1, \"roberta.encoder.layer.10.attention.self.value\": 1, \"roberta.encoder.layer.11.attention.self.value\": 1, \"roberta.encoder.layer.2.attention.self.value\": 1, \"roberta.encoder.layer.3.attention.self.query\": 2, \"roberta.encoder.layer.3.attention.self.value\": 1, \"roberta.encoder.layer.4.attention.self.query\": 1, \"roberta.encoder.layer.6.attention.self.query\": 5, \"roberta.encoder.layer.6.attention.self.value\": 2, \"roberta.encoder.layer.7.attention.self.query\": 1, \"roberta.encoder.layer.7.attention.self.value\": 3, \"roberta.encoder.layer.9.attention.self.query\": 3, \"roberta.encoder.layer.9.attention.self.value\": 2}",
+      "reference_artifacts": "artifacts/v2",
+      "run_key": "0741d24ba7a3226ab0cb",
+      "run_namespace": "gate2_exploratory",
+      "seed": "42",
+      "stage": "gate2",
+      "status": "COMPLETED",
+      "task": "qnli"
+    }
+  },
+  "e7d35f0527754ac9b3ee17a9bc2c8968": {
+    "artifacts": [
+      "result.json",
+      "train_curve.json"
+    ],
+    "end_time": 1792309125630,
+    "experiment": "rvm-lora/gate2",
+    "experiment_id": "4",
+    "metric_history": {
+      "train_loss": [
+        [
+          20,
+          0.6860370472073555
+        ],
+        [
+          40,
+          0.686196194589138
+        ],
+        [
+          60,
+          0.6836658723652362
+        ],
+        [
+          80,
+          0.6844987995922566
+        ],
+        [
+          100,
+          0.6858077354729175
+        ],
+        [
+          120,
+          0.6905232831835747
+        ],
+        [
+          140,
+          0.6858577899634838
+        ],
+        [
+          160,
+          0.6840939432382583
+        ],
+        [
+          180,
+          0.68371851593256
+        ],
+        [
+          200,
+          0.6841376200318336
+        ],
+        [
+          220,
+          0.6823727048933506
+        ],
+        [
+          240,
+          0.6807364463806153
+        ],
+        [
+          260,
+          0.6747096680104733
+        ],
+        [
+          280,
+          0.6720655880868435
+        ],
+        [
+          300,
+          0.6633778937160969
+        ],
+        [
+          320,
+          0.6627284944057464
+        ],
+        [
+          340,
+          0.6428852297365666
+        ],
+        [
+          360,
+          0.6376068875193596
+        ],
+        [
+          380,
+          0.627370797097683
+        ],
+        [
+          400,
+          0.6067138824611902
+        ],
+        [
+          420,
+          0.598030113056302
+        ],
+        [
+          440,
+          0.58525755032897
+        ],
+        [
+          460,
+          0.5637288723140955
+        ],
+        [
+          480,
+          0.534343421459198
+        ],
+        [
+          500,
+          0.5137349784374237
+        ],
+        [
+          520,
+          0.5244489680975676
+        ],
+        [
+          540,
+          0.5119228173047304
+        ],
+        [
+          560,
+          0.5071881581097841
+        ],
+        [
+          580,
+          0.5093964118510484
+        ],
+        [
+          600,
+          0.5170036757364869
+        ],
+        [
+          0,
+          0.5170036757364869
+        ]
+      ]
+    },
+    "metrics": {
+      "adapter_params": 6144.0,
+      "official_validation_accuracy": 0.8156690463115505,
+      "official_validation_loss": 0.44965304943640044,
+      "peak_gpu_memory_mb": 734.1142578125,
+      "rank_sum": 4.0,
+      "selection_wall_s": 35.344779845007,
+      "total_wall_s": 89.35398519700539,
+      "train_loss": 0.5170036757364869,
+      "train_wall_s": 38.20495456300705
+    },
+    "params": {
+      "effective_batch": "32",
+      "eval_split": "validation",
+      "lora_alpha": "4",
+      "lr": "0.0002",
+      "ranks_json": "{\"roberta.encoder.layer.6.attention.self.query\": 1, \"roberta.encoder.layer.7.attention.self.value\": 1, \"roberta.encoder.layer.9.attention.self.value\": 2}",
+      "steps": "600",
+      "use_rslora": "True",
+      "weight_decay": "0.01"
+    },
+    "run_name": "group_rvm-qnli-s2025-group_rvm-a1",
+    "start_time": 1792309070578,
+    "status": "FINISHED",
+    "tags": {
+      "arch_id": "group_rvm",
+      "attempt": "1",
+      "data_split_sha256": "880378c3ead20ded1d3ef7e000ef7d3984ac5e63ff65d04187e4aa62fd0317bd",
+      "dataset_revision": "bcdcba79d07bc864c1c254ccfcedcce55bcc9a8c",
+      "execution_type": "exploratory_override",
+      "gate": "gate2",
+      "gate1_record": "artifacts/v2/gate1/gate1.json",
+      "gate1_record_sha256": "fb79f4c6bd33c921ae2885a6becbf4037a352c0d951ae177f7fb7fa91e990d20",
+      "gate1_status": "FAIL",
+      "git_sha": "1e19fbd39b1da36af169480b9858d2f2b912c4ad",
+      "head_checkpoint_sha256": "08ca038ae27d5ea5114cf2470ffeb4464524092dd02ff07c96b48b250c294e57",
+      "hostname": "cv8161499.novalocal",
+      "method": "group_rvm",
+      "mlflow.runName": "group_rvm-qnli-s2025-group_rvm-a1",
+      "model_revision": "e2da8e2f811d1448a5b465c236feacd80ffbac7b",
+      "protocol_sha256": "d242007e14950316549f7278cd7bdc2bd091bae577510ffdd5111b6bdf9b2b05",
+      "protocol_version": "v2_corrected",
+      "rank_allocation": "{\"roberta.encoder.layer.6.attention.self.query\": 1, \"roberta.encoder.layer.7.attention.self.value\": 1, \"roberta.encoder.layer.9.attention.self.value\": 2}",
+      "reference_artifacts": "artifacts/v2",
+      "run_key": "d88e2cce943b22e5f876",
+      "run_namespace": "gate2_exploratory",
+      "seed": "2025",
+      "stage": "gate2",
+      "status": "COMPLETED",
+      "task": "qnli"
+    }
+  },
+  "e949708570974661a9d135312be74b83": {
+    "artifacts": [
+      "result.json",
+      "train_curve.json"
+    ],
+    "end_time": 1792309456878,
+    "experiment": "rvm-lora/gate2",
+    "experiment_id": "4",
+    "metric_history": {
+      "train_loss": [
+        [
+          20,
+          0.582372410222888
+        ],
+        [
+          40,
+          0.5898620661348104
+        ],
+        [
+          60,
+          0.5222023203969002
+        ],
+        [
+          80,
+          0.4334581343457103
+        ],
+        [
+          100,
+          0.3920188988558948
+        ],
+        [
+          120,
+          0.30116694821044804
+        ],
+        [
+          140,
+          0.3102762850001454
+        ],
+        [
+          160,
+          0.30085048442706464
+        ],
+        [
+          180,
+          0.33876325662713497
+        ],
+        [
+          200,
+          0.34634460429660974
+        ],
+        [
+          220,
+          0.2911548648029566
+        ],
+        [
+          240,
+          0.32387459655292333
+        ],
+        [
+          260,
+          0.33492148905061186
+        ],
+        [
+          280,
+          0.33342790268361566
+        ],
+        [
+          300,
+          0.3137130751274526
+        ],
+        [
+          320,
+          0.3127878009341657
+        ],
+        [
+          340,
+          0.3035316740628332
+        ],
+        [
+          360,
+          0.28731644810177387
+        ],
+        [
+          380,
+          0.2711158384568989
+        ],
+        [
+          400,
+          0.31425570212304593
+        ],
+        [
+          420,
+          0.2717219995334744
+        ],
+        [
+          440,
+          0.26485701273195444
+        ],
+        [
+          460,
+          0.27944762266706674
+        ],
+        [
+          480,
+          0.3127362178871408
+        ],
+        [
+          500,
+          0.294377231458202
+        ],
+        [
+          520,
+          0.27663688277825715
+        ],
+        [
+          540,
+          0.3244577173143625
+        ],
+        [
+          560,
+          0.2646980675170198
+        ],
+        [
+          580,
+          0.2852481895592064
+        ],
+        [
+          600,
+          0.25762181826867164
+        ],
+        [
+          0,
+          0.25762181826867164
+        ]
+      ]
+    },
+    "metrics": {
+      "adapter_params": 36864.0,
+      "official_validation_accuracy": 0.9002293577981652,
+      "official_validation_loss": 0.2511787788689838,
+      "peak_gpu_memory_mb": 964.0556640625,
+      "rank_sum": 24.0,
+      "selection_wall_s": 24.950386709999293,
+      "total_wall_s": 87.09976670299511,
+      "train_loss": 0.25762181826867164,
+      "train_wall_s": 59.43121223399794
+    },
+    "params": {
+      "effective_batch": "32",
+      "eval_split": "validation",
+      "lora_alpha": "4",
+      "lr": "0.0002",
+      "ranks_json": "{\"roberta.encoder.layer.0.attention.self.value\": 1, \"roberta.encoder.layer.1.attention.self.value\": 1, \"roberta.encoder.layer.10.attention.self.query\": 2, \"roberta.encoder.layer.10.attention.self.value\": 1, \"roberta.encoder.layer.11.attention.self.query\": 1, \"roberta.encoder.layer.11.attention.self.value\": 5, \"roberta.encoder.layer.2.attention.self.value\": 1, \"roberta.encoder.layer.3.attention.self.value\": 1, \"roberta.encoder.layer.4.attention.self.query\": 1, \"roberta.encoder.layer.5.attention.self.query\": 1, \"roberta.encoder.layer.5.attention.self.value\": 1, \"roberta.encoder.layer.7.attention.self.query\": 1, \"roberta.encoder.layer.8.attention.self.query\": 2, \"roberta.encoder.layer.8.attention.self.value\": 4, \"roberta.encoder.layer.9.attention.self.query\": 1}",
+      "steps": "600",
+      "use_rslora": "True",
+      "weight_decay": "0.01"
+    },
+    "run_name": "conditional_newton-sst2-s42-conditional_newton-a1",
+    "start_time": 1792309393699,
+    "status": "FINISHED",
+    "tags": {
+      "arch_id": "conditional_newton",
+      "attempt": "1",
+      "data_split_sha256": "b2dade8b65d6b8cb58638b8ae910ed314c0839d7033494ab55c88df3c7ea5b86",
+      "dataset_revision": "bcdcba79d07bc864c1c254ccfcedcce55bcc9a8c",
+      "execution_type": "exploratory_override",
+      "gate": "gate2",
+      "gate1_record": "artifacts/v2/gate1/gate1.json",
+      "gate1_record_sha256": "fb79f4c6bd33c921ae2885a6becbf4037a352c0d951ae177f7fb7fa91e990d20",
+      "gate1_status": "FAIL",
+      "git_sha": "1e19fbd39b1da36af169480b9858d2f2b912c4ad",
+      "head_checkpoint_sha256": "06785967289b4a27a3f46df07766defdc7db93b2e325e53d7a0314d32dddac88",
+      "hostname": "cv8161499.novalocal",
+      "method": "conditional_newton",
+      "mlflow.runName": "conditional_newton-sst2-s42-conditional_newton-a1",
+      "model_revision": "e2da8e2f811d1448a5b465c236feacd80ffbac7b",
+      "protocol_sha256": "d242007e14950316549f7278cd7bdc2bd091bae577510ffdd5111b6bdf9b2b05",
+      "protocol_version": "v2_corrected",
+      "rank_allocation": "{\"roberta.encoder.layer.0.attention.self.value\": 1, \"roberta.encoder.layer.1.attention.self.value\": 1, \"roberta.encoder.layer.10.attention.self.query\": 2, \"roberta.encoder.layer.10.attention.self.value\": 1, \"roberta.encoder.layer.11.attention.self.query\": 1, \"roberta.encoder.layer.11.attention.self.value\": 5, \"roberta.encoder.layer.2.attention.self.value\": 1, \"roberta.encoder.layer.3.attention.self.value\": 1, \"roberta.encoder.layer.4.attention.self.query\": 1, \"roberta.encoder.layer.5.attention.self.query\": 1, \"roberta.encoder.layer.5.attention.self.value\": 1, \"roberta.encoder.layer.7.attention.self.query\": 1, \"roberta.encoder.layer.8.attention.self.query\": 2, \"roberta.encoder.layer.8.attention.self.value\": 4, \"roberta.encoder.layer.9.attention.self.query\": 1}",
+      "reference_artifacts": "artifacts/v2",
+      "run_key": "5f87bc0590da4991b94b",
+      "run_namespace": "gate2_exploratory",
+      "seed": "42",
+      "stage": "gate2",
+      "status": "COMPLETED",
+      "task": "sst2"
+    }
+  },
+  "f3b44f9a64b8418d9e063a1bb293882b": {
+    "artifacts": [
+      "result.json",
+      "train_curve.json"
+    ],
+    "end_time": 1792309510888,
+    "experiment": "rvm-lora/gate2",
+    "experiment_id": "4",
+    "metric_history": {
+      "train_loss": [
+        [
+          20,
+          0.5848153289407492
+        ],
+        [
+          40,
+          0.6037920769304037
+        ],
+        [
+          60,
+          0.5750924274325371
+        ],
+        [
+          80,
+          0.5600432377308607
+        ],
+        [
+          100,
+          0.5393325541168451
+        ],
+        [
+          120,
+          0.49418612755835056
+        ],
+        [
+          140,
+          0.462143106199801
+        ],
+        [
+          160,
+          0.41749105751514437
+        ],
+        [
+          180,
+          0.4025301905348897
+        ],
+        [
+          200,
+          0.42194001376628876
+        ],
+        [
+          220,
+          0.38577780378982424
+        ],
+        [
+          240,
+          0.381743679754436
+        ],
+        [
+          260,
+          0.40519721461459995
+        ],
+        [
+          280,
+          0.39518871447071435
+        ],
+        [
+          300,
+          0.36466235425323246
+        ],
+        [
+          320,
+          0.3639195434749126
+        ],
+        [
+          340,
+          0.3831553185358644
+        ],
+        [
+          360,
+          0.36578795202076436
+        ],
+        [
+          380,
+          0.33751096446067097
+        ],
+        [
+          400,
+          0.37646910939365624
+        ],
+        [
+          420,
+          0.3473742177709937
+        ],
+        [
+          440,
+          0.34092395612969995
+        ],
+        [
+          460,
+          0.36126552228815856
+        ],
+        [
+          480,
+          0.37588539770804347
+        ],
+        [
+          500,
+          0.3750719941221178
+        ],
+        [
+          520,
+          0.3594745828770101
+        ],
+        [
+          540,
+          0.39054653588682414
+        ],
+        [
+          560,
+          0.32726133465766905
+        ],
+        [
+          580,
+          0.3546842557378113
+        ],
+        [
+          600,
+          0.33836022363975643
+        ],
+        [
+          0,
+          0.33836022363975643
+        ]
+      ]
+    },
+    "metrics": {
+      "adapter_params": 4608.0,
+      "official_validation_accuracy": 0.8669724770642202,
+      "official_validation_loss": 0.310598955733586,
+      "peak_gpu_memory_mb": 876.8359375,
+      "rank_sum": 3.0,
+      "selection_wall_s": 35.00292178300879,
+      "total_wall_s": 87.79770993601414,
+      "train_loss": 0.33836022363975643,
+      "train_wall_s": 50.18379843200091
+    },
+    "params": {
+      "effective_batch": "32",
+      "eval_split": "validation",
+      "lora_alpha": "4",
+      "lr": "0.0002",
+      "ranks_json": "{\"roberta.encoder.layer.10.attention.self.query\": 1, \"roberta.encoder.layer.11.attention.self.query\": 1, \"roberta.encoder.layer.2.attention.self.value\": 1}",
+      "steps": "600",
+      "use_rslora": "True",
+      "weight_decay": "0.01"
+    },
+    "run_name": "group_rvm-sst2-s42-group_rvm-a1",
+    "start_time": 1792309457070,
+    "status": "FINISHED",
+    "tags": {
+      "arch_id": "group_rvm",
+      "attempt": "1",
+      "data_split_sha256": "b2dade8b65d6b8cb58638b8ae910ed314c0839d7033494ab55c88df3c7ea5b86",
+      "dataset_revision": "bcdcba79d07bc864c1c254ccfcedcce55bcc9a8c",
+      "execution_type": "exploratory_override",
+      "gate": "gate2",
+      "gate1_record": "artifacts/v2/gate1/gate1.json",
+      "gate1_record_sha256": "fb79f4c6bd33c921ae2885a6becbf4037a352c0d951ae177f7fb7fa91e990d20",
+      "gate1_status": "FAIL",
+      "git_sha": "1e19fbd39b1da36af169480b9858d2f2b912c4ad",
+      "head_checkpoint_sha256": "06785967289b4a27a3f46df07766defdc7db93b2e325e53d7a0314d32dddac88",
+      "hostname": "cv8161499.novalocal",
+      "method": "group_rvm",
+      "mlflow.runName": "group_rvm-sst2-s42-group_rvm-a1",
+      "model_revision": "e2da8e2f811d1448a5b465c236feacd80ffbac7b",
+      "protocol_sha256": "d242007e14950316549f7278cd7bdc2bd091bae577510ffdd5111b6bdf9b2b05",
+      "protocol_version": "v2_corrected",
+      "rank_allocation": "{\"roberta.encoder.layer.10.attention.self.query\": 1, \"roberta.encoder.layer.11.attention.self.query\": 1, \"roberta.encoder.layer.2.attention.self.value\": 1}",
+      "reference_artifacts": "artifacts/v2",
+      "run_key": "f0417ce5a54ce27d844a",
+      "run_namespace": "gate2_exploratory",
+      "seed": "42",
+      "stage": "gate2",
+      "status": "COMPLETED",
+      "task": "sst2"
+    }
+  },
+  "f6e014107d324ecd8681926b24622eb9": {
+    "artifacts": [
+      "result.json",
+      "train_curve.json"
+    ],
+    "end_time": 1792308469926,
+    "experiment": "rvm-lora/gate2",
+    "experiment_id": "4",
+    "metric_history": {
+      "train_loss": [
+        [
+          20,
+          0.6855927556753159
+        ],
+        [
+          40,
+          0.6673068597912788
+        ],
+        [
+          60,
+          0.6053357422351837
+        ],
+        [
+          80,
+          0.6472981832921505
+        ],
+        [
+          100,
+          0.626514033973217
+        ],
+        [
+          120,
+          0.5570999618619681
+        ],
+        [
+          140,
+          0.5239336183294654
+        ],
+        [
+          160,
+          0.4696748239919543
+        ],
+        [
+          180,
+          0.5076655339449644
+        ],
+        [
+          200,
+          0.5092237040400505
+        ],
+        [
+          220,
+          0.502554670535028
+        ],
+        [
+          240,
+          0.5143314247950912
+        ],
+        [
+          260,
+          0.4712546844035387
+        ],
+        [
+          280,
+          0.43514416478574275
+        ],
+        [
+          300,
+          0.49014172088354824
+        ],
+        [
+          320,
+          0.4409195352345705
+        ],
+        [
+          340,
+          0.46215901942923665
+        ],
+        [
+          360,
+          0.4750776033848524
+        ],
+        [
+          380,
+          0.46401748079806565
+        ],
+        [
+          400,
+          0.4221287738531828
+        ],
+        [
+          420,
+          0.45376717709004877
+        ],
+        [
+          440,
+          0.4379972405731678
+        ],
+        [
+          460,
+          0.43040911164134743
+        ],
+        [
+          480,
+          0.4092916239053011
+        ],
+        [
+          500,
+          0.45510276341810824
+        ],
+        [
+          520,
+          0.4547749847173691
+        ],
+        [
+          540,
+          0.40956304743885996
+        ],
+        [
+          560,
+          0.41534483674913647
+        ],
+        [
+          580,
+          0.4405139470472932
+        ],
+        [
+          600,
+          0.40411127731204033
+        ],
+        [
+          0,
+          0.40411127731204033
+        ]
+      ]
+    },
+    "metrics": {
+      "adapter_params": 36864.0,
+      "official_validation_accuracy": 0.8542925132710965,
+      "official_validation_loss": 0.3512709184181599,
+      "peak_gpu_memory_mb": 934.2431640625,
+      "rank_sum": 24.0,
+      "selection_wall_s": 2.3033533230045578,
+      "total_wall_s": 82.28665185299906,
+      "train_loss": 0.40411127731204033,
+      "train_wall_s": 63.76113174499915
+    },
+    "params": {
+      "effective_batch": "32",
+      "eval_split": "validation",
+      "lora_alpha": "4",
+      "lr": "0.0002",
+      "ranks_json": "EVA",
+      "steps": "600",
+      "use_rslora": "True",
+      "weight_decay": "0.01"
+    },
+    "run_name": "eva-qnli-s42-eva-a1",
+    "start_time": 1792308386590,
+    "status": "FINISHED",
+    "tags": {
+      "arch_id": "eva",
+      "attempt": "1",
+      "data_split_sha256": "880378c3ead20ded1d3ef7e000ef7d3984ac5e63ff65d04187e4aa62fd0317bd",
+      "dataset_revision": "bcdcba79d07bc864c1c254ccfcedcce55bcc9a8c",
+      "execution_type": "exploratory_override",
+      "gate": "gate2",
+      "gate1_record": "artifacts/v2/gate1/gate1.json",
+      "gate1_record_sha256": "fb79f4c6bd33c921ae2885a6becbf4037a352c0d951ae177f7fb7fa91e990d20",
+      "gate1_status": "FAIL",
+      "git_sha": "1e19fbd39b1da36af169480b9858d2f2b912c4ad",
+      "head_checkpoint_sha256": "08d1ce5a251956c08cea8736d3dc04ffbd7c2d439d80d97a53c1213c2e598034",
+      "hostname": "cv8161499.novalocal",
+      "method": "eva",
+      "mlflow.runName": "eva-qnli-s42-eva-a1",
+      "model_revision": "e2da8e2f811d1448a5b465c236feacd80ffbac7b",
+      "protocol_sha256": "d242007e14950316549f7278cd7bdc2bd091bae577510ffdd5111b6bdf9b2b05",
+      "protocol_version": "v2_corrected",
+      "rank_allocation": "{\"roberta.encoder.layer.1.attention.self.query\": 1, \"roberta.encoder.layer.1.attention.self.value\": 1, \"roberta.encoder.layer.10.attention.self.query\": 2, \"roberta.encoder.layer.10.attention.self.value\": 2, \"roberta.encoder.layer.11.attention.self.query\": 2, \"roberta.encoder.layer.11.attention.self.value\": 2, \"roberta.encoder.layer.2.attention.self.query\": 1, \"roberta.encoder.layer.2.attention.self.value\": 1, \"roberta.encoder.layer.4.attention.self.query\": 1, \"roberta.encoder.layer.4.attention.self.value\": 1, \"roberta.encoder.layer.5.attention.self.query\": 1, \"roberta.encoder.layer.5.attention.self.value\": 1, \"roberta.encoder.layer.6.attention.self.query\": 1, \"roberta.encoder.layer.6.attention.self.value\": 1, \"roberta.encoder.layer.7.attention.self.query\": 1, \"roberta.encoder.layer.7.attention.self.value\": 1, \"roberta.encoder.layer.8.attention.self.query\": 1, \"roberta.encoder.layer.8.attention.self.value\": 1, \"roberta.encoder.layer.9.attention.self.query\": 1, \"roberta.encoder.layer.9.attention.self.value\": 1}",
+      "reference_artifacts": "artifacts/v2",
+      "run_key": "75655f9f5d8d6ced07a9",
+      "run_namespace": "gate2_exploratory",
+      "seed": "42",
+      "stage": "gate2",
+      "status": "COMPLETED",
+      "task": "qnli"
+    }
+  }
+}

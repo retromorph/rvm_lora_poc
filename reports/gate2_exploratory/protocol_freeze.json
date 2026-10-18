@@ -1,0 +1,63 @@
+{
+  "clarifications_md_sha256": "52307892ade8f154273f22ea1b89202b00f929eab1f684232d7011d58ab4051e",
+  "config_path": "configs/preregistered.yaml",
+  "config_sha256": "d242007e14950316549f7278cd7bdc2bd091bae577510ffdd5111b6bdf9b2b05",
+  "dataset": {
+    "id": "nyu-mll/glue",
+    "revision": "bcdcba79d07bc864c1c254ccfcedcce55bcc9a8c"
+  },
+  "frozen_at": "2026-10-18T07:20:51+00:00",
+  "gate0_file_sha256": "5905a400cbc3a40c6baa08507afad9514e107d322be7b96dca7ffb981ee1f5ed",
+  "git_sha": "1e19fbd39b1da36af169480b9858d2f2b912c4ad",
+  "methods_md_sha256": "603a51353bcb508b8b8cc47a909add8deecb6512bcc03ac3d91b4ac258b771aa",
+  "model": {
+    "id": "FacebookAI/roberta-base",
+    "revision": "e2da8e2f811d1448a5b465c236feacd80ffbac7b"
+  },
+  "oplora_source": {
+    "license": "MIT",
+    "repo": "https://github.com/cjpark-ai/DPLoRA",
+    "sha": "6666d8bdb37ebd153a8916b0464c8a3878976aae"
+  },
+  "original_run": {
+    "freeze_file": "reports/protocol_freeze.json",
+    "freeze_file_sha256": "26b546977b25339b3047d51759f43bfff84034c0dec3c3f412f7274ab7ffe863",
+    "frozen_at": "2026-10-17T19:30:46+00:00",
+    "git_sha": "7eb7092f02c05a7f7d90bf32f2d2b10a5f947559",
+    "split_manifests_equal": true,
+    "uv_lock_equal": true
+  },
+  "packages": {
+    "datasets": "5.1.0",
+    "mlflow": "3.17.1",
+    "numpy": "2.4.6",
+    "pandas": "3.0.6",
+    "peft": "0.21.2",
+    "scipy": "1.17.1",
+    "torch": "2.14.1+cu130",
+    "transformers": "5.20.1"
+  },
+  "preregistration_md_sha256": "20aea8867ff1ae22433fd33e1691cc39e60daffee2cd92b5110b1393eaad926f",
+  "run_namespace": "gate2_exploratory",
+  "split_manifests": {
+    "qnli": {
+      "adapter_train": "880378c3ead20ded1d3ef7e000ef7d3984ac5e63ff65d04187e4aa62fd0317bd",
+      "audit": "0d5f185a9e682abd42314fc82d3680c0c32ae9708c9413f1ea15a87979a4d90d",
+      "directions": "eb01413968773c8b4fd2def13dcd4e0b144b8fc069762d64a3515ec86324a50e",
+      "evidence": "d7657b57d282032d4bc3771b0c1ed0c2871a83e1b9b34e0ee9ea545e1d950971",
+      "head": "55d2474dac5b61a20d543073dbe69cd213bcc5749b5f23ee0f80c1ed8e8b9821",
+      "manifest_file_sha256": "09cb486a77901636b2a319aebc7b3234b77301a6db241a5497c0bcea61a0b3a9",
+      "other": "fec79b2f6d1313a31b5665fdf48588bee2744e8b280c38324c50a4123adea252"
+    },
+    "sst2": {
+      "adapter_train": "b2dade8b65d6b8cb58638b8ae910ed314c0839d7033494ab55c88df3c7ea5b86",
+      "audit": "4303f6f54eea6c0742e00d33ec203b2ee438ed2f23459b9acc2200322631c506",
+      "directions": "889b73ec8138a783dec35b00b1f288d84811c2465951de974d79d6d5972abbec",
+      "evidence": "6f249c8166f8f1a335645ea09922c7ed1be34cea29bc45301afa8a62f7599a70",
+      "head": "ca70d9469b10b8766bd0c81622cba13697d51d9c2e6b4cd998dfe688f4451b60",
+      "manifest_file_sha256": "dbd2d19ce993450f639914a989d62cf7f76021444e69bd019f9018bd06894baf",
+      "other": "befc641f33185eb0240d8e768ee06cb3d0fa1db832ad1cca902e562e0b502e62"
+    }
+  },
+  "uv_lock_sha256": "dd27a90b3e5e34e3bc11475da7a1b8ee41eeb871f9c3c26346cde36898cb38f5"
+}
