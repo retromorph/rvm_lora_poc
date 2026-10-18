@@ -30,3 +30,20 @@ The intended machine is a single NVIDIA RTX A4000 16 GB accessible via SSH. The 
 `reports/FINAL_REPORT.md`, `reports/gates.json`, `reports/run_index.csv`, `reports/architecture_scores.csv`, `reports/figures/`, an immutable protocol snapshot and hashes, MLflow run IDs, machine/environment manifest, and an archive `reports/review_bundle.zip`. A completed report distinguishes `PASS`, `FAIL`, `INCONCLUSIVE` and `BLOCKED` and never substitutes missing runs with invented results.
 
 This starting package contains **instructions and protocol**, not a working implementation or executed results. The coding agent must implement and run them.
+
+## Implementation (this branch)
+
+- Package `src/rvm_lora/`: `config` (typed YAML + consistency checks), `data` (frozen split IDs, manifests,
+  tokenisation), `modeling` (backbone, head warm start, FP32 evaluation), `probe` (hooked gradient-SVD atoms,
+  logit-difference Jacobian, OPLoRA importance), `evidence` (float64 grouped-ARD evidence), `selectors` (group RVM,
+  conditional Newton, no-logdet ablation, null calibration, Gate-1 scores), `selection_job` (CPU-only subprocess),
+  `adapters` (exact PEFT placement, shared zero-update init, parameter assertions), `baselines` (EVA, OPLoRA
+  stage-1 ILP), `train`, `tracking` (MLflow + local mirrors, deterministic run keys), `gates` (mechanical
+  evaluator), `report`, `pipeline`, `cli`.
+- Pre-outcome interpretation notes: [`docs/PROTOCOL_CLARIFICATIONS.md`](docs/PROTOCOL_CLARIFICATIONS.md).
+- CLI: `uv run --frozen python -m rvm_lora.cli {env-check,prepare,gate0,freeze,warm-head,probe,oracle-a,eval-gate1,
+  train-b,eval-gate2,gates,report,all,status} [--dry-run]`.
+- Remote: `scripts/bootstrap_remote.sh`, `scripts/start_mlflow.sh` (tmux `rvm_mlflow`, 127.0.0.1:5000 only),
+  `scripts/run_remote.sh` (tmux `rvm_pilot`), `scripts/export_review_bundle.sh`.
+- Outputs: `reports/FINAL_REPORT.md`, `reports/gates.json`, `reports/run_index.csv`,
+  `reports/architecture_scores.csv`, `reports/figures/`, `reports/review_bundle.zip` (+ `.sha256`).

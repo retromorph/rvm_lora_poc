@@ -1,0 +1,748 @@
+{
+  "gate0": {
+    "criteria": [
+      {
+        "measured": {
+          "test_evidence__test_gradient_matches_finite_difference": {
+            "max_abs_grad_err": 4.215221727221774e-09
+          },
+          "test_evidence__test_gram_evidence_matches_direct": {
+            "E_at_upper_bound": 1.7757070139013432e-07,
+            "atol": 1e-07,
+            "max_rel_err_evidence": 8.348373742806514e-13,
+            "max_rel_err_increments": 1.3631619445978349e-13,
+            "rtol": 1e-05
+          }
+        },
+        "name": "gaussian_evidence_matches_direct",
+        "source": "artifacts/gate0/pytest_junit.xml",
+        "status": "PASS",
+        "tests": {
+          "tests/test_evidence.py::test_gradient_matches_finite_difference": "PASS",
+          "tests/test_evidence.py::test_gram_evidence_matches_direct": "PASS"
+        }
+      },
+      {
+        "measured": {
+          "test_evidence__test_singleton_analytic_vs_numeric": {
+            "cases": 200,
+            "excluded_cases": 95,
+            "max_abs_err": 7.105427357601002e-15
+          }
+        },
+        "name": "singleton_analytic_solution",
+        "source": "artifacts/gate0/pytest_junit.xml",
+        "status": "PASS",
+        "tests": {
+          "tests/test_evidence.py::test_singleton_analytic_vs_numeric": "PASS"
+        }
+      },
+      {
+        "measured": {
+          "test_evidence__test_singleton_ranking_equals_q2_over_h": {
+            "eligible_atoms": 8,
+            "identical_ordering": true
+          }
+        },
+        "name": "singleton_ranking_equivalence_q2_over_h",
+        "source": "artifacts/gate0/pytest_junit.xml",
+        "status": "PASS",
+        "tests": {
+          "tests/test_evidence.py::test_singleton_ranking_equals_q2_over_h": "PASS"
+        }
+      },
+      {
+        "measured": {
+          "test_evidence__test_conditional_fixed_increment_equals_difference": {
+            "max_rel_err": 1.4246742763968555e-13
+          },
+          "test_evidence__test_degenerate_cases": {
+            "duplicate_column_evidence": 6.628950442206209,
+            "zero_target_evidence": -6.152447434046464e-09
+          }
+        },
+        "name": "conditional_group_evidence_equals_direct_difference",
+        "source": "artifacts/gate0/pytest_junit.xml",
+        "status": "PASS",
+        "tests": {
+          "tests/test_evidence.py::test_conditional_fixed_increment_equals_difference": "PASS",
+          "tests/test_evidence.py::test_degenerate_cases": "PASS"
+        }
+      },
+      {
+        "measured": {
+          "test_nulls__test_null_behaviour": {
+            "count": 40,
+            "fresh_activations": 1,
+            "threshold": 0.001932606821182082
+          },
+          "test_nulls__test_rvm_selects_signal_and_respects_constraints": {
+            "selected_units": 5,
+            "stop": "null_threshold",
+            "threshold": 0.0019632037585632835
+          }
+        },
+        "name": "selector_behaviour_and_null",
+        "source": "artifacts/gate0/pytest_junit.xml",
+        "status": "PASS",
+        "tests": {
+          "tests/test_nulls.py::test_architecture_scores_consistent": "PASS",
+          "tests/test_nulls.py::test_candidate_space": "PASS",
+          "tests/test_nulls.py::test_newton_and_ablation_fill_budget_without_threshold": "PASS",
+          "tests/test_nulls.py::test_null_behaviour": "PASS",
+          "tests/test_nulls.py::test_pool_equals_sequential": "PASS",
+          "tests/test_nulls.py::test_rvm_selects_signal_and_respects_constraints": "PASS"
+        }
+      },
+      {
+        "measured": {
+          "test_features__test_direction_gradient_matches_autograd": {
+            "max_singular_value_err": 5.551115123125783e-16
+          },
+          "test_features__test_jacobian_matches_jvp_and_fd": {
+            "columns": 12,
+            "max_rel_err_vs_central_fd": 3.0638944023488094e-08,
+            "max_rel_err_vs_jvp": 1.2586305263632617e-15,
+            "threshold": 0.001
+          }
+        },
+        "name": "logit_direction_jacobian_vs_jvp_fd",
+        "source": "artifacts/gate0/pytest_junit.xml",
+        "status": "PASS",
+        "tests": {
+          "tests/test_features.py::test_direction_gradient_matches_autograd": "PASS",
+          "tests/test_features.py::test_jacobian_matches_jvp_and_fd": "PASS",
+          "tests/test_features.py::test_oplora_importance_matches_per_example_gradients": "PASS"
+        }
+      },
+      {
+        "measured": {
+          "test_ranks__test_architecture_param_counts": {
+            "q2_plus_v2": 6144,
+            "q4_plus_v4": 12288
+          },
+          "test_ranks__test_uniform_budgets": {
+            "B24": 36864,
+            "B48": 73728
+          }
+        },
+        "name": "exact_adapter_placement_and_param_counts",
+        "source": "artifacts/gate0/pytest_junit.xml",
+        "status": "PASS",
+        "tests": {
+          "tests/test_ranks.py::test_architecture_param_counts": "PASS",
+          "tests/test_ranks.py::test_identical_zero_update_init_across_methods": "PASS",
+          "tests/test_ranks.py::test_layout_assertion_catches_mismatch": "PASS",
+          "tests/test_ranks.py::test_no_suffix_collision_and_rank_zero_omitted": "PASS",
+          "tests/test_ranks.py::test_uniform_budgets": "PASS"
+        }
+      },
+      {
+        "measured": {
+          "test_splits__test_prepared_manifests_if_present": {
+            "audit_sha256": {
+              "qnli": "0d5f185a9e682abd42314fc82d3680c0c32ae9708c9413f1ea15a87979a4d90d",
+              "sst2": "4303f6f54eea6c0742e00d33ec203b2ee438ed2f23459b9acc2200322631c506"
+            },
+            "manifests_checked": [
+              "qnli",
+              "sst2"
+            ]
+          },
+          "test_splits__test_split_sizes_disjoint_and_stable": {
+            "n104743": {
+              "adapter_train": 8000,
+              "audit": 1500,
+              "directions": 512,
+              "evidence": 512,
+              "head": 2000,
+              "other": 6976
+            },
+            "n67349": {
+              "adapter_train": 8000,
+              "audit": 1500,
+              "directions": 512,
+              "evidence": 512,
+              "head": 2000,
+              "other": 6976
+            }
+          }
+        },
+        "name": "splits_disjoint_stable_no_validation",
+        "source": "artifacts/gate0/pytest_junit.xml",
+        "status": "PASS",
+        "tests": {
+          "tests/test_splits.py::test_prepared_manifests_if_present": "PASS",
+          "tests/test_splits.py::test_split_sizes_disjoint_and_stable[104743]": "PASS",
+          "tests/test_splits.py::test_split_sizes_disjoint_and_stable[67349]": "PASS",
+          "tests/test_splits.py::test_validate_split_rejects_overlap": "PASS"
+        }
+      },
+      {
+        "measured": {},
+        "name": "gate_logic_and_reproducibility",
+        "source": "artifacts/gate0/pytest_junit.xml",
+        "status": "PASS",
+        "tests": {
+          "tests/test_gates.py::test_bootstrap_deterministic": "PASS",
+          "tests/test_gates.py::test_concordance_ties_are_conservative": "PASS",
+          "tests/test_gates.py::test_gate1_fail_on_concordance": "PASS",
+          "tests/test_gates.py::test_gate1_fail_on_null": "PASS",
+          "tests/test_gates.py::test_gate1_inconclusive_few_pairs": "PASS",
+          "tests/test_gates.py::test_gate1_missing_runs": "PASS",
+          "tests/test_gates.py::test_gate1_pass": "PASS",
+          "tests/test_gates.py::test_gate2_paths": "PASS",
+          "tests/test_gates.py::test_gate2_route_b": "PASS",
+          "tests/test_gates.py::test_overall_decision": "PASS"
+        }
+      },
+      {
+        "measured": {
+          "test_baselines__test_dp_matches_milp_full_size": {
+            "cases": 5,
+            "milp_assignment_agreement": 5
+          }
+        },
+        "name": "baselines_oplora_ilp_and_eva_budget",
+        "source": "artifacts/gate0/pytest_junit.xml",
+        "status": "PASS",
+        "tests": {
+          "tests/test_baselines.py::test_dp_matches_bruteforce": "PASS",
+          "tests/test_baselines.py::test_dp_matches_milp_full_size": "PASS",
+          "tests/test_baselines.py::test_uniform": "PASS"
+        }
+      },
+      {
+        "measured": {
+          "test_tracking__test_mlflow_live_server": {
+            "run_id": "be7c1b31d6474a57afdaf51b97fe4518",
+            "uri": "http://127.0.0.1:5000"
+          }
+        },
+        "name": "mlflow_idempotent_run_keys",
+        "source": "artifacts/gate0/pytest_junit.xml",
+        "status": "PASS",
+        "tests": {
+          "tests/test_tracking.py::test_mirror_roundtrip": "PASS",
+          "tests/test_tracking.py::test_mlflow_live_server": "PASS",
+          "tests/test_tracking.py::test_mlflow_local_sqlite": "PASS",
+          "tests/test_tracking.py::test_run_key_deterministic": "PASS"
+        }
+      },
+      {
+        "measured": {
+          "test_end_to_end_smoke__test_eva_budget_and_init": {
+            "eva_max_rank": 2,
+            "eva_modules": 20,
+            "eva_params": 36864,
+            "eva_rank_sum": 24
+          },
+          "test_end_to_end_smoke__test_real_model_jacobian_vs_jvp": {
+            "max_rel_err_real_model_vs_jvp": 2.6583716979879628e-05
+          },
+          "test_end_to_end_smoke__test_two_step_train_eval": {
+            "eval_loss_smoke": 0.6964707864094198,
+            "peak_gpu_memory_mb": 981.6259765625,
+            "precision": "bfloat16",
+            "train_wall_2steps_s": 0.6840254680000726
+          }
+        },
+        "name": "cuda_smoke_two_steps_frozen_head",
+        "source": "artifacts/gate0/pytest_junit.xml",
+        "status": "PASS",
+        "tests": {
+          "tests/test_end_to_end_smoke.py::test_eva_budget_and_init": "PASS",
+          "tests/test_end_to_end_smoke.py::test_real_model_jacobian_vs_jvp": "PASS",
+          "tests/test_end_to_end_smoke.py::test_two_step_train_eval": "PASS"
+        }
+      }
+    ],
+    "evaluated_at": "2026-10-17T19:30:36+00:00",
+    "git_sha": "7eb7092f02c05a7f7d90bf32f2d2b10a5f947559",
+    "measurements": {
+      "test_baselines__test_dp_matches_milp_full_size": {
+        "cases": 5,
+        "milp_assignment_agreement": 5
+      },
+      "test_end_to_end_smoke__test_eva_budget_and_init": {
+        "eva_max_rank": 2,
+        "eva_modules": 20,
+        "eva_params": 36864,
+        "eva_rank_sum": 24
+      },
+      "test_end_to_end_smoke__test_real_model_jacobian_vs_jvp": {
+        "max_rel_err_real_model_vs_jvp": 2.6583716979879628e-05
+      },
+      "test_end_to_end_smoke__test_two_step_train_eval": {
+        "eval_loss_smoke": 0.6964707864094198,
+        "peak_gpu_memory_mb": 981.6259765625,
+        "precision": "bfloat16",
+        "train_wall_2steps_s": 0.6840254680000726
+      },
+      "test_evidence__test_conditional_fixed_increment_equals_difference": {
+        "max_rel_err": 1.4246742763968555e-13
+      },
+      "test_evidence__test_degenerate_cases": {
+        "duplicate_column_evidence": 6.628950442206209,
+        "zero_target_evidence": -6.152447434046464e-09
+      },
+      "test_evidence__test_gradient_matches_finite_difference": {
+        "max_abs_grad_err": 4.215221727221774e-09
+      },
+      "test_evidence__test_gram_evidence_matches_direct": {
+        "E_at_upper_bound": 1.7757070139013432e-07,
+        "atol": 1e-07,
+        "max_rel_err_evidence": 8.348373742806514e-13,
+        "max_rel_err_increments": 1.3631619445978349e-13,
+        "rtol": 1e-05
+      },
+      "test_evidence__test_singleton_analytic_vs_numeric": {
+        "cases": 200,
+        "excluded_cases": 95,
+        "max_abs_err": 7.105427357601002e-15
+      },
+      "test_evidence__test_singleton_ranking_equals_q2_over_h": {
+        "eligible_atoms": 8,
+        "identical_ordering": true
+      },
+      "test_features__test_direction_gradient_matches_autograd": {
+        "max_singular_value_err": 5.551115123125783e-16
+      },
+      "test_features__test_jacobian_matches_jvp_and_fd": {
+        "columns": 12,
+        "max_rel_err_vs_central_fd": 3.0638944023488094e-08,
+        "max_rel_err_vs_jvp": 1.2586305263632617e-15,
+        "threshold": 0.001
+      },
+      "test_nulls__test_null_behaviour": {
+        "count": 40,
+        "fresh_activations": 1,
+        "threshold": 0.001932606821182082
+      },
+      "test_nulls__test_rvm_selects_signal_and_respects_constraints": {
+        "selected_units": 5,
+        "stop": "null_threshold",
+        "threshold": 0.0019632037585632835
+      },
+      "test_ranks__test_architecture_param_counts": {
+        "q2_plus_v2": 6144,
+        "q4_plus_v4": 12288
+      },
+      "test_ranks__test_uniform_budgets": {
+        "B24": 36864,
+        "B48": 73728
+      },
+      "test_splits__test_prepared_manifests_if_present": {
+        "audit_sha256": {
+          "qnli": "0d5f185a9e682abd42314fc82d3680c0c32ae9708c9413f1ea15a87979a4d90d",
+          "sst2": "4303f6f54eea6c0742e00d33ec203b2ee438ed2f23459b9acc2200322631c506"
+        },
+        "manifests_checked": [
+          "qnli",
+          "sst2"
+        ]
+      },
+      "test_splits__test_split_sizes_disjoint_and_stable": {
+        "n104743": {
+          "adapter_train": 8000,
+          "audit": 1500,
+          "directions": 512,
+          "evidence": 512,
+          "head": 2000,
+          "other": 6976
+        },
+        "n67349": {
+          "adapter_train": 8000,
+          "audit": 1500,
+          "directions": 512,
+          "evidence": 512,
+          "head": 2000,
+          "other": 6976
+        }
+      },
+      "test_tracking__test_mlflow_live_server": {
+        "run_id": "be7c1b31d6474a57afdaf51b97fe4518",
+        "uri": "http://127.0.0.1:5000"
+      }
+    },
+    "mlflow_run_id": "64d3c655e3734196880c3ab5b26f74b2",
+    "n_passed": 46,
+    "n_tests": 46,
+    "pytest_returncode": 0,
+    "status": "PASS",
+    "wall_s": 89.90200241999992
+  },
+  "gate1": {
+    "best_nonbayes_concordance": "gradient_norm",
+    "best_nonbayes_top3": "gradient_norm",
+    "concordance": {
+      "conditional_newton": {
+        "concordance": 0.6976744186046512,
+        "concordant": 60,
+        "informative_pairs": 86,
+        "per_stratum": {
+          "12288": {
+            "concordance": 0.6666666666666666,
+            "concordant": 18,
+            "informative_pairs": 27
+          },
+          "6144": {
+            "concordance": 0.711864406779661,
+            "concordant": 42,
+            "informative_pairs": 59
+          }
+        }
+      },
+      "gradient_norm": {
+        "concordance": 0.813953488372093,
+        "concordant": 70,
+        "informative_pairs": 86,
+        "per_stratum": {
+          "12288": {
+            "concordance": 0.8518518518518519,
+            "concordant": 23,
+            "informative_pairs": 27
+          },
+          "6144": {
+            "concordance": 0.7966101694915254,
+            "concordant": 47,
+            "informative_pairs": 59
+          }
+        }
+      },
+      "group_rvm": {
+        "concordance": 0.7093023255813954,
+        "concordant": 61,
+        "informative_pairs": 86,
+        "per_stratum": {
+          "12288": {
+            "concordance": 0.7407407407407407,
+            "concordant": 20,
+            "informative_pairs": 27
+          },
+          "6144": {
+            "concordance": 0.6949152542372882,
+            "concordant": 41,
+            "informative_pairs": 59
+          }
+        }
+      },
+      "independent_fisher": {
+        "concordance": 0.5930232558139535,
+        "concordant": 51,
+        "informative_pairs": 86,
+        "per_stratum": {
+          "12288": {
+            "concordance": 0.6666666666666666,
+            "concordant": 18,
+            "informative_pairs": 27
+          },
+          "6144": {
+            "concordance": 0.559322033898305,
+            "concordant": 33,
+            "informative_pairs": 59
+          }
+        }
+      }
+    },
+    "criteria": [
+      {
+        "comparator": ">=",
+        "criterion": "informative_cost_matched_pairs",
+        "cutoff": 30,
+        "source": "reports/architecture_scores.csv",
+        "status": "PASS",
+        "value": 86
+      },
+      {
+        "comparator": ">=",
+        "criterion": "rvm_pairwise_concordance",
+        "cutoff": 0.65,
+        "source": "reports/architecture_scores.csv",
+        "status": "PASS",
+        "value": 0.7093023255813954
+      },
+      {
+        "best_nonbayes": "gradient_norm",
+        "comparator": ">=",
+        "criterion": "rvm_concordance_minus_best_nonbayes",
+        "cutoff": 0.05,
+        "source": "reports/architecture_scores.csv",
+        "status": "FAIL",
+        "value": -0.10465116279069764
+      },
+      {
+        "best_nonbayes": "gradient_norm",
+        "comparator": ">=",
+        "criterion": "rvm_six_choice_top3_utility_margin_nats",
+        "cutoff": 0.005,
+        "source": "reports/architecture_scores.csv",
+        "status": "FAIL",
+        "value": 0.004051394741717146
+      },
+      {
+        "comparator": "<=",
+        "criterion": "fresh_null_activations",
+        "cutoff": 10,
+        "source": "artifacts/gate1/nulls.json",
+        "status": "PASS",
+        "value": 5
+      },
+      {
+        "comparator": ">=",
+        "criterion": "nonadditivity_sign_correct",
+        "cutoff": 3,
+        "informative_effects": 3,
+        "source": "reports/architecture_scores.csv",
+        "status": "FAIL",
+        "value": 0
+      }
+    ],
+    "head_only_audit_loss": 0.690920654655885,
+    "interactions": [
+      {
+        "I_evidence": 0.08756809606318416,
+        "I_oracle": -0.00894062801500295,
+        "correct_sign": false,
+        "informative": true,
+        "pair": "L00+L01_qv_r2"
+      },
+      {
+        "I_evidence": -7.087963337748736,
+        "I_oracle": 0.023034657627567068,
+        "correct_sign": false,
+        "informative": true,
+        "pair": "L05+L06_qv_r2"
+      },
+      {
+        "I_evidence": -1.4368645403341302,
+        "I_oracle": 0.05164092556033528,
+        "correct_sign": false,
+        "informative": true,
+        "pair": "L10+L11_qv_r2"
+      },
+      {
+        "I_evidence": -0.21285576598817912,
+        "I_oracle": -0.0027912997555203933,
+        "correct_sign": true,
+        "informative": false,
+        "pair": "L02+L09_qv_r2"
+      }
+    ],
+    "rvm_null": {
+      "calibration_seed": 1931,
+      "evaluation_seed": 1932,
+      "fresh_activations": 5,
+      "fresh_selected_units": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "real_data_rank_units": 6,
+      "real_data_ranks": {
+        "roberta.encoder.layer.10.attention.self.value": 1,
+        "roberta.encoder.layer.3.attention.self.query": 2,
+        "roberta.encoder.layer.4.attention.self.query": 1,
+        "roberta.encoder.layer.6.attention.self.query": 1,
+        "roberta.encoder.layer.7.attention.self.value": 1
+      },
+      "real_data_stop": "null_threshold",
+      "threshold": 0.0013718244091873446
+    },
+    "spearman": {
+      "conditional_newton": {
+        "12288": 0.5476190476190477,
+        "6144": 0.4755244755244756
+      },
+      "gradient_norm": {
+        "12288": 0.8095238095238096,
+        "6144": 0.6853146853146854
+      },
+      "group_rvm": {
+        "12288": 0.6190476190476191,
+        "6144": 0.4055944055944056
+      },
+      "independent_fisher": {
+        "12288": 0.4523809523809524,
+        "6144": 0.10489510489510491
+      }
+    },
+    "status": "FAIL",
+    "top3": {
+      "conditional_newton": {
+        "chosen": {
+          "12288": [
+            "L05+L06_qv_r2",
+            "L03_qv_r4",
+            "L07_qv_r4"
+          ],
+          "6144": [
+            "L06_qv_r2",
+            "L03_qv_r2",
+            "L05_qv_r2"
+          ]
+        },
+        "mean_U": 0.07727410190645917,
+        "n": 6
+      },
+      "gradient_norm": {
+        "chosen": {
+          "12288": [
+            "L10+L11_qv_r2",
+            "L11_qv_r4",
+            "L02+L09_qv_r2"
+          ],
+          "6144": [
+            "L11_qv_r2",
+            "L10_qv_r2",
+            "L09_qv_r2"
+          ]
+        },
+        "mean_U": 0.07971646781693296,
+        "n": 6
+      },
+      "group_rvm": {
+        "chosen": {
+          "12288": [
+            "L05+L06_qv_r2",
+            "L03_qv_r4",
+            "L11_qv_r4"
+          ],
+          "6144": [
+            "L03_qv_r2",
+            "L06_qv_r2",
+            "L05_qv_r2"
+          ]
+        },
+        "mean_U": 0.08376786255865011,
+        "n": 6
+      },
+      "independent_fisher": {
+        "chosen": {
+          "12288": [
+            "L03_qv_r4",
+            "L05+L06_qv_r2",
+            "L07_qv_r4"
+          ],
+          "6144": [
+            "L03_qv_r2",
+            "L04_qv_r2",
+            "L06_qv_r2"
+          ]
+        },
+        "mean_U": 0.0713436165709063,
+        "n": 6
+      }
+    }
+  },
+  "gate2": {
+    "criteria": [],
+    "note": "Gate 1 status FAIL; Gate 2 not run",
+    "status": "NOT_RUN_GATE_FAILURE"
+  },
+  "meta": {
+    "config_sha256": "d242007e14950316549f7278cd7bdc2bd091bae577510ffdd5111b6bdf9b2b05",
+    "evaluator": "rvm_lora.gates (mechanical; report text cannot override)",
+    "generated_at": "2026-10-17T19:52:45+00:00",
+    "git_sha": "0f97833d68abb462ac620deaefe29368eb01cd35",
+    "thresholds_source": "configs/preregistered.yaml"
+  },
+  "overall_decision": "NO_GO"
+}
