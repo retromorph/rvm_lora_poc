@@ -1,0 +1,203 @@
+{
+  "audit_document": "reports/CORRECTNESS_AUDIT.md",
+  "repair_status": "PROTOCOL_PRESERVING_REPAIR_APPLIED_AND_RERUN",
+  "frozen_protocol_files_unchanged": true,
+  "issues": [
+    {
+      "id": "A1",
+      "classification": "CONFIRMED_IMPLEMENTATION_BUG",
+      "material": true,
+      "repaired": true,
+      "summary": "RVM precision optimiser returned local optima of the Type-II evidence",
+      "files": [
+        "src/rvm_lora/evidence.py (optimize_evidence)",
+        "src/rvm_lora/selectors.py (RVMObjective, architecture_scores)"
+      ],
+      "v1_underestimated_architectures": {
+        "L11_qv_r2": 10.19665614689346,
+        "L03_qv_r4": 1.2718246608418546,
+        "L10+L11_qv_r2": 11.793871294435828
+      },
+      "repair_commit": "d1aa145",
+      "regression_tests": [
+        "tests/test_evidence.py::test_optimizer_reaches_global_maximum_on_real_subproblems",
+        "tests/test_evidence.py::test_optimizer_matches_dense_search_scale_disparate"
+      ]
+    },
+    {
+      "id": "A2",
+      "classification": "CONFIRMED_IMPLEMENTATION_BUG",
+      "material": false,
+      "repaired": true,
+      "summary": "stage caches reused without head-hash / code-version provenance (did not affect v1)",
+      "files": [
+        "src/rvm_lora/pipeline.py",
+        "src/rvm_lora/cli.py",
+        "src/rvm_lora/tracking.py"
+      ],
+      "repair_commit": "d1aa145",
+      "regression_tests": [
+        "tests/test_cache.py"
+      ]
+    },
+    {
+      "id": "H",
+      "classification": "INTENTIONAL_PROTOCOL_DESIGN",
+      "material": null,
+      "repaired": false,
+      "summary": "prescribed frozen-backbone 200-step head warm start yields a near-chance head (implementation verified)"
+    },
+    {
+      "id": "L",
+      "classification": "INTENTIONAL_PROTOCOL_DESIGN",
+      "material": null,
+      "repaired": false,
+      "summary": "gradient-SVD evidence atoms vs random zero-update LoRA initial subspace (mapping verified correct)"
+    },
+    {
+      "id": "N",
+      "classification": "INTENTIONAL_PROTOCOL_DESIGN",
+      "material": null,
+      "repaired": false,
+      "summary": "N(0,I) null pseudo-responses ignore the head's calibration offset"
+    },
+    {
+      "id": "U2",
+      "classification": "UNVERIFIED",
+      "material": null,
+      "repaired": false,
+      "summary": "Gate-2 training paths never executed (Gate 2 not run in v1 or v2)"
+    }
+  ],
+  "original_v1": {
+    "decision": "NO_GO",
+    "gates": {
+      "gate0": "PASS",
+      "gate1": "FAIL",
+      "gate2": "NOT_RUN_GATE_FAILURE"
+    },
+    "gate1_criteria": {
+      "informative_cost_matched_pairs": {
+        "value": 86,
+        "cutoff": 30,
+        "status": "PASS"
+      },
+      "rvm_pairwise_concordance": {
+        "value": 0.7093023255813954,
+        "cutoff": 0.65,
+        "status": "PASS"
+      },
+      "rvm_concordance_minus_best_nonbayes": {
+        "value": -0.10465116279069764,
+        "cutoff": 0.05,
+        "status": "FAIL"
+      },
+      "rvm_six_choice_top3_utility_margin_nats": {
+        "value": 0.004051394741717146,
+        "cutoff": 0.005,
+        "status": "FAIL"
+      },
+      "fresh_null_activations": {
+        "value": 5,
+        "cutoff": 10,
+        "status": "PASS"
+      },
+      "nonadditivity_sign_correct": {
+        "value": 0,
+        "cutoff": 3,
+        "status": "FAIL"
+      }
+    },
+    "freeze_git_sha": "7eb7092f02c05a7f7d90bf32f2d2b10a5f947559",
+    "gates_file": "reports/gates.json"
+  },
+  "corrected_v2": {
+    "decision": "NO_GO",
+    "gates": {
+      "gate0": "PASS",
+      "gate1": "FAIL",
+      "gate2": "NOT_RUN_GATE_FAILURE"
+    },
+    "gate1_criteria": {
+      "informative_cost_matched_pairs": {
+        "value": 86,
+        "cutoff": 30,
+        "status": "PASS"
+      },
+      "rvm_pairwise_concordance": {
+        "value": 0.7906976744186046,
+        "cutoff": 0.65,
+        "status": "PASS"
+      },
+      "rvm_concordance_minus_best_nonbayes": {
+        "value": -0.023255813953488413,
+        "cutoff": 0.05,
+        "status": "FAIL"
+      },
+      "rvm_six_choice_top3_utility_margin_nats": {
+        "value": 0.01179249304233021,
+        "cutoff": 0.005,
+        "status": "PASS"
+      },
+      "fresh_null_activations": {
+        "value": 5,
+        "cutoff": 10,
+        "status": "PASS"
+      },
+      "nonadditivity_sign_correct": {
+        "value": 1,
+        "cutoff": 3,
+        "status": "FAIL"
+      }
+    },
+    "freeze_git_sha": "d1aa145f3f35091afec68d5c53a628a03d9df158",
+    "gates_file": "reports/v2/gates.json",
+    "full_adapter_trainings": 20,
+    "max_allowed": 44
+  },
+  "decision_changed": false,
+  "rerun_bitwise_identical": {
+    "trainings": true,
+    "head_only_logits": true,
+    "probe_features": true,
+    "non_bayes_scores": true
+  },
+  "changed_rvm_scores": [
+    {
+      "arch_id": "L11_qv_r2",
+      "rvm_v1": 3.65318601207984,
+      "rvm_v2": 13.849842158973265
+    },
+    {
+      "arch_id": "L03_qv_r4",
+      "rvm_v1": 16.373104710084075,
+      "rvm_v2": 17.644929370925766
+    },
+    {
+      "arch_id": "L10+L11_qv_r2",
+      "rvm_v1": 3.653185956153509,
+      "rvm_v2": 15.447057250589324
+    }
+  ],
+  "exploratory_svd_init": {
+    "label": "EXPLORATORY_NOT_A_GATE",
+    "concordance": {
+      "gradient_norm": 0.7032967032967034,
+      "independent_fisher": 0.6813186813186813,
+      "conditional_newton": 0.7582417582417582,
+      "group_rvm": 0.6923076923076923
+    },
+    "top3_mean_U": {
+      "gradient_norm": 0.15501418607460507,
+      "independent_fisher": 0.16228373695801723,
+      "conditional_newton": 0.16567143507345153,
+      "group_rvm": 0.15608983483806652
+    }
+  },
+  "answers": {
+    "original_experiments_implemented_incorrectly": "PARTLY: one material defect (A1) in the RVM evidence optimiser",
+    "valid_protocol_equivalent_rerun_completed": true,
+    "rerun_caveat": "post-hoc corrected re-evaluation after v1 audit outcomes were known",
+    "corrected_results_change_decision": false
+  }
+}

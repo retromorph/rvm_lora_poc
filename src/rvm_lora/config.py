@@ -7,6 +7,8 @@ internal consistency; it never supplies alternative defaults for scientific valu
 from __future__ import annotations
 
 import hashlib
+import os
+import re
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
@@ -16,6 +18,18 @@ import yaml
 REPO_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_CONFIG = REPO_ROOT / "configs" / "preregistered.yaml"
 PREREG_MD = REPO_ROOT / "docs" / "PREREGISTRATION.md"
+
+# Versioned, isolated output namespace (e.g. "v2"): artifacts/<ns>/, checkpoints/<ns>/, reports/<ns>/ and
+# namespace-salted run keys, so a corrected run can never reuse an earlier run's heads, probes, scores or
+# completed trainings. Empty = the original (v1) layout.
+RUN_NAMESPACE = os.environ.get("RVM_RUN_NAMESPACE", "").strip()
+if RUN_NAMESPACE and not re.fullmatch(r"[A-Za-z0-9_.-]+", RUN_NAMESPACE):
+    raise ValueError(f"invalid RVM_RUN_NAMESPACE {RUN_NAMESPACE!r}")
+
+
+def namespaced(path: Path) -> Path:
+    return path / RUN_NAMESPACE if RUN_NAMESPACE else path
+
 
 # Pinned external revisions (resolved from the Hub on 2026-10-17 before any outcome was read).
 MODEL_REVISION = "e2da8e2f811d1448a5b465c236feacd80ffbac7b"  # FacebookAI/roberta-base

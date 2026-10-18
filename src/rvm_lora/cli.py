@@ -94,6 +94,11 @@ GATE0_CHECKS = [
     ("baselines_oplora_ilp_and_eva_budget", ["test_baselines.py"]),
     ("mlflow_idempotent_run_keys", ["test_tracking.py"]),
     ("cuda_smoke_two_steps_frozen_head", ["test_end_to_end_smoke.py"]),
+    # regression checks for the defects repaired after the correctness audit (reports/CORRECTNESS_AUDIT.md)
+    ("regression_A1_evidence_global_maximisation",
+     ["test_evidence.py::test_optimizer_reaches_global_maximum_on_real_subproblems",
+      "test_evidence.py::test_optimizer_matches_dense_search_scale_disparate"]),
+    ("regression_A2_cache_provenance_and_namespace_isolation", ["test_cache.py"]),
 ]
 
 
@@ -194,14 +199,19 @@ def dry_run(cfg) -> int:
 
 
 # ------------------------------------------------------------------------------------------ all / status
+def gate0_current(path: Path, sha: str) -> bool:
+    """A recorded Gate 0 counts only if it passed on the current commit (never reuse it across code changes)."""
+    g0 = json.loads(path.read_text()) if path.exists() else {}
+    return g0.get("status") == "PASS" and g0.get("git_sha") == sha
+
+
 def run_all(cfg, args) -> int:
     from . import pipeline as P
 
     if args.dry_run:
         return dry_run(cfg)
     P.prepare(cfg)  # frozen split IDs + tokenisation only; no outcome is computed
-    g0p = ART / "gate0" / "gate0.json"
-    if not g0p.exists() or json.loads(g0p.read_text())["status"] != "PASS":
+    if not gate0_current(ART / "gate0" / "gate0.json", git_sha()):
         if gate0(cfg, args) != 0:
             log("Gate 0 did not pass: stopping before any held-out outcome is computed")
             P.write_gates(cfg)

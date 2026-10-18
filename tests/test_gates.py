@@ -157,14 +157,14 @@ def test_overall_decision():
 @pytest.mark.post_hoc
 def test_gates_json_reproducible_from_artifacts(cfg, record):
     """If real Gate-1 artifacts exist, recomputing the evaluator must reproduce reports/gates.json exactly."""
-    gj = ROOT / "reports" / "gates.json"
-    g1p = ROOT / "artifacts" / "gate1" / "gate1.json"
+    from rvm_lora.pipeline import ART, REPORTS, gate1_rows, probe_dir  # namespaced (RVM_RUN_NAMESPACE) paths
+
+    gj = REPORTS / "gates.json"
+    g1p = ART / "gate1" / "gate1.json"
     if not (gj.exists() and g1p.exists()):
         pytest.skip("no logged Gate-1 artifacts yet")
-    from rvm_lora.pipeline import gate1_rows
-
     rows, pairs, head = gate1_rows(cfg)
-    sel = json.loads((ROOT / "artifacts" / "probes" / "qnli_s42" / "selection.json").read_text())
+    sel = json.loads((probe_dir("qnli", 42) / "selection.json").read_text())
     g1 = G.evaluate_gate1(rows, pairs, {"fresh_activations": sel["group_rvm_fresh_null"]["activations"]},
                           cfg["stage_a"])
     stored = json.loads(gj.read_text())["gate1"]

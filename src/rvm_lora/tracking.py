@@ -14,16 +14,23 @@ import socket
 import time
 from pathlib import Path
 
+from .config import RUN_NAMESPACE, namespaced
+
 EXPERIMENTS = {"gate0": "rvm-lora/gate0", "gate1": "rvm-lora/gate1", "gate2": "rvm-lora/gate2"}
 
 
-def run_key(protocol_sha: str, gate: str, method: str, task: str, seed: int, arch_id: str) -> str:
+def run_key(protocol_sha: str, gate: str, method: str, task: str, seed: int, arch_id: str,
+            namespace: str | None = None) -> str:
+    """Original (v1) keys are unchanged; a non-empty namespace salts the key so runs never collide."""
+    ns = RUN_NAMESPACE if namespace is None else namespace
     raw = f"{protocol_sha}|{gate}|{method}|{task}|{seed}|{arch_id}"
+    if ns:
+        raw = f"{ns}|{raw}"
     return hashlib.sha256(raw.encode()).hexdigest()[:20]
 
 
 def mirror_dir(root: Path, gate: str, key: str) -> Path:
-    return root / "artifacts" / "runs" / gate / key
+    return namespaced(root / "artifacts") / "runs" / gate / key
 
 
 def read_mirror(root: Path, gate: str, key: str) -> dict | None:

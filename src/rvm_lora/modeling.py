@@ -8,7 +8,7 @@ from pathlib import Path
 import numpy as np
 import torch
 
-from .config import MODEL_REVISION, Config, sha256_file
+from .config import MODEL_REVISION, Config, namespaced, sha256_file
 from .data import Encoded
 
 HEAD_PREFIX = "classifier."
@@ -64,7 +64,7 @@ def head_digest(model) -> str:
 
 
 def head_path(root: Path, task: str, seed: int) -> Path:
-    return root / "checkpoints" / f"head_{task}_seed{seed}.safetensors"
+    return namespaced(root / "checkpoints") / f"head_{task}_seed{seed}.safetensors"
 
 
 def save_head(model, path: Path) -> str:

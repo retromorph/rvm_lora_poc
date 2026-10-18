@@ -180,3 +180,73 @@ def test_optimizer_deterministic(seed):
     a = optimize_evidence(K, b, colmod, 4)
     c = optimize_evidence(K, b, colmod, 4)
     assert a.evidence == c.evidence and np.array_equal(a.log_alpha, c.log_alpha)
+
+
+# ---------------------------------------------------------------------- regression: global maximisation (audit A1)
+FIXTURE = __import__("pathlib").Path(__file__).parent / "fixtures" / "qnli42_evidence_subproblems.json"
+
+
+def _c3_only(K, b, colmod, nm, bounds=(-23.02585092994, 23.02585092994)):
+    """The original C3 start set alone (log alpha = 0 and log median diag K), as in the v1 implementation."""
+    from scipy.optimize import minimize
+
+    def f(x):
+        E, g = evidence_and_grad(K, b, x, colmod, nm)
+        return -E, -g
+    best = -np.inf
+    for x0 in (np.zeros(nm), np.full(nm, np.clip(np.log(np.median(np.diag(K))), *bounds))):
+        r = minimize(f, x0, jac=True, method="L-BFGS-B", bounds=[bounds] * nm,
+                     options={"maxiter": 200, "ftol": 1e-12, "gtol": 1e-9})
+        best = max(best, -float(r.fun))
+    return best
+
+
+def test_optimizer_reaches_global_maximum_on_real_subproblems(record):
+    """Gate-1 sub-problems where the C3 starts alone stopped in an inferior basin (v1 defect)."""
+    import json
+
+    probs = json.loads(FIXTURE.read_text())["problems"]
+    gaps = {}
+    for name, p in probs.items():
+        K, b, cm = np.asarray(p["K"]), np.asarray(p["b"]), np.asarray(p["col_module"])
+        fit = optimize_evidence(K, b, cm, p["n_modules"])
+        assert fit.evidence >= p["dense_search_maximum"] - 1e-7, (name, fit.evidence, p["dense_search_maximum"])
+        assert _c3_only(K, b, cm, p["n_modules"]) < p["dense_search_maximum"] - 1.0  # documents the v1 failure
+        assert abs(fit.evidence - evidence_direct_from_gram(K, b, fit.log_alpha, cm)) < 1e-8
+        gaps[name] = fit.evidence - p["v1_recorded_evidence"]
+    record(v1_underestimate_nats=gaps, problems=len(probs))
+
+
+def evidence_direct_from_gram(K, b, log_alpha, cm):
+    E, _ = evidence_and_grad(K, b, np.asarray(log_alpha), cm, int(cm.max()) + 1, with_grad=False)
+    return E
+
+
+def test_optimizer_matches_dense_search_scale_disparate(record):
+    """Randomised groups whose columns differ in scale by up to 1e4 (the v1 failure mode) vs a dense search."""
+    from scipy.optimize import minimize
+
+    rng = np.random.default_rng(2026)
+    lo, hi = -23.02585092994, 23.02585092994
+    worst = 0.0
+    n_c3_fail = 0
+    for _ in range(40):
+        nm = int(rng.integers(2, 4))
+        cm = np.repeat(np.arange(nm), rng.integers(1, 4, nm))
+        p = len(cm)
+        X = rng.standard_normal((96, p)) @ (np.eye(p) + 0.5 * rng.standard_normal((p, p)))
+        X *= 10.0 ** rng.uniform(-2, 2, p)[None, :]
+        y = X @ (rng.standard_normal(p) / np.linalg.norm(X, axis=0)) * rng.uniform(0, 5) + rng.standard_normal(96)
+        K, b = X.T @ X, X.T @ y
+
+        def f(x, K=K, b=b, cm=cm, nm=nm):
+            E, g = evidence_and_grad(K, b, x, cm, nm)
+            return -E, -g
+        grid = np.linspace(lo, hi, 9)
+        starts = [np.array(s) for s in np.array(np.meshgrid(*[grid] * nm)).reshape(nm, -1).T]
+        dense = max(-minimize(f, x0, jac=True, method="L-BFGS-B", bounds=[(lo, hi)] * nm).fun for x0 in starts)
+        got = optimize_evidence(K, b, cm, nm).evidence
+        worst = max(worst, dense - got)
+        n_c3_fail += _c3_only(K, b, cm, nm) < dense - 1e-6
+    assert worst < 1e-6, worst
+    record(max_dense_minus_optimiser=worst, c3_only_failures=n_c3_fail, problems=40)

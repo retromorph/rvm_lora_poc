@@ -7,9 +7,10 @@ export MLFLOW_TRACKING_URI="${MLFLOW_TRACKING_URI:-http://127.0.0.1:5000}"
 export TOKENIZERS_PARALLELISM=false
 export HF_HOME="${HF_HOME:-$HOME/.cache/huggingface}"
 mkdir -p logs
+LOG="logs/pilot${RVM_RUN_NAMESPACE:+_$RVM_RUN_NAMESPACE}.log"  # namespaced runs log separately
 set +e
-uv run --frozen python -m rvm_lora.cli all --config configs/preregistered.yaml 2>&1 | tee -a logs/pilot.log
+uv run --frozen python -m rvm_lora.cli all --config configs/preregistered.yaml 2>&1 | tee -a "$LOG"
 rc=${PIPESTATUS[0]}
 set -e
-echo "[run_remote] exit code $rc" | tee -a logs/pilot.log
+echo "[run_remote] exit code $rc" | tee -a "$LOG"
 exit "$rc"
